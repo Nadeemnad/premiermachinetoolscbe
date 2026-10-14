@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { 
   Truck, 
-  MapPin, 
-  ShieldCheck, 
   HelpCircle, 
   ChevronDown, 
   ChevronUp, 
-  CheckCircle2, 
-  Clock, 
-  FileCheck2,
-  PhoneCall
+  ShieldCheck 
 } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 import { FAQS_BY_TOPIC } from '../data/products';
@@ -30,14 +25,14 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
   return (
     <section id="delivery" style={{
       padding: '70px 16px',
-      background: '#FFFFFF',
+      background: 'var(--pmt-white)',
       borderTop: '1px solid #E2E8F0'
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-        {/* Pan-India Delivery Banner */}
+        {/* Pan-India Delivery Banner in Blue #034ea1 with Red #c61c1a Top Border */}
         <div style={{
-          background: 'linear-gradient(135deg, #1E216B 0%, #2E3192 100%)',
-          color: '#FFFFFF',
+          background: 'var(--pmt-blue)',
+          color: 'var(--pmt-white)',
           borderRadius: '16px',
           padding: '36px 28px',
           marginBottom: '60px',
@@ -50,7 +45,7 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
             top: 0,
             left: 0,
             right: 0,
-            height: '4px',
+            height: '5px',
             background: 'var(--pmt-red)'
           }} />
 
@@ -67,27 +62,28 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                background: 'rgba(255, 255, 255, 0.15)',
-                padding: '4px 10px',
+                background: 'rgba(5, 171, 165, 0.25)',
+                border: '1px solid var(--pmt-teal)',
+                padding: '4px 12px',
                 borderRadius: '20px',
-                fontSize: '0.78rem',
+                fontSize: '0.8rem',
                 fontWeight: 700,
-                color: '#FDE047',
+                color: 'var(--pmt-white)',
                 marginBottom: '10px'
               }}>
-                <Truck size={15} /> {t.delivery.badge}
+                <Truck size={15} style={{ color: 'var(--pmt-white)' }} /> {t.delivery.badge}
               </div>
 
               <h2 style={{
                 fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
-                color: '#FFFFFF',
+                color: 'var(--pmt-white)',
                 marginBottom: '8px'
               }}>
                 {t.delivery.heading}
               </h2>
 
               <p style={{
-                color: '#CBD5E1',
+                color: 'rgba(255, 255, 255, 0.9)',
                 fontSize: '0.95rem',
                 maxWidth: '680px',
                 lineHeight: 1.6
@@ -105,7 +101,7 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
             </button>
           </div>
 
-          {/* Grid of States & Logistics Corridors */}
+          {/* Grid of States in Clean Contrast Boxes */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
@@ -113,15 +109,15 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
           }}>
             {states.map((st, idx) => (
               <div key={idx} style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
+                background: 'rgba(255, 255, 255, 0.12)',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
                 borderRadius: '10px',
                 padding: '14px 16px'
               }}>
-                <div style={{ fontWeight: 800, fontSize: '0.92rem', color: '#FDE047', marginBottom: '4px' }}>
+                <div style={{ fontWeight: 800, fontSize: '0.92rem', color: 'var(--pmt-white)', marginBottom: '4px' }}>
                   ✓ {st.name}
                 </div>
-                <div style={{ fontSize: '0.8rem', color: '#E2E8F0', lineHeight: 1.4 }}>
+                <div style={{ fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.4 }}>
                   {st.hubs}
                 </div>
               </div>
@@ -131,8 +127,8 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
           <div style={{
             marginTop: '20px',
             fontSize: '0.82rem',
-            color: '#94A3B8',
-            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+            color: 'rgba(255, 255, 255, 0.8)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.15)',
             paddingTop: '14px',
             display: 'flex',
             justifyContent: 'space-between',
@@ -147,12 +143,12 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
         {/* Real Buyer FAQs Section with Accordion */}
         <div style={{ maxWidth: '920px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-            <div className="badge-indigo" style={{ marginBottom: '10px' }}>
+            <div className="badge-blue" style={{ marginBottom: '10px' }}>
               <HelpCircle size={14} /> FREQUENTLY ASKED QUESTIONS
             </div>
             <h3 style={{
               fontSize: 'clamp(1.6rem, 3vw, 2.3rem)',
-              color: 'var(--pmt-indigo)',
+              color: 'var(--pmt-blue)',
               marginBottom: '10px'
             }}>
               Buyer Questions on Wire Ropes, Hoists & Delivery
@@ -166,7 +162,6 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
             {FAQS_BY_TOPIC.map((faq, index) => {
               const isOpen = openFaq === index;
 
-              // Localized Q&A
               const qText = currentLang === 'ta' && faq.qTa
                 ? faq.qTa
                 : currentLang === 'hi' && faq.qHi
@@ -183,7 +178,7 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
                 <div
                   key={index}
                   style={{
-                    background: '#FFFFFF',
+                    background: 'var(--pmt-white)',
                     border: isOpen ? '2px solid var(--pmt-red)' : '1px solid #E2E8F0',
                     borderRadius: '12px',
                     overflow: 'hidden',
@@ -202,12 +197,12 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
                       textAlign: 'left',
                       fontWeight: 700,
                       fontSize: '0.98rem',
-                      color: isOpen ? 'var(--pmt-red)' : 'var(--pmt-indigo)',
+                      color: isOpen ? 'var(--pmt-red)' : 'var(--pmt-blue)',
                       gap: '14px'
                     }}
                   >
                     <span>{qText}</span>
-                    <span style={{ color: isOpen ? 'var(--pmt-red)' : '#64748B', flexShrink: 0 }}>
+                    <span style={{ color: isOpen ? 'var(--pmt-red)' : 'var(--text-light)', flexShrink: 0 }}>
                       {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                     </span>
                   </button>

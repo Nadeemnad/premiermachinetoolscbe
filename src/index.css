@@ -1,35 +1,47 @@
 :root {
-  /* Exact Colors Sampled from Visiting Card & Invoice */
-  --pmt-red: #E1281C;          /* Card Primary Red banner & title */
-  --pmt-red-dark: #B51A10;
-  --pmt-red-soft: #FDE8E7;
+  /* Strictly Defined 5-Color System:
+     1. Primary Red:       #c61c1a
+     2. Royal Blue:        #034ea1
+     3. Vibrant Teal:      #05aba5
+     4. Pure White:        #ffffff
+     5. Obsidian Charcoal: #13110c
+  */
+  --pmt-red: #c61c1a;
+  --pmt-red-dark: #a81513;
+  --pmt-red-soft: rgba(198, 28, 26, 0.08);
 
-  --pmt-green: #0B6E3B;        /* Card Tamil Title Green "பிரிமியர் மெஷின் டூல்ஸ்" */
-  --pmt-green-dark: #074E29;
-  --pmt-green-soft: #E8F5EE;
+  --pmt-blue: #034ea1;
+  --pmt-blue-dark: #023875;
+  --pmt-blue-soft: rgba(3, 78, 161, 0.08);
 
-  --pmt-indigo: #2E3192;       /* Card Address Indigo / Deep Navy */
-  --pmt-indigo-dark: #1E216B;
-  --pmt-indigo-soft: #ECEEF9;
+  --pmt-teal: #05aba5;
+  --pmt-teal-dark: #048883;
+  --pmt-teal-soft: rgba(5, 171, 165, 0.1);
 
-  --pmt-cyan: #1BA6CC;         /* Card Product Box Border Cyan */
-  --pmt-cyan-soft: #E6F7FB;
+  --pmt-white: #ffffff;
+  --pmt-black: #13110c;
 
-  --bg-page: #F8FAFC;
-  --bg-white: #FFFFFF;
-  --bg-subtle: #F1F5F9;
+  /* Surface & Background */
+  --bg-page: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f8fafc;
+  --bg-dark-footer: #13110c;
 
-  --text-main: #1E293B;
+  /* Typography */
+  --text-main: #13110c;
   --text-muted: #475569;
-  --text-light: #64748B;
-  
-  --border-card: #E2E8F0;
-  --border-red: rgba(225, 40, 28, 0.4);
-  --border-cyan: #1BA6CC;
+  --text-light: #64748b;
+  --text-white: #ffffff;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 14px rgba(46, 49, 146, 0.08);
-  --shadow-lg: 0 12px 30px rgba(46, 49, 146, 0.12);
+  /* Borders & Shadows */
+  --border-card: #e2e8f0;
+  --border-red: #c61c1a;
+  --border-blue: #034ea1;
+  --border-teal: #05aba5;
+
+  --shadow-sm: 0 1px 3px rgba(19, 17, 12, 0.08);
+  --shadow-md: 0 4px 14px rgba(3, 78, 161, 0.08);
+  --shadow-lg: 0 12px 30px rgba(3, 78, 161, 0.12);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -50,15 +62,16 @@
 html {
   scroll-behavior: smooth;
   font-family: var(--font-body);
-  background-color: var(--bg-page);
-  color: var(--text-main);
+  background-color: var(--pmt-white);
+  color: var(--pmt-black);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
 body {
   overflow-x: hidden;
-  background-color: var(--bg-page);
+  background-color: var(--pmt-white);
+  color: var(--pmt-black);
   min-height: 100vh;
   padding-bottom: 64px; /* Space for mobile sticky CTA bar */
 }
@@ -74,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   letter-spacing: -0.01em;
   font-weight: 800;
-  color: var(--pmt-indigo);
+  color: var(--pmt-blue);
 }
 
 .tamil-font {
@@ -95,98 +108,99 @@ button {
 
 input, select, textarea {
   font-family: var(--font-body);
+  color: var(--pmt-black);
 }
 
-/* PMT Visiting Card Color Action Buttons */
+/* 5-Color Action Buttons */
 .btn-pmt-red {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   background: var(--pmt-red);
-  color: #FFFFFF;
+  color: var(--pmt-white);
   font-weight: 700;
   padding: 12px 22px;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(225, 40, 28, 0.3);
+  box-shadow: 0 4px 14px rgba(198, 28, 26, 0.35);
   border: 1px solid var(--pmt-red-dark);
 }
 
 .btn-pmt-red:hover {
   background: var(--pmt-red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(225, 40, 28, 0.45);
+  box-shadow: 0 6px 20px rgba(198, 28, 26, 0.45);
 }
 
-.btn-pmt-green {
+.btn-pmt-teal {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: var(--pmt-green);
-  color: #FFFFFF;
+  background: var(--pmt-teal);
+  color: var(--pmt-white);
   font-weight: 700;
   padding: 12px 22px;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(11, 110, 59, 0.3);
-  border: 1px solid var(--pmt-green-dark);
+  box-shadow: 0 4px 14px rgba(5, 171, 165, 0.3);
+  border: 1px solid var(--pmt-teal-dark);
 }
 
-.btn-pmt-green:hover {
-  background: var(--pmt-green-dark);
+.btn-pmt-teal:hover {
+  background: var(--pmt-teal-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(11, 110, 59, 0.45);
+  box-shadow: 0 6px 20px rgba(5, 171, 165, 0.45);
 }
 
-.btn-pmt-indigo {
+.btn-pmt-blue {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: var(--pmt-indigo);
-  color: #FFFFFF;
+  background: var(--pmt-blue);
+  color: var(--pmt-white);
   font-weight: 700;
   padding: 12px 22px;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(46, 49, 146, 0.25);
-  border: 1px solid var(--pmt-indigo-dark);
+  box-shadow: 0 4px 14px rgba(3, 78, 161, 0.3);
+  border: 1px solid var(--pmt-blue-dark);
 }
 
-.btn-pmt-indigo:hover {
-  background: var(--pmt-indigo-dark);
+.btn-pmt-blue:hover {
+  background: var(--pmt-blue-dark);
   transform: translateY(-2px);
 }
 
-.btn-outline-indigo {
+.btn-outline-blue {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #FFFFFF;
-  color: var(--pmt-indigo);
+  background: var(--pmt-white);
+  color: var(--pmt-blue);
   font-weight: 700;
   padding: 11px 20px;
   border-radius: var(--radius-md);
-  border: 2px solid var(--pmt-indigo);
+  border: 2px solid var(--pmt-blue);
   font-size: 0.92rem;
   transition: all 0.2s ease;
 }
 
-.btn-outline-indigo:hover {
-  background: var(--pmt-indigo);
-  color: #FFFFFF;
+.btn-outline-blue:hover {
+  background: var(--pmt-blue);
+  color: var(--pmt-white);
   transform: translateY(-2px);
 }
 
 /* Visiting Card Container Motif */
 .card-border-box {
-  background: #FFFFFF;
+  background: var(--pmt-white);
   border: 2px solid var(--pmt-red);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -194,10 +208,11 @@ input, select, textarea {
   position: relative;
 }
 
-.card-cyan-border {
-  border: 2px solid var(--pmt-cyan);
-  border-radius: var(--radius-md);
-  background: #FFFFFF;
+.card-teal-box {
+  background: var(--pmt-white);
+  border: 2px solid var(--pmt-teal);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
 /* Badge Tokens */
@@ -212,10 +227,10 @@ input, select, textarea {
   text-transform: uppercase;
   background: var(--pmt-red-soft);
   color: var(--pmt-red);
-  border: 1px solid rgba(225, 40, 28, 0.3);
+  border: 1px solid rgba(198, 28, 26, 0.3);
 }
 
-.badge-green {
+.badge-teal {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -224,12 +239,12 @@ input, select, textarea {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  background: var(--pmt-green-soft);
-  color: var(--pmt-green);
-  border: 1px solid rgba(11, 110, 59, 0.3);
+  background: var(--pmt-teal-soft);
+  color: var(--pmt-teal);
+  border: 1px solid rgba(5, 171, 165, 0.4);
 }
 
-.badge-indigo {
+.badge-blue {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -238,23 +253,9 @@ input, select, textarea {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  background: var(--pmt-indigo-soft);
-  color: var(--pmt-indigo);
-  border: 1px solid rgba(46, 49, 146, 0.3);
-}
-
-.badge-cyan {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  background: var(--pmt-cyan-soft);
-  color: #0E7490;
-  border: 1px solid rgba(27, 166, 204, 0.4);
+  background: var(--pmt-blue-soft);
+  color: var(--pmt-blue);
+  border: 1px solid rgba(3, 78, 161, 0.3);
 }
 
 /* Sticky Mobile Bottom Bar */
@@ -270,9 +271,9 @@ input, select, textarea {
     left: 0;
     right: 0;
     height: 60px;
-    background: #FFFFFF;
+    background: var(--pmt-white);
     border-top: 2px solid var(--pmt-red);
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 -4px 16px rgba(19, 17, 12, 0.12);
     z-index: 190;
     justify-content: space-around;
     align-items: center;

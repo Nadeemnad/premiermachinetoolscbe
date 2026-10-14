@@ -28,14 +28,14 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
 
   return (
     <section style={{
-      background: 'linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)',
+      background: 'var(--pmt-white)',
       padding: '36px 16px 54px',
-      borderBottom: '1px solid #E2E8F0'
+      borderBottom: '1px solid #e2e8f0'
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-        {/* Visiting Card Frame Structure */}
+        {/* Visiting Card Frame Structure with #c61c1a Border */}
         <div className="card-border-box" style={{ padding: '32px 28px 24px' }}>
-          {/* Top Line: GSTIN and Phone Numbers from Card */}
+          {/* Top Line: GSTIN in Red #c61c1a, Phone Numbers in Blue #034ea1 */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -43,7 +43,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
             flexWrap: 'wrap',
             gap: '10px',
             marginBottom: '16px',
-            borderBottom: '1px solid #F1F5F9',
+            borderBottom: '1px solid #f1f5f9',
             paddingBottom: '12px'
           }}>
             <div style={{
@@ -62,7 +62,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               flexWrap: 'wrap',
               fontSize: '0.88rem',
               fontWeight: 700,
-              color: 'var(--pmt-indigo)'
+              color: 'var(--pmt-blue)'
             }}>
               <span>☎ {t.phones.landline}</span>
               <span>📱 {t.phones.mobile1}</span>
@@ -72,11 +72,11 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
 
           {/* Clean Single-Language Header */}
           <div style={{ textAlign: 'center', margin: '10px 0 24px' }}>
-            {/* Tagline */}
+            {/* Tagline in Teal #05aba5 */}
             <div style={{
               fontSize: '0.82rem',
               fontWeight: 800,
-              color: 'var(--pmt-green)',
+              color: 'var(--pmt-teal)',
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
               marginBottom: '8px'
@@ -84,21 +84,21 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               {t.hero.tagline}
             </div>
 
-            {/* PMT Banner Bar */}
+            {/* PMT Banner Bar in Red #c61c1a */}
             <div style={{
-              background: 'linear-gradient(90deg, #B51A10 0%, #E1281C 50%, #B51A10 100%)',
-              color: '#FFFFFF',
+              background: 'linear-gradient(90deg, #a81513 0%, #c61c1a 50%, #a81513 100%)',
+              color: 'var(--pmt-white)',
               padding: '8px 18px',
               borderRadius: '6px',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '12px',
-              boxShadow: '0 4px 14px rgba(225, 40, 28, 0.35)',
+              boxShadow: '0 4px 14px rgba(198, 28, 26, 0.35)',
               margin: '0 auto 16px'
             }}>
               <span style={{
-                background: '#FFFFFF',
+                background: 'var(--pmt-white)',
                 color: 'var(--pmt-red)',
                 fontWeight: 900,
                 fontSize: 'clamp(1rem, 2.2vw, 1.5rem)',
@@ -109,7 +109,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
                 PMT
               </span>
               <span style={{
-                color: '#FFFFFF',
+                color: 'var(--pmt-white)',
                 fontSize: 'clamp(1.15rem, 3vw, 2.1rem)',
                 fontWeight: 900,
                 letterSpacing: '0.03em',
@@ -119,9 +119,9 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               </span>
             </div>
 
-            {/* Exact H1 for SEO without language mixing */}
+            {/* Exact H1 for SEO in Blue #034ea1 */}
             <h1 style={{
-              color: 'var(--pmt-indigo)',
+              color: 'var(--pmt-blue)',
               fontSize: 'clamp(1.25rem, 2.8vw, 2rem)',
               fontWeight: 800,
               maxWidth: '850px',
@@ -131,7 +131,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               {t.hero.h1}
             </h1>
 
-            {/* Subtitle from Card */}
+            {/* Subtitle from Card in Obsidian Charcoal #13110c */}
             <p style={{
               color: 'var(--text-muted)',
               fontSize: 'clamp(0.92rem, 1.6vw, 1.05rem)',
@@ -142,21 +142,21 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               {t.hero.sub}
             </p>
 
-            {/* Pan-India Delivery Ribbon */}
+            {/* Pan-India Delivery Ribbon in Teal #05aba5 */}
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              background: 'var(--pmt-green-soft)',
-              color: 'var(--pmt-green-dark)',
-              border: '1.5px solid var(--pmt-green)',
+              background: 'var(--pmt-teal-soft)',
+              color: 'var(--pmt-teal-dark)',
+              border: '1.5px solid var(--pmt-teal)',
               borderRadius: '30px',
               padding: '6px 18px',
               fontSize: '0.86rem',
               fontWeight: 800,
-              boxShadow: '0 2px 8px rgba(11, 110, 59, 0.15)'
+              boxShadow: '0 2px 8px rgba(5, 171, 165, 0.15)'
             }}>
-              <Truck size={17} style={{ color: 'var(--pmt-green)' }} />
+              <Truck size={17} style={{ color: 'var(--pmt-teal)' }} />
               <span>{t.panIndiaBadge}</span>
             </div>
           </div>
@@ -167,11 +167,11 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
             margin: '0 auto 26px',
             display: 'flex',
             alignItems: 'center',
-            background: '#FFFFFF',
+            background: 'var(--pmt-white)',
             border: '2px solid var(--pmt-red)',
             borderRadius: '12px',
             padding: '4px 6px 4px 14px',
-            boxShadow: '0 4px 16px rgba(225, 40, 28, 0.12)'
+            boxShadow: '0 4px 16px rgba(198, 28, 26, 0.12)'
           }}>
             <Search size={19} color="var(--pmt-red)" style={{ flexShrink: 0, marginRight: '8px' }} />
             <input
@@ -185,7 +185,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
                 border: 'none',
                 outline: 'none',
                 fontSize: '0.92rem',
-                color: 'var(--text-main)'
+                color: 'var(--pmt-black)'
               }}
             />
             <button
@@ -198,7 +198,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
             </button>
           </form>
 
-          {/* Primary Action Buttons with Event Tracking Attributes */}
+          {/* Action Buttons: Red #c61c1a, Teal #05aba5, Outline Blue #034ea1 */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
@@ -223,7 +223,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               rel="noopener noreferrer"
               id="cta-whatsapp-hero"
               data-track="whatsapp"
-              className="btn-pmt-green"
+              className="btn-pmt-teal"
               style={{ fontSize: '0.95rem', padding: '12px 22px' }}
             >
               <MessageCircle size={18} />
@@ -234,7 +234,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               onClick={onOpenRfq}
               id="cta-enquire-hero"
               data-track="enquiry"
-              className="btn-outline-indigo"
+              className="btn-outline-blue"
               style={{ fontSize: '0.95rem', padding: '12px 22px' }}
             >
               <span>{t.nav.getQuote}</span>
@@ -244,8 +244,8 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
 
           {/* Bottom Card Footer with H.O. and B.O. Addresses */}
           <div style={{
-            background: '#F8FAFC',
-            borderTop: '1px solid #E2E8F0',
+            background: 'var(--bg-subtle)',
+            borderTop: '1px solid #e2e8f0',
             margin: '0 -28px -24px',
             padding: '14px 20px',
             display: 'flex',
@@ -262,17 +262,17 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <MapPin size={15} color="var(--pmt-green)" style={{ flexShrink: 0 }} />
+              <MapPin size={15} color="var(--pmt-teal)" style={{ flexShrink: 0 }} />
               <span>{t.branchOffice}</span>
             </div>
 
-            <div style={{ color: 'var(--pmt-indigo)', fontWeight: 600 }}>
+            <div style={{ color: 'var(--pmt-blue)', fontWeight: 700 }}>
               ✉ pmtpremiermachinetools@gmail.com
             </div>
           </div>
         </div>
 
-        {/* 4 Feature Badges Strip */}
+        {/* 4 Feature Badges in Red, Teal, Blue */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -280,8 +280,8 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
           marginTop: '24px'
         }}>
           <div style={{
-            background: '#FFFFFF',
-            border: '1px solid #E2E8F0',
+            background: 'var(--pmt-white)',
+            border: '1px solid #e2e8f0',
             borderRadius: '10px',
             padding: '14px 16px',
             display: 'flex',
@@ -293,14 +293,14 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               <Award size={18} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-indigo)' }}>{t.hero.stat1}</div>
-              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Certified 6x19 & 6x36 GI Wire Ropes</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-blue)' }}>{t.hero.stat1}</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>Certified 6x19 & 6x36 GI Wire Ropes</div>
             </div>
           </div>
 
           <div style={{
-            background: '#FFFFFF',
-            border: '1px solid #E2E8F0',
+            background: 'var(--pmt-white)',
+            border: '1px solid #e2e8f0',
             borderRadius: '10px',
             padding: '14px 16px',
             display: 'flex',
@@ -308,18 +308,18 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
             gap: '10px',
             boxShadow: 'var(--shadow-sm)'
           }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-green-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-green)' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-teal-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-teal)' }}>
               <ShieldCheck size={18} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-indigo)' }}>{t.hero.stat2}</div>
-              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>0.5 Ton to 20 Ton Manual Hoists</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-blue)' }}>{t.hero.stat2}</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>0.5 Ton to 20 Ton Manual Hoists</div>
             </div>
           </div>
 
           <div style={{
-            background: '#FFFFFF',
-            border: '1px solid #E2E8F0',
+            background: 'var(--pmt-white)',
+            border: '1px solid #e2e8f0',
             borderRadius: '10px',
             padding: '14px 16px',
             display: 'flex',
@@ -327,18 +327,18 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
             gap: '10px',
             boxShadow: 'var(--shadow-sm)'
           }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-cyan-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0E7490' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-blue-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-blue)' }}>
               <Layers size={18} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-indigo)' }}>{t.hero.stat3}</div>
-              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Original Polypropylene 3-Strand</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-blue)' }}>{t.hero.stat3}</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>Original Polypropylene 3-Strand</div>
             </div>
           </div>
 
           <div style={{
-            background: '#FFFFFF',
-            border: '1px solid #E2E8F0',
+            background: 'var(--pmt-white)',
+            border: '1px solid #e2e8f0',
             borderRadius: '10px',
             padding: '14px 16px',
             display: 'flex',
@@ -346,12 +346,12 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
             gap: '10px',
             boxShadow: 'var(--shadow-sm)'
           }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-indigo-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-indigo)' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-teal-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-teal)' }}>
               <Truck size={18} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-indigo)' }}>{t.hero.stat4}</div>
-              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Daily Lorry Transport & Courier</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-blue)' }}>{t.hero.stat4}</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>Daily Lorry Transport & Courier</div>
             </div>
           </div>
         </div>

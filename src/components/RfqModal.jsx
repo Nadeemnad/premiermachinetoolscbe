@@ -6,13 +6,8 @@ import {
   Trash2, 
   Send, 
   MessageCircle, 
-  Phone, 
   Copy, 
-  Check, 
-  Truck,
-  Building,
-  User,
-  MapPin
+  Check 
 } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
@@ -51,13 +46,21 @@ export default function RfqModal({
       products: selectedProducts.length > 0 ? selectedProducts : [{ name: 'General Industrial Supply Inquiry' }]
     });
 
-    onShowToast?.(`Inquiry ${ticketId} recorded! We will dispatch quotation to ${formData.phone}.`);
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'generate_lead',
+        product_count: selectedProducts.length,
+        language: currentLang
+      });
+    }
+
+    onShowToast?.(`Inquiry ${ticketId} recorded! We will contact you at ${formData.phone}.`);
   };
 
   const sendWhatsAppInquiry = () => {
     const productList = selectedProducts.map(p => `• ${p.name} (${p.brand})`).join('%0A') || 'General Tools & Wire Ropes';
     const text = encodeURIComponent(
-      `*PREMIER MACHINE TOOLS - INQUIRY*%0A` +
+      `*PMT PREMIER MACHINE TOOLS - INQUIRY*%0A` +
       `*Name:* ${formData.name || 'Customer'}%0A` +
       `*Company:* ${formData.company || 'N/A'}%0A` +
       `*Phone:* ${formData.phone || 'N/A'}%0A` +
@@ -83,7 +86,7 @@ export default function RfqModal({
         position: 'fixed',
         inset: 0,
         zIndex: 250,
-        background: 'rgba(15, 23, 42, 0.75)',
+        background: 'rgba(19, 17, 12, 0.75)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         display: 'flex',
@@ -103,20 +106,20 @@ export default function RfqModal({
           maxWidth: '680px',
           maxHeight: '92vh',
           overflowY: 'auto',
-          background: '#ffffff',
+          background: 'var(--pmt-white)',
           borderRadius: '16px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
+          boxShadow: '0 20px 50px rgba(19, 17, 12, 0.3)',
           border: '2px solid var(--pmt-red)'
         }}
       >
-        {/* Top Header */}
+        {/* Top Header in Red #c61c1a */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: '16px 20px',
-          background: 'linear-gradient(90deg, #b71c1c 0%, #c62828 100%)',
-          color: '#ffffff',
+          background: 'var(--pmt-red)',
+          color: 'var(--pmt-white)',
           borderTopLeftRadius: '14px',
           borderTopRightRadius: '14px'
         }}>
@@ -127,7 +130,7 @@ export default function RfqModal({
                 {t.rfq.title}
               </div>
               <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>
-                GSTIN: 33AALFP8180B2Z9 • All India Delivery Dispatch
+                {t.gstinLabel} • All India Delivery Dispatch
               </div>
             </div>
           </div>
@@ -142,7 +145,7 @@ export default function RfqModal({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ffffff'
+              color: 'var(--pmt-white)'
             }}
           >
             <X size={18} />
@@ -158,27 +161,27 @@ export default function RfqModal({
                 width: '64px',
                 height: '64px',
                 borderRadius: '50%',
-                background: 'var(--pmt-green-soft)',
-                border: '2px solid var(--pmt-green)',
+                background: 'var(--pmt-teal-soft)',
+                border: '2px solid var(--pmt-teal)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto 16px',
-                color: 'var(--pmt-green)'
+                color: 'var(--pmt-teal)'
               }}>
                 <CheckCircle2 size={36} />
               </div>
 
-              <h3 style={{ fontSize: '1.5rem', color: 'var(--pmt-navy)', marginBottom: '6px' }}>
-                {t.rfq.submitted}
+              <h3 style={{ fontSize: '1.5rem', color: 'var(--pmt-blue)', marginBottom: '6px' }}>
+                {t.rfq.successTitle}
               </h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '20px' }}>
-                Thank you, <strong>{submittedTicket.name}</strong>. Our Coimbatore sales desk at Dr. Nanjappa Road has received your inquiry.
+                Thank you, <strong>{submittedTicket.name}</strong>. {t.rfq.successDesc}
               </p>
 
               <div style={{
-                background: '#f8fafc',
-                border: '1px solid #e2e8f0',
+                background: 'var(--bg-subtle)',
+                border: '1px solid #E2E8F0',
                 borderRadius: '10px',
                 padding: '16px',
                 maxWidth: '460px',
@@ -186,7 +189,7 @@ export default function RfqModal({
                 textAlign: 'left'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '0.78rem', color: '#64748b' }}>{t.rfq.refCode}</span>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>{t.rfq.refLabel}</span>
                   <button
                     onClick={copyTicket}
                     style={{
@@ -194,7 +197,7 @@ export default function RfqModal({
                       alignItems: 'center',
                       gap: '4px',
                       fontSize: '0.78rem',
-                      color: copied ? 'var(--pmt-green)' : 'var(--pmt-red)',
+                      color: copied ? 'var(--pmt-teal)' : 'var(--pmt-red)',
                       fontWeight: 700
                     }}
                   >
@@ -217,24 +220,32 @@ export default function RfqModal({
                   }}
                   className="btn-pmt-red"
                 >
-                  Done & Back to Products
+                  Done &amp; Back to Products
                 </button>
 
                 <button
                   onClick={sendWhatsAppInquiry}
-                  className="btn-pmt-green"
+                  className="btn-pmt-teal"
                 >
                   <MessageCircle size={16} /> Send via WhatsApp Also
                 </button>
               </div>
             </div>
           ) : (
-            /* Inquiry Form */
-            <form onSubmit={handleSubmit}>
+            /* Inquiry Form with Netlify Attributes */
+            <form 
+              name="enquiry" 
+              method="POST" 
+              data-netlify="true" 
+              action="/thank-you/"
+              onSubmit={handleSubmit}
+            >
+              <input type="hidden" name="form-name" value="enquiry" />
+
               {/* Product List */}
               <div style={{ marginBottom: '20px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--pmt-navy)' }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--pmt-blue)' }}>
                     Inquiry Items ({selectedProducts.length}):
                   </span>
                   {selectedProducts.length > 0 && (
@@ -258,8 +269,8 @@ export default function RfqModal({
                   }}>
                     {selectedProducts.map((p) => (
                       <div key={p.id} style={{
-                        background: '#f8fafc',
-                        border: '1px solid #e2e8f0',
+                        background: 'var(--bg-subtle)',
+                        border: '1px solid #E2E8F0',
                         borderRadius: '6px',
                         padding: '8px 12px',
                         display: 'flex',
@@ -268,12 +279,12 @@ export default function RfqModal({
                         fontSize: '0.85rem'
                       }}>
                         <div>
-                          <strong>{p.name}</strong> <span style={{ color: '#64748b' }}>({p.brand})</span>
+                          <strong>{p.name}</strong> <span style={{ color: 'var(--text-light)' }}>({p.brand})</span>
                         </div>
                         <button
                           type="button"
                           onClick={() => onRemoveItem(p.id)}
-                          style={{ color: '#ef4444', padding: '4px' }}
+                          style={{ color: 'var(--pmt-red)', padding: '4px' }}
                           title="Remove item"
                         >
                           <Trash2 size={14} />
@@ -284,11 +295,11 @@ export default function RfqModal({
                 ) : (
                   <div style={{
                     padding: '10px 14px',
-                    background: '#fffdf5',
-                    border: '1px dashed #f59e0b',
+                    background: 'var(--pmt-teal-soft)',
+                    border: '1px dashed var(--pmt-teal)',
                     borderRadius: '8px',
                     fontSize: '0.82rem',
-                    color: '#92400e'
+                    color: 'var(--pmt-teal-dark)'
                   }}>
                     💡 No specific item selected yet. You can submit general requirements or select products from the catalog.
                   </div>
@@ -303,18 +314,19 @@ export default function RfqModal({
                 marginBottom: '16px'
               }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--pmt-blue)', marginBottom: '4px' }}>
                     {t.rfq.name} *
                   </label>
                   <input
                     type="text"
+                    name="name"
                     required
                     placeholder="e.g. Ramesh Kumar"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     style={{
                       width: '100%',
-                      border: '1px solid #cbd5e1',
+                      border: '1px solid #CBD5E1',
                       borderRadius: '8px',
                       padding: '10px 12px',
                       fontSize: '0.88rem',
@@ -324,18 +336,19 @@ export default function RfqModal({
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--pmt-blue)', marginBottom: '4px' }}>
                     {t.rfq.company} *
                   </label>
                   <input
                     type="text"
+                    name="company"
                     required
                     placeholder="e.g. Sri Krishna Crane Works"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     style={{
                       width: '100%',
-                      border: '1px solid #cbd5e1',
+                      border: '1px solid #CBD5E1',
                       borderRadius: '8px',
                       padding: '10px 12px',
                       fontSize: '0.88rem',
@@ -345,18 +358,19 @@ export default function RfqModal({
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--pmt-blue)', marginBottom: '4px' }}>
                     {t.rfq.phone} *
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     required
-                    placeholder="+91 94432 XXXXX"
+                    placeholder="+91 94875 XXXXX"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     style={{
                       width: '100%',
-                      border: '1px solid #cbd5e1',
+                      border: '1px solid #CBD5E1',
                       borderRadius: '8px',
                       padding: '10px 12px',
                       fontSize: '0.88rem',
@@ -366,17 +380,18 @@ export default function RfqModal({
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--pmt-blue)', marginBottom: '4px' }}>
                     {t.rfq.city}
                   </label>
                   <input
                     type="text"
+                    name="city"
                     placeholder="Coimbatore / Chennai / Mumbai / Pan-India"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     style={{
                       width: '100%',
-                      border: '1px solid #cbd5e1',
+                      border: '1px solid #CBD5E1',
                       borderRadius: '8px',
                       padding: '10px 12px',
                       fontSize: '0.88rem',
@@ -388,17 +403,18 @@ export default function RfqModal({
 
               {/* Remarks */}
               <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--pmt-blue)', marginBottom: '4px' }}>
                   {t.rfq.remarks}
                 </label>
                 <textarea
+                  name="remarks"
                   rows="2"
                   placeholder="e.g. Required 500 metres of 12mm Usha Martin 6x36 wire rope + two 3-Ton Triple Super Gear pulley blocks with test certificate."
                   value={formData.remarks}
                   onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
                   style={{
                     width: '100%',
-                    border: '1px solid #cbd5e1',
+                    border: '1px solid #CBD5E1',
                     borderRadius: '8px',
                     padding: '10px 12px',
                     fontSize: '0.88rem',
@@ -408,17 +424,17 @@ export default function RfqModal({
                 />
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons in 5 Colors */}
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', flexWrap: 'wrap' }}>
                 <button
                   type="button"
                   onClick={onClose}
                   style={{
                     padding: '10px 16px',
-                    background: '#f1f5f9',
-                    color: '#475569',
+                    background: 'var(--bg-subtle)',
+                    color: 'var(--pmt-black)',
                     borderRadius: '8px',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     fontSize: '0.88rem'
                   }}
                 >
@@ -428,10 +444,10 @@ export default function RfqModal({
                 <button
                   type="button"
                   onClick={sendWhatsAppInquiry}
-                  className="btn-pmt-green"
+                  className="btn-pmt-teal"
                   style={{ padding: '10px 18px', fontSize: '0.88rem' }}
                 >
-                  <MessageCircle size={16} /> WhatsApp Inquiry
+                  <MessageCircle size={16} /> WhatsApp Direct
                 </button>
 
                 <button

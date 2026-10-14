@@ -6,9 +6,7 @@ import {
   ShoppingCart, 
   MessageCircle, 
   FileText, 
-  Truck,
-  Award,
-  PhoneCall
+  Truck
 } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
@@ -39,6 +37,8 @@ export default function ProductModal({
 
   const displayTagline = currentLang === 'ta' && product.taglineTa
     ? product.taglineTa
+    : currentLang === 'hi' && product.taglineHi
+    ? product.taglineHi
     : product.tagline;
 
   const whatsappMessage = encodeURIComponent(
@@ -52,7 +52,7 @@ export default function ProductModal({
         position: 'fixed',
         inset: 0,
         zIndex: 220,
-        background: 'rgba(15, 23, 42, 0.75)',
+        background: 'rgba(19, 17, 12, 0.75)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         display: 'flex',
@@ -72,27 +72,27 @@ export default function ProductModal({
           maxWidth: '720px',
           maxHeight: '90vh',
           overflowY: 'auto',
-          background: '#ffffff',
+          background: 'var(--pmt-white)',
           borderRadius: '16px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.25)',
+          boxShadow: '0 20px 50px rgba(19, 17, 12, 0.3)',
           border: '2px solid var(--pmt-red)',
           position: 'relative'
         }}
       >
-        {/* Modal Top Header */}
+        {/* Modal Top Header in Red #c61c1a */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: '16px 20px',
-          background: 'linear-gradient(90deg, #b71c1c 0%, #c62828 100%)',
-          color: '#ffffff',
+          background: 'var(--pmt-red)',
+          color: 'var(--pmt-white)',
           borderTopLeftRadius: '14px',
           borderTopRightRadius: '14px'
         }}>
           <div>
             <span style={{
-              background: '#ffffff',
+              background: 'var(--pmt-white)',
               color: 'var(--pmt-red)',
               fontSize: '0.72rem',
               fontWeight: 800,
@@ -103,7 +103,7 @@ export default function ProductModal({
               {product.brand}
             </span>
             <div style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '2px' }}>
-              Authorized Distributor • Premier Machine Tools Coimbatore
+              Genuine Stock Supply • PMT Premier Machine Tools
             </div>
           </div>
 
@@ -117,7 +117,7 @@ export default function ProductModal({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ffffff'
+              color: 'var(--pmt-white)'
             }}
           >
             <X size={18} />
@@ -128,7 +128,7 @@ export default function ProductModal({
         <div style={{ padding: '24px' }}>
           <h2 style={{
             fontSize: '1.45rem',
-            color: 'var(--pmt-navy)',
+            color: 'var(--pmt-blue)',
             marginBottom: '8px'
           }}>
             {displayName}
@@ -143,29 +143,29 @@ export default function ProductModal({
             {displayTagline}
           </p>
 
-          {/* Delivery & Assurance Strip */}
+          {/* Delivery & Assurance Strip in Teal #05aba5 */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            background: 'var(--pmt-green-soft)',
-            border: '1px solid var(--pmt-green)',
+            background: 'var(--pmt-teal-soft)',
+            border: '1px solid var(--pmt-teal)',
             padding: '10px 14px',
             borderRadius: '8px',
             fontSize: '0.85rem',
-            color: 'var(--pmt-green-dark)',
+            color: 'var(--pmt-teal-dark)',
             fontWeight: 700,
             marginBottom: '22px'
           }}>
             <Truck size={18} />
-            <span>All Over India Delivery Available • Direct Lorry Transport From Coimbatore Godown</span>
+            <span>All Over India Delivery Available • Lorry Transport &amp; Express Courier</span>
           </div>
 
           {/* Detailed Specifications Table */}
           <div style={{ marginBottom: '22px' }}>
             <h4 style={{
               fontSize: '0.95rem',
-              color: 'var(--pmt-navy)',
+              color: 'var(--pmt-blue)',
               textTransform: 'uppercase',
               letterSpacing: '0.04em',
               marginBottom: '10px',
@@ -173,11 +173,11 @@ export default function ProductModal({
               alignItems: 'center',
               gap: '6px'
             }}>
-              <ShieldCheck size={16} color="var(--pmt-red)" /> Technical Specifications
+              <ShieldCheck size={16} color="var(--pmt-red)" /> {t.catalog.specifications}
             </h4>
 
             <div style={{
-              border: '1px solid #e2e8f0',
+              border: '1px solid #E2E8F0',
               borderRadius: '10px',
               overflow: 'hidden'
             }}>
@@ -189,14 +189,14 @@ export default function ProductModal({
                     justifyContent: 'space-between',
                     padding: '9px 14px',
                     fontSize: '0.88rem',
-                    background: idx % 2 === 0 ? '#f8fafc' : '#ffffff',
-                    borderBottom: idx < Object.entries(product.specs).length - 1 ? '1px solid #f1f5f9' : 'none'
+                    background: idx % 2 === 0 ? 'var(--bg-subtle)' : 'var(--pmt-white)',
+                    borderBottom: idx < Object.entries(product.specs).length - 1 ? '1px solid #F1F5F9' : 'none'
                   }}
                 >
-                  <span style={{ color: '#64748b', fontWeight: 500, textTransform: 'capitalize' }}>
+                  <span style={{ color: 'var(--text-light)', fontWeight: 500, textTransform: 'capitalize' }}>
                     {key.replace(/([A-Z])/g, ' $1')}:
                   </span>
-                  <strong style={{ color: 'var(--pmt-navy)', textAlign: 'right' }}>
+                  <strong style={{ color: 'var(--pmt-black)', textAlign: 'right' }}>
                     {val}
                   </strong>
                 </div>
@@ -204,15 +204,15 @@ export default function ProductModal({
             </div>
           </div>
 
-          {/* Applications List */}
+          {/* Applications List in Blue Tokens */}
           {product.applications && (
             <div style={{ marginBottom: '24px' }}>
-              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--pmt-navy)', marginBottom: '8px' }}>
-                Recommended Industrial Applications:
+              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--pmt-blue)', marginBottom: '8px' }}>
+                {t.catalog.applications}:
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {product.applications.map((app, i) => (
-                  <span key={i} className="badge-navy" style={{ fontSize: '0.78rem' }}>
+                  <span key={i} className="badge-blue" style={{ fontSize: '0.78rem' }}>
                     • {app}
                   </span>
                 ))}
@@ -220,13 +220,13 @@ export default function ProductModal({
             </div>
           )}
 
-          {/* Action CTAs */}
+          {/* Action CTAs in 5 Colors */}
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
             gap: '10px',
             paddingTop: '16px',
-            borderTop: '1px solid #e2e8f0'
+            borderTop: '1px solid #E2E8F0'
           }}>
             <button
               onClick={() => {
@@ -236,14 +236,14 @@ export default function ProductModal({
               className="btn-pmt-red"
               style={{ flexGrow: 1, padding: '11px 18px', fontSize: '0.9rem' }}
             >
-              <FileText size={16} /> Request Pricing / Quotation
+              <FileText size={16} /> {t.catalog.enquire}
             </button>
 
             <a
               href={`https://wa.me/919487510127?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-pmt-green"
+              className="btn-pmt-teal"
               style={{ padding: '11px 18px', fontSize: '0.9rem' }}
             >
               <MessageCircle size={16} /> WhatsApp Inquiry
@@ -251,16 +251,16 @@ export default function ProductModal({
 
             <button
               onClick={() => onToggleCart(product)}
-              className="btn-outline-navy"
+              className="btn-outline-blue"
               style={{ padding: '11px 16px', fontSize: '0.9rem' }}
             >
               {isCarted ? (
                 <>
-                  <Check size={16} color="var(--pmt-green)" /> In Inquiry List
+                  <Check size={16} color="var(--pmt-teal)" /> {t.catalog.inList}
                 </>
               ) : (
                 <>
-                  <ShoppingCart size={16} /> Add to List
+                  <ShoppingCart size={16} /> {t.catalog.enquire}
                 </>
               )}
             </button>

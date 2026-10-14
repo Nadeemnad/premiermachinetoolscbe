@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Landmark, Copy, Check, ShieldCheck, FileCheck2, AlertCircle } from 'lucide-react';
+import { Landmark, Copy, Check, AlertCircle } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
 export default function BankDetailsSection({ currentLang, onShowToast }) {
@@ -15,9 +15,10 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
 
   return (
     <section id="bank-details" style={{
-      padding: '70px 20px',
+      padding: '70px 16px',
       maxWidth: '1000px',
-      margin: '0 auto'
+      margin: '0 auto',
+      background: 'var(--pmt-white)'
     }}>
       <div style={{ textAlign: 'center', marginBottom: '36px' }}>
         <div className="badge-red" style={{ marginBottom: '10px' }}>
@@ -25,7 +26,7 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
         </div>
         <h2 style={{
           fontSize: 'clamp(1.7rem, 3.2vw, 2.4rem)',
-          color: 'var(--pmt-navy)',
+          color: 'var(--pmt-blue)',
           marginBottom: '10px'
         }}>
           {t.bank.heading}
@@ -40,18 +41,18 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
         </p>
       </div>
 
-      {/* Official Bank Account Card */}
+      {/* Official Bank Account Card in Blue #034ea1 */}
       <div style={{
-        background: '#ffffff',
-        border: '2px solid var(--pmt-navy)',
+        background: 'var(--pmt-white)',
+        border: '2px solid var(--pmt-blue)',
         borderRadius: '16px',
         overflow: 'hidden',
         boxShadow: 'var(--shadow-md)'
       }}>
-        {/* Top Header */}
+        {/* Top Header in Blue #034ea1 */}
         <div style={{
-          background: 'var(--pmt-navy)',
-          color: '#ffffff',
+          background: 'var(--pmt-blue)',
+          color: 'var(--pmt-white)',
           padding: '16px 24px',
           display: 'flex',
           justifyContent: 'space-between',
@@ -60,20 +61,20 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
           gap: '8px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Landmark size={22} color="#f59e0b" />
+            <Landmark size={22} color="var(--pmt-white)" />
             <div>
               <div style={{ fontWeight: 800, fontSize: '1.05rem', letterSpacing: '0.04em' }}>
-                DBS BANK INDIA LTD
+                {t.bank.bankName}
               </div>
-              <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-                Uppilipalayam Branch, Coimbatore
+              <div style={{ fontSize: '0.78rem', color: 'rgba(255, 255, 255, 0.85)' }}>
+                {t.bank.branch}
               </div>
             </div>
           </div>
 
           <span style={{
-            background: 'var(--pmt-green)',
-            color: '#ffffff',
+            background: 'var(--pmt-teal)',
+            color: 'var(--pmt-white)',
             fontSize: '0.72rem',
             fontWeight: 800,
             padding: '3px 10px',
@@ -93,23 +94,23 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
         }}>
           {/* Account Name */}
           <div style={{
-            background: '#f8fafc',
-            border: '1px solid #e2e8f0',
+            background: 'var(--bg-subtle)',
+            border: '1px solid #E2E8F0',
             borderRadius: '10px',
             padding: '14px'
           }}>
-            <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', marginBottom: '4px' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', textTransform: 'uppercase', marginBottom: '4px' }}>
               Beneficiary / Account Name:
             </div>
-            <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--pmt-navy)' }}>
-              PREMIER MACHINE TOOLS
+            <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--pmt-blue)' }}>
+              PMT PREMIER MACHINE TOOLS
             </div>
           </div>
 
-          {/* Account Number */}
+          {/* Account Number in Red #c61c1a */}
           <div style={{
-            background: '#f8fafc',
-            border: '1px solid #e2e8f0',
+            background: 'var(--bg-subtle)',
+            border: '1px solid #E2E8F0',
             borderRadius: '10px',
             padding: '14px',
             display: 'flex',
@@ -117,38 +118,38 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
             alignItems: 'center'
           }}>
             <div>
-              <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', marginBottom: '4px' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', textTransform: 'uppercase', marginBottom: '4px' }}>
                 Account Number:
               </div>
               <div style={{ fontSize: '1.15rem', fontWeight: 900, color: 'var(--pmt-red)', letterSpacing: '0.05em' }}>
-                0191351000005295
+                {t.bank.accountNo}
               </div>
             </div>
 
             <button
-              onClick={() => copyToClipboard('0191351000005295', 'Account Number')}
+              onClick={() => copyToClipboard(t.bank.accountNo, 'Account Number')}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
-                background: '#ffffff',
-                border: '1px solid #cbd5e1',
+                background: 'var(--pmt-white)',
+                border: '1px solid #CBD5E1',
                 padding: '6px 10px',
                 borderRadius: '6px',
                 fontSize: '0.78rem',
-                color: copiedField === 'Account Number' ? 'var(--pmt-green)' : 'var(--pmt-navy)',
+                color: copiedField === 'Account Number' ? 'var(--pmt-teal)' : 'var(--pmt-blue)',
                 fontWeight: 700
               }}
             >
               {copiedField === 'Account Number' ? <Check size={14} /> : <Copy size={14} />}
-              <span>{copiedField === 'Account Number' ? 'Copied' : 'Copy'}</span>
+              <span>{copiedField === 'Account Number' ? t.bank.copied : t.bank.copyBtn}</span>
             </button>
           </div>
 
-          {/* IFSC Code */}
+          {/* IFSC Code in Blue #034ea1 */}
           <div style={{
-            background: '#f8fafc',
-            border: '1px solid #e2e8f0',
+            background: 'var(--bg-subtle)',
+            border: '1px solid #E2E8F0',
             borderRadius: '10px',
             padding: '14px',
             display: 'flex',
@@ -156,49 +157,49 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
             alignItems: 'center'
           }}>
             <div>
-              <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', marginBottom: '4px' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', textTransform: 'uppercase', marginBottom: '4px' }}>
                 IFSC Code:
               </div>
-              <div style={{ fontSize: '1.15rem', fontWeight: 900, color: 'var(--pmt-navy)', letterSpacing: '0.05em' }}>
-                DBSS0IN0191
+              <div style={{ fontSize: '1.15rem', fontWeight: 900, color: 'var(--pmt-blue)', letterSpacing: '0.05em' }}>
+                {t.bank.ifsc}
               </div>
             </div>
 
             <button
-              onClick={() => copyToClipboard('DBSS0IN0191', 'IFSC Code')}
+              onClick={() => copyToClipboard(t.bank.ifsc, 'IFSC Code')}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
-                background: '#ffffff',
-                border: '1px solid #cbd5e1',
+                background: 'var(--pmt-white)',
+                border: '1px solid #CBD5E1',
                 padding: '6px 10px',
                 borderRadius: '6px',
                 fontSize: '0.78rem',
-                color: copiedField === 'IFSC Code' ? 'var(--pmt-green)' : 'var(--pmt-navy)',
+                color: copiedField === 'IFSC Code' ? 'var(--pmt-teal)' : 'var(--pmt-blue)',
                 fontWeight: 700
               }}
             >
               {copiedField === 'IFSC Code' ? <Check size={14} /> : <Copy size={14} />}
-              <span>{copiedField === 'IFSC Code' ? 'Copied' : 'Copy'}</span>
+              <span>{copiedField === 'IFSC Code' ? t.bank.copied : t.bank.copyBtn}</span>
             </button>
           </div>
         </div>
 
-        {/* Invoice Terms & Commercial Notice from Invoice */}
+        {/* Invoice Terms in Neutral Subtlety */}
         <div style={{
-          background: '#fffdf5',
-          borderTop: '1px solid #fef3c7',
+          background: 'var(--bg-subtle)',
+          borderTop: '1px solid #E2E8F0',
           padding: '16px 24px',
-          fontSize: '0.8rem',
-          color: '#78350f',
+          fontSize: '0.82rem',
+          color: 'var(--pmt-black)',
           lineHeight: 1.6
         }}>
-          <div style={{ fontWeight: 800, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <AlertCircle size={15} color="#b45309" /> Commercial & Invoice Billing Terms:
+          <div style={{ fontWeight: 800, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--pmt-blue)' }}>
+            <AlertCircle size={15} color="var(--pmt-red)" /> Commercial &amp; Invoicing Terms:
           </div>
           <div>
-            1) Subject to Coimbatore Jurisdiction only. • 2) Goods once sold can't be taken back. • 3) Responsibility ceases after goods leave our godown. • 4) Tax invoice with 100% GST compliance.
+            {t.bank.terms}
           </div>
         </div>
       </div>

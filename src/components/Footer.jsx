@@ -4,10 +4,7 @@ import {
   Phone, 
   Mail, 
   Truck, 
-  ShieldCheck, 
   ArrowUp,
-  Landmark,
-  MessageCircle,
   FileText
 } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
@@ -21,9 +18,9 @@ export default function Footer({ currentLang, onOpenRfq }) {
 
   return (
     <footer id="contact" style={{
-      background: 'var(--bg-dark-footer)',
-      color: '#cbd5e1',
-      padding: '60px 20px 24px',
+      background: 'var(--pmt-black)',
+      color: 'rgba(255, 255, 255, 0.85)',
+      padding: '60px 16px 24px',
       borderTop: '4px solid var(--pmt-red)'
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
@@ -38,56 +35,57 @@ export default function Footer({ currentLang, onOpenRfq }) {
           <div>
             <div style={{ marginBottom: '14px' }}>
               <div style={{
-                fontFamily: 'var(--font-tamil)',
-                color: '#34d399',
-                fontSize: '1.25rem',
-                fontWeight: 800,
+                fontFamily: 'var(--font-heading)',
+                color: 'var(--pmt-white)',
+                fontSize: '1.45rem',
+                fontWeight: 900,
+                letterSpacing: '0.02em',
                 marginBottom: '4px'
               }}>
-                பிரீமியர் மெஷின் டூல்ஸ்
+                {t.companyName}
               </div>
               <div style={{
-                fontFamily: 'var(--font-heading)',
-                color: '#ffffff',
-                fontSize: '1.4rem',
-                fontWeight: 900,
-                letterSpacing: '0.03em'
+                fontSize: '0.85rem',
+                color: 'var(--pmt-teal)',
+                fontWeight: 700
               }}>
-                PREMIER MACHINE TOOLS
+                {t.companySub}
               </div>
             </div>
 
-            <p style={{ fontSize: '0.86rem', lineHeight: 1.6, color: '#94a3b8', marginBottom: '16px' }}>
-              Dealers in all kinds of Tools, Ropes, Chains, Lifting Equipment, Polyester Web Slings, and Woodworking Bandsaw Blades.
+            <p style={{ fontSize: '0.86rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '16px' }}>
+              {t.footer.about}
             </p>
 
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              background: 'rgba(16, 111, 60, 0.25)',
-              border: '1px solid #106f3c',
+              background: 'rgba(5, 171, 165, 0.15)',
+              border: '1px solid var(--pmt-teal)',
               padding: '6px 12px',
               borderRadius: '6px',
               fontSize: '0.78rem',
-              color: '#4ade80',
+              color: 'var(--pmt-teal)',
               fontWeight: 700,
               marginBottom: '14px'
             }}>
               <Truck size={15} /> All Over India Delivery Available
             </div>
 
-            <div style={{
-              fontSize: '0.82rem',
-              fontWeight: 800,
-              color: '#ffffff',
-              background: 'rgba(198, 40, 40, 0.35)',
-              border: '1px solid var(--pmt-red)',
-              padding: '4px 10px',
-              borderRadius: '6px',
-              display: 'inline-block'
-            }}>
-              GSTIN : 33AALFP8180B2Z9
+            <div>
+              <span style={{
+                fontSize: '0.82rem',
+                fontWeight: 800,
+                color: 'var(--pmt-white)',
+                background: 'rgba(198, 28, 26, 0.35)',
+                border: '1px solid var(--pmt-red)',
+                padding: '4px 10px',
+                borderRadius: '6px',
+                display: 'inline-block'
+              }}>
+                {t.gstinLabel}
+              </span>
             </div>
           </div>
 
@@ -95,7 +93,7 @@ export default function Footer({ currentLang, onOpenRfq }) {
           <div>
             <h4 style={{
               fontSize: '0.95rem',
-              color: '#ffffff',
+              color: 'var(--pmt-white)',
               textTransform: 'uppercase',
               letterSpacing: '0.04em',
               marginBottom: '16px',
@@ -103,23 +101,23 @@ export default function Footer({ currentLang, onOpenRfq }) {
               paddingBottom: '6px',
               display: 'inline-block'
             }}>
-              Office Locations (Coimbatore)
+              {t.footer.contactTitle}
             </h4>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.85rem' }}>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <MapPin size={18} color="var(--pmt-red)" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div>
-                  <strong style={{ color: '#ffffff' }}>Head Office (H.O.):</strong><br />
-                  # 129/4 (Old No. 184) Dr. Nanjappa Road,<br />
+                  <strong style={{ color: 'var(--pmt-white)' }}>Head Office (H.O.):</strong><br />
+                  129/4 (Old No. 184) Dr. Nanjappa Road,<br />
                   Coimbatore - 641 018, Tamil Nadu
                 </div>
               </div>
 
               <div style={{ display: 'flex', gap: '10px' }}>
-                <MapPin size={18} color="#34d399" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <MapPin size={18} color="var(--pmt-teal)" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div>
-                  <strong style={{ color: '#ffffff' }}>Branch Office (B.O.):</strong><br />
+                  <strong style={{ color: 'var(--pmt-white)' }}>Branch Office (B.O.):</strong><br />
                   Basement Floor, 180, N.S.P. Shopping Complex,<br />
                   Coimbatore, Tamil Nadu
                 </div>
@@ -131,7 +129,7 @@ export default function Footer({ currentLang, onOpenRfq }) {
           <div>
             <h4 style={{
               fontSize: '0.95rem',
-              color: '#ffffff',
+              color: 'var(--pmt-white)',
               textTransform: 'uppercase',
               letterSpacing: '0.04em',
               marginBottom: '16px',
@@ -144,29 +142,29 @@ export default function Footer({ currentLang, onOpenRfq }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.85rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Phone size={16} color="#38bdf8" />
-                <a href="tel:04222301274" style={{ color: '#ffffff', fontWeight: 700 }}>
+                <Phone size={16} color="var(--pmt-teal)" />
+                <a href="tel:+914222301274" style={{ color: 'var(--pmt-white)', fontWeight: 700 }}>
                   0422 - 2301274 (Landline)
                 </a>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Phone size={16} color="#4ade80" />
-                <a href="tel:9443230127" style={{ color: '#ffffff', fontWeight: 700 }}>
-                  94432 30127 (Mobile)
-                </a>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Phone size={16} color="#f59e0b" />
-                <a href="tel:9487510127" style={{ color: '#ffffff', fontWeight: 700 }}>
+                <Phone size={16} color="var(--pmt-red)" />
+                <a href="tel:+919487510127" style={{ color: 'var(--pmt-white)', fontWeight: 700 }}>
                   94875 10127 (Mobile / WhatsApp)
                 </a>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Mail size={16} color="#ef4444" />
-                <a href="mailto:pmtpremiermachinetools@gmail.com" style={{ color: '#cbd5e1' }}>
+                <Phone size={16} color="var(--pmt-teal)" />
+                <a href="tel:+919443230127" style={{ color: 'var(--pmt-white)', fontWeight: 700 }}>
+                  94432 30127 (Mobile)
+                </a>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Mail size={16} color="var(--pmt-red)" />
+                <a href="mailto:pmtpremiermachinetools@gmail.com" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
                   pmtpremiermachinetools@gmail.com
                 </a>
               </div>
@@ -185,7 +183,7 @@ export default function Footer({ currentLang, onOpenRfq }) {
           <div>
             <h4 style={{
               fontSize: '0.95rem',
-              color: '#ffffff',
+              color: 'var(--pmt-white)',
               textTransform: 'uppercase',
               letterSpacing: '0.04em',
               marginBottom: '16px',
@@ -198,12 +196,12 @@ export default function Footer({ currentLang, onOpenRfq }) {
 
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
               <li>• Usha Martin Steel Wire Ropes</li>
-              <li>• Triple Super Gear Chain Pulleys</li>
+              <li>• Triple Super Gear Chain Pulley Blocks</li>
               <li>• Good Lift Industrial Hoists</li>
-              <li>• Polyester Web Slings & Lashings</li>
+              <li>• Polyester Web Slings &amp; Lashings</li>
               <li>• Wood Working Bandsaw Blades (ESI/Anil)</li>
               <li>• Garware Garfil 3 Strand Ropes</li>
-              <li>• Manila Ropes, 'U' Clamps & D-Shackles</li>
+              <li>• Manila Ropes, 'U' Clamps &amp; D-Shackles</li>
             </ul>
           </div>
         </div>
@@ -218,14 +216,14 @@ export default function Footer({ currentLang, onOpenRfq }) {
           flexWrap: 'wrap',
           gap: '14px',
           fontSize: '0.8rem',
-          color: '#64748b'
+          color: 'rgba(255, 255, 255, 0.6)'
         }}>
           <div>
-            © {new Date().getFullYear()} Premier Machine Tools. All rights reserved. Subject to Coimbatore Jurisdiction.
+            © {new Date().getFullYear()} {t.footer.rights}
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <span>GSTIN : 33AALFP8180B2Z9</span>
+            <span>{t.gstinLabel}</span>
             <button
               onClick={scrollToTop}
               style={{
@@ -233,7 +231,7 @@ export default function Footer({ currentLang, onOpenRfq }) {
                 alignItems: 'center',
                 gap: '4px',
                 color: 'var(--pmt-red)',
-                background: 'rgba(255,255,255,0.06)',
+                background: 'rgba(255, 255, 255, 0.08)',
                 padding: '5px 10px',
                 borderRadius: '6px',
                 fontWeight: 700

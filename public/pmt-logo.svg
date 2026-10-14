@@ -1,41 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 110" width="460" height="110">
-  <!-- Tamil Header in visiting card forest green -->
-  <text x="110" y="28" font-family="'Noto Sans Tamil', 'Mukta Malar', 'Inter', sans-serif" font-size="22" font-weight="800" fill="#106f3c" letter-spacing="0.5">
-    பிரீமியர் மெஷின் டூல்ஸ்
+  <!-- Tamil Header in Teal #05aba5 -->
+  <text x="110" y="28" font-family="'Noto Sans Tamil', 'Inter', sans-serif" font-size="22" font-weight="800" fill="#05aba5" letter-spacing="0.5">
+    பிரிமியர் மெஷின் டூல்ஸ்
   </text>
   
-  <!-- Wire Rope Reel Spool Graphic -->
+  <!-- Wire Rope Reel Spool Graphic in #13110c, #034ea1 and #ffffff -->
   <g transform="translate(10, 36)">
     <!-- Spool Flange Left -->
-    <ellipse cx="22" cy="30" rx="18" ry="26" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
-    <ellipse cx="22" cy="30" rx="14" ry="20" fill="#334155"/>
+    <ellipse cx="22" cy="30" rx="18" ry="26" fill="#13110c" stroke="#034ea1" stroke-width="2"/>
+    <ellipse cx="22" cy="30" rx="14" ry="20" fill="#034ea1"/>
     <!-- Wire Rope Cylindrical Winding Body -->
-    <rect x="22" y="14" width="45" height="32" fill="#475569"/>
-    <!-- Rope Strands Texture Pattern -->
-    <line x1="26" y1="14" x2="32" y2="46" stroke="#94a3b8" stroke-width="2.5"/>
-    <line x1="33" y1="14" x2="39" y2="46" stroke="#cbd5e1" stroke-width="2.5"/>
-    <line x1="40" y1="14" x2="46" y2="46" stroke="#94a3b8" stroke-width="2.5"/>
-    <line x1="47" y1="14" x2="53" y2="46" stroke="#cbd5e1" stroke-width="2.5"/>
-    <line x1="54" y1="14" x2="60" y2="46" stroke="#94a3b8" stroke-width="2.5"/>
+    <rect x="22" y="14" width="45" height="32" fill="#13110c"/>
+    <!-- Rope Strands Texture Pattern in Teal and White -->
+    <line x1="26" y1="14" x2="32" y2="46" stroke="#05aba5" stroke-width="2.5"/>
+    <line x1="33" y1="14" x2="39" y2="46" stroke="#ffffff" stroke-width="2.5"/>
+    <line x1="40" y1="14" x2="46" y2="46" stroke="#05aba5" stroke-width="2.5"/>
+    <line x1="47" y1="14" x2="53" y2="46" stroke="#ffffff" stroke-width="2.5"/>
+    <line x1="54" y1="14" x2="60" y2="46" stroke="#05aba5" stroke-width="2.5"/>
     <!-- Spool Flange Right -->
-    <ellipse cx="67" cy="30" rx="18" ry="26" fill="#0f172a" stroke="#334155" stroke-width="2"/>
-    <circle cx="67" cy="30" r="7" fill="#cbd5e1"/>
-    <circle cx="67" cy="30" r="3.5" fill="#0f172a"/>
+    <ellipse cx="67" cy="30" rx="18" ry="26" fill="#13110c" stroke="#034ea1" stroke-width="2"/>
+    <circle cx="67" cy="30" r="7" fill="#ffffff"/>
+    <circle cx="67" cy="30" r="3.5" fill="#c61c1a"/>
   </g>
 
-  <!-- PMT Red Badge Box -->
-  <rect x="110" y="38" width="70" height="40" rx="4" fill="#b71c1c"/>
+  <!-- PMT Red Badge Box in #c61c1a -->
+  <rect x="110" y="38" width="70" height="40" rx="4" fill="#c61c1a"/>
   <text x="145" y="66" font-family="'Outfit', sans-serif" font-size="23" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
     PMT
   </text>
 
-  <!-- PREMIER MACHINE TOOLS Red Bold Title -->
-  <text x="190" y="67" font-family="'Outfit', 'Impact', sans-serif" font-size="27" font-weight="900" fill="#b71c1c" letter-spacing="0.5">
+  <!-- PREMIER MACHINE TOOLS Red Bold Title in #c61c1a -->
+  <text x="190" y="67" font-family="'Outfit', sans-serif" font-size="27" font-weight="900" fill="#c61c1a" letter-spacing="0.5">
     PREMIER MACHINE TOOLS
   </text>
 
-  <!-- Tagline / Subtitle -->
-  <text x="112" y="96" font-family="'Inter', sans-serif" font-size="10.5" font-weight="600" fill="#0f2942" letter-spacing="0.5">
+  <!-- Tagline / Subtitle in #034ea1 -->
+  <text x="112" y="96" font-family="'Inter', sans-serif" font-size="10.5" font-weight="700" fill="#034ea1" letter-spacing="0.5">
     WIRE ROPES • SLINGS • CHAINS • LIFTING TACKLES • BANDSAW BLADES
   </text>
 </svg>

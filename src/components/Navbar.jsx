@@ -31,10 +31,10 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
       {/* Topmost Official Bar - GSTIN, Pan-India Dispatch, Language Selector */}
       <div style={{
         background: 'var(--pmt-red)',
-        color: '#FFFFFF',
+        color: 'var(--pmt-white)',
         fontSize: '0.82rem',
         padding: '6px 16px',
-        borderBottom: '2px solid var(--pmt-green)'
+        borderBottom: '2px solid var(--pmt-teal)'
       }}>
         <div style={{
           maxWidth: '1280px',
@@ -48,7 +48,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
           {/* GSTIN & Pan-India Dispatch */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <span style={{
-              background: '#FFFFFF',
+              background: 'var(--pmt-white)',
               color: 'var(--pmt-red)',
               fontWeight: 800,
               padding: '2px 8px',
@@ -60,7 +60,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             </span>
 
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: 600 }}>
-              <Truck size={15} style={{ color: '#FDE047' }} />
+              <Truck size={15} style={{ color: 'var(--pmt-white)' }} />
               <span>{t.panIndiaBadge}</span>
             </span>
           </div>
@@ -72,20 +72,20 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
               display: 'inline-flex',
               alignItems: 'center',
               gap: '4px',
-              background: 'rgba(0,0,0,0.2)',
+              background: 'rgba(19, 17, 12, 0.25)',
               padding: '2px 8px',
               borderRadius: '6px'
             }}>
-              <Globe size={13} style={{ color: '#FDE047' }} />
+              <Globe size={13} style={{ color: 'var(--pmt-white)' }} />
               <button
                 onClick={() => onLanguageChange('en')}
                 style={{
-                  color: currentLang === 'en' ? '#FDE047' : '#FFFFFF',
+                  color: currentLang === 'en' ? 'var(--pmt-white)' : 'rgba(255, 255, 255, 0.8)',
                   fontWeight: currentLang === 'en' ? 800 : 500,
                   fontSize: '0.78rem',
                   padding: '2px 6px',
                   borderRadius: '3px',
-                  background: currentLang === 'en' ? 'rgba(255,255,255,0.18)' : 'none'
+                  background: currentLang === 'en' ? 'var(--pmt-teal)' : 'none'
                 }}
               >
                 English
@@ -94,12 +94,12 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
               <button
                 onClick={() => onLanguageChange('ta')}
                 style={{
-                  color: currentLang === 'ta' ? '#FDE047' : '#FFFFFF',
+                  color: currentLang === 'ta' ? 'var(--pmt-white)' : 'rgba(255, 255, 255, 0.8)',
                   fontWeight: currentLang === 'ta' ? 800 : 500,
                   fontSize: '0.78rem',
                   padding: '2px 6px',
                   borderRadius: '3px',
-                  background: currentLang === 'ta' ? 'rgba(255,255,255,0.18)' : 'none'
+                  background: currentLang === 'ta' ? 'var(--pmt-teal)' : 'none'
                 }}
               >
                 தமிழ்
@@ -108,19 +108,19 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
               <button
                 onClick={() => onLanguageChange('hi')}
                 style={{
-                  color: currentLang === 'hi' ? '#FDE047' : '#FFFFFF',
+                  color: currentLang === 'hi' ? 'var(--pmt-white)' : 'rgba(255, 255, 255, 0.8)',
                   fontWeight: currentLang === 'hi' ? 800 : 500,
                   fontSize: '0.78rem',
                   padding: '2px 6px',
                   borderRadius: '3px',
-                  background: currentLang === 'hi' ? 'rgba(255,255,255,0.18)' : 'none'
+                  background: currentLang === 'hi' ? 'var(--pmt-teal)' : 'none'
                 }}
               >
                 हिन्दी
               </button>
             </div>
 
-            {/* Direct Landline Call with Tracking */}
+            {/* Direct Landline Call */}
             <a 
               href="tel:+914222301274"
               id="cta-call-header"
@@ -129,7 +129,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
-                color: '#FFFFFF',
+                color: 'var(--pmt-white)',
                 fontWeight: 700
               }}
               title="Call 0422-2301274"
@@ -140,14 +140,14 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
         </div>
       </div>
 
-      {/* Main Sticky White Header */}
+      {/* Main Sticky Header */}
       <header style={{
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        background: '#FFFFFF',
-        borderBottom: '2px solid #E2E8F0',
-        boxShadow: isScrolled ? '0 6px 20px rgba(46, 49, 146, 0.08)' : '0 2px 6px rgba(0,0,0,0.03)',
+        background: 'var(--pmt-white)',
+        borderBottom: '2px solid #e2e8f0',
+        boxShadow: isScrolled ? '0 6px 20px rgba(3, 78, 161, 0.08)' : '0 2px 6px rgba(19, 17, 12, 0.04)',
         transition: 'all 0.25s ease'
       }}>
         <div style={{
@@ -177,9 +177,9 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#products" 
               id="nav-link-products"
-              style={{ fontWeight: 600, color: 'var(--pmt-indigo)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              style={{ fontWeight: 700, color: 'var(--pmt-blue)', fontSize: '0.92rem', transition: 'color 0.2s' }}
               onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-indigo)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-blue)'}
             >
               {t.nav.wireRope}
             </a>
@@ -187,9 +187,9 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#products" 
               id="nav-link-chain-pulley"
-              style={{ fontWeight: 600, color: 'var(--pmt-indigo)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              style={{ fontWeight: 700, color: 'var(--pmt-blue)', fontSize: '0.92rem', transition: 'color 0.2s' }}
               onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-indigo)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-blue)'}
             >
               {t.nav.chainPulley}
             </a>
@@ -197,9 +197,9 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#brands" 
               id="nav-link-brands"
-              style={{ fontWeight: 600, color: 'var(--pmt-indigo)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              style={{ fontWeight: 700, color: 'var(--pmt-blue)', fontSize: '0.92rem', transition: 'color 0.2s' }}
               onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-indigo)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-blue)'}
             >
               {t.brands.badge}
             </a>
@@ -207,9 +207,9 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#bank-details" 
               id="nav-link-bank"
-              style={{ fontWeight: 600, color: 'var(--pmt-indigo)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              style={{ fontWeight: 700, color: 'var(--pmt-blue)', fontSize: '0.92rem', transition: 'color 0.2s' }}
               onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-indigo)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-blue)'}
             >
               {t.nav.bank}
             </a>
@@ -217,9 +217,9 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#contact" 
               id="nav-link-contact"
-              style={{ fontWeight: 600, color: 'var(--pmt-indigo)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              style={{ fontWeight: 700, color: 'var(--pmt-blue)', fontSize: '0.92rem', transition: 'color 0.2s' }}
               onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-indigo)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-blue)'}
             >
               {t.nav.contact}
             </a>
@@ -227,24 +227,18 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
 
           {/* Right Action CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            {/* WhatsApp CTA with Tracking */}
+            {/* WhatsApp CTA in Teal #05aba5 */}
             <a
               href="https://wa.me/919487510127?text=Hello%20PMT%20Premier%20Machine%20Tools,%20I%20would%20like%20to%20inquire%20about%20your%20products."
               target="_blank"
               rel="noopener noreferrer"
               id="cta-whatsapp-header"
               data-track="whatsapp"
+              className="btn-pmt-teal"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: 'var(--pmt-green)',
-                color: '#FFFFFF',
-                fontWeight: 700,
                 fontSize: '0.85rem',
                 padding: '9px 14px',
-                borderRadius: '8px',
-                boxShadow: '0 2px 8px rgba(11, 110, 59, 0.3)'
+                borderRadius: '8px'
               }}
               title="Chat on WhatsApp"
             >
@@ -252,7 +246,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
               <span className="hide-on-mobile">WhatsApp</span>
             </a>
 
-            {/* Instant RFQ / Quote CTA with Tracking */}
+            {/* Instant RFQ / Quote CTA in Red #c61c1a */}
             <button
               onClick={onOpenRfq}
               id="cta-enquire-header"
@@ -264,7 +258,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
               <span>{t.nav.getQuote}</span>
               {cartCount > 0 && (
                 <span style={{
-                  background: '#FFFFFF',
+                  background: 'var(--pmt-white)',
                   color: 'var(--pmt-red)',
                   fontWeight: 900,
                   fontSize: '0.72rem',
@@ -286,9 +280,9 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '8px',
-                color: 'var(--pmt-indigo)',
+                color: 'var(--pmt-blue)',
                 borderRadius: '6px',
-                border: '1px solid #CBD5E1'
+                border: '1px solid #cbd5e1'
               }}
               className="show-on-mobile"
             >
@@ -300,34 +294,34 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div style={{
-            background: '#FFFFFF',
-            borderTop: '1px solid #E2E8F0',
+            background: 'var(--pmt-white)',
+            borderTop: '1px solid #e2e8f0',
             padding: '16px 20px',
             display: 'flex',
             flexDirection: 'column',
             gap: '12px',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+            boxShadow: '0 10px 25px rgba(19, 17, 12, 0.1)'
           }}>
             {/* Language Selection in Mobile Menu */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingBottom: '10px', borderBottom: '1px solid #F1F5F9' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#64748B' }}>Language:</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingBottom: '10px', borderBottom: '1px solid #f1f5f9' }}>
+              <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-light)' }}>Language:</span>
               <button 
                 onClick={() => { onLanguageChange('en'); setMobileMenuOpen(false); }} 
-                style={{ fontWeight: currentLang === 'en' ? 800 : 500, color: currentLang === 'en' ? 'var(--pmt-red)' : '#334155', fontSize: '0.85rem' }}
+                style={{ fontWeight: currentLang === 'en' ? 800 : 500, color: currentLang === 'en' ? 'var(--pmt-red)' : 'var(--pmt-black)', fontSize: '0.85rem' }}
               >
                 English
               </button>
               <span>•</span>
               <button 
                 onClick={() => { onLanguageChange('ta'); setMobileMenuOpen(false); }} 
-                style={{ fontWeight: currentLang === 'ta' ? 800 : 500, color: currentLang === 'ta' ? 'var(--pmt-green)' : '#334155', fontSize: '0.85rem' }}
+                style={{ fontWeight: currentLang === 'ta' ? 800 : 500, color: currentLang === 'ta' ? 'var(--pmt-teal)' : 'var(--pmt-black)', fontSize: '0.85rem' }}
               >
                 தமிழ்
               </button>
               <span>•</span>
               <button 
                 onClick={() => { onLanguageChange('hi'); setMobileMenuOpen(false); }} 
-                style={{ fontWeight: currentLang === 'hi' ? 800 : 500, color: currentLang === 'hi' ? 'var(--pmt-red)' : '#334155', fontSize: '0.85rem' }}
+                style={{ fontWeight: currentLang === 'hi' ? 800 : 500, color: currentLang === 'hi' ? 'var(--pmt-red)' : 'var(--pmt-black)', fontSize: '0.85rem' }}
               >
                 हिन्दी
               </button>
@@ -336,7 +330,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#products" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-indigo)', display: 'flex', justifyContent: 'space-between' }}
+              style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
             >
               <span>{t.nav.wireRope}</span>
               <ChevronRight size={16} color="var(--pmt-red)" />
@@ -345,7 +339,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#products" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-indigo)', display: 'flex', justifyContent: 'space-between' }}
+              style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
             >
               <span>{t.nav.chainPulley}</span>
               <ChevronRight size={16} color="var(--pmt-red)" />
@@ -354,7 +348,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#brands" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-indigo)', display: 'flex', justifyContent: 'space-between' }}
+              style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
             >
               <span>{t.brands.badge}</span>
               <ChevronRight size={16} color="var(--pmt-red)" />
@@ -363,7 +357,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#bank-details" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-indigo)', display: 'flex', justifyContent: 'space-between' }}
+              style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
             >
               <span>{t.nav.bank}</span>
               <ChevronRight size={16} color="var(--pmt-red)" />
@@ -372,7 +366,7 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
             <a 
               href="#contact" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-indigo)', display: 'flex', justifyContent: 'space-between' }}
+              style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
             >
               <span>{t.nav.contact}</span>
               <ChevronRight size={16} color="var(--pmt-red)" />
@@ -405,8 +399,8 @@ export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartC
                 id="cta-call-mobile-2"
                 data-track="call"
                 style={{
-                  background: 'var(--pmt-green-soft)',
-                  color: 'var(--pmt-green)',
+                  background: 'var(--pmt-teal-soft)',
+                  color: 'var(--pmt-teal-dark)',
                   padding: '10px',
                   borderRadius: '8px',
                   textAlign: 'center',

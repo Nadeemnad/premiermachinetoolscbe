@@ -6,7 +6,6 @@ import {
   ShoppingCart, 
   Check, 
   MessageCircle, 
-  Layers, 
   Anchor, 
   ShieldAlert, 
   Truck, 
@@ -32,12 +31,14 @@ export default function ProductCatalog({
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   const categories = [
-    { id: 'all', label: t.catalog.allCategories },
-    { id: 'wire-ropes', label: t.catalog.wireRopes },
-    { id: 'chain-pulleys', label: t.catalog.chainPulleys },
-    { id: 'slings', label: t.catalog.slings },
-    { id: 'blades', label: t.catalog.blades },
-    { id: 'hardware', label: t.catalog.hardware }
+    { id: 'all', label: t.catalog.all },
+    { id: 'steel-wire-rope', label: t.nav.wireRope },
+    { id: 'chain-pulley-block', label: t.nav.chainPulley },
+    { id: 'electric-hoist', label: t.nav.electricHoist },
+    { id: 'lifting-slings-shackles', label: t.nav.slings },
+    { id: 'ratchet-lashing-belt', label: t.nav.lashingBelt },
+    { id: 'pp-rope-danline', label: t.nav.ropes },
+    { id: 'saw-blades', label: t.nav.blades }
   ];
 
   const filteredProducts = useMemo(() => {
@@ -60,34 +61,35 @@ export default function ProductCatalog({
     });
   }, [activeCategory, searchQuery]);
 
-  // Product Vector Icon Resolver
+  // Product Vector Icon Resolver in 5 Colors
   const getProductIcon = (iconName) => {
     switch (iconName) {
       case 'Anchor': return <Anchor size={36} color="var(--pmt-red)" />;
-      case 'ShieldAlert': return <ShieldAlert size={36} color="var(--pmt-navy)" />;
-      case 'Boxes': return <Boxes size={36} color="var(--pmt-green)" />;
+      case 'ShieldAlert': return <ShieldAlert size={36} color="var(--pmt-blue)" />;
+      case 'Boxes': return <Boxes size={36} color="var(--pmt-teal)" />;
       case 'Truck': return <Truck size={36} color="var(--pmt-red)" />;
-      case 'Disc': return <Disc size={36} color="var(--pmt-navy)" />;
-      case 'Activity': return <Activity size={36} color="var(--pmt-green)" />;
+      case 'Disc': return <Disc size={36} color="var(--pmt-blue)" />;
+      case 'Activity': return <Activity size={36} color="var(--pmt-teal)" />;
       case 'Zap': return <Cpu size={36} color="var(--pmt-red)" />;
-      default: return <Wrench size={36} color="var(--pmt-navy)" />;
+      default: return <Wrench size={36} color="var(--pmt-blue)" />;
     }
   };
 
   return (
     <section id="products" style={{
-      padding: '70px 20px',
+      padding: '70px 16px',
       maxWidth: '1280px',
-      margin: '0 auto'
+      margin: '0 auto',
+      background: 'var(--pmt-white)'
     }}>
-      {/* Header */}
+      {/* Header in Blue #034ea1 & Red #c61c1a */}
       <div style={{ textAlign: 'center', marginBottom: '36px' }}>
         <div className="badge-red" style={{ marginBottom: '10px' }}>
           {t.catalog.badge}
         </div>
         <h2 style={{
           fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)',
-          color: 'var(--pmt-navy)',
+          color: 'var(--pmt-blue)',
           marginBottom: '12px'
         }}>
           {t.catalog.heading}
@@ -105,7 +107,7 @@ export default function ProductCatalog({
 
       {/* Filter and Search Container */}
       <div style={{
-        background: '#ffffff',
+        background: 'var(--pmt-white)',
         border: '1px solid #e2e8f0',
         borderRadius: '14px',
         padding: '16px',
@@ -135,10 +137,10 @@ export default function ProductCatalog({
                   fontWeight: 700,
                   whiteSpace: 'nowrap',
                   transition: 'all 0.2s ease',
-                  background: isActive ? 'var(--pmt-red)' : '#f8fafc',
-                  color: isActive ? '#ffffff' : 'var(--pmt-navy)',
+                  background: isActive ? 'var(--pmt-red)' : 'var(--bg-subtle)',
+                  color: isActive ? 'var(--pmt-white)' : 'var(--pmt-blue)',
                   border: isActive ? '1px solid var(--pmt-red)' : '1px solid #e2e8f0',
-                  boxShadow: isActive ? '0 2px 8px rgba(198, 40, 40, 0.3)' : 'none'
+                  boxShadow: isActive ? '0 2px 8px rgba(198, 28, 26, 0.3)' : 'none'
                 }}
               >
                 {cat.label}
@@ -158,12 +160,12 @@ export default function ProductCatalog({
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#f8fafc',
+            background: 'var(--bg-subtle)',
             border: '1px solid #cbd5e1',
             borderRadius: '8px',
             padding: '6px 12px',
             flexGrow: 1,
-            maxWidth: '380px'
+            maxWidth: '400px'
           }}>
             <Search size={16} color="var(--pmt-red)" style={{ marginRight: '8px' }} />
             <input
@@ -177,17 +179,17 @@ export default function ProductCatalog({
                 border: 'none',
                 outline: 'none',
                 fontSize: '0.88rem',
-                color: 'var(--pmt-navy)'
+                color: 'var(--pmt-black)'
               }}
             />
             {searchQuery && (
-              <button onClick={() => setSearchQuery('')} style={{ color: '#94a3b8', fontSize: '0.8rem' }}>
+              <button onClick={() => setSearchQuery('')} style={{ color: 'var(--text-light)', fontSize: '0.8rem' }}>
                 ✕
               </button>
             )}
           </div>
 
-          <div style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>
+          <div style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontWeight: 600 }}>
             Showing <strong style={{ color: 'var(--pmt-red)' }}>{filteredProducts.length}</strong> items • All India Delivery
           </div>
         </div>
@@ -203,7 +205,7 @@ export default function ProductCatalog({
           {filteredProducts.map((prod) => {
             const isCarted = cartItems.some((item) => item.id === prod.id);
 
-            // Localized Name
+            // Clean Single-Language Display Name & Tagline
             const displayName = currentLang === 'ta' && prod.nameTa 
               ? prod.nameTa 
               : currentLang === 'hi' && prod.nameHi 
@@ -212,33 +214,40 @@ export default function ProductCatalog({
 
             const displayTagline = currentLang === 'ta' && prod.taglineTa
               ? prod.taglineTa
+              : currentLang === 'hi' && prod.taglineHi
+              ? prod.taglineHi
               : prod.tagline;
 
             const whatsappMessage = encodeURIComponent(
-              `Hello Premier Machine Tools, I am interested in ordering/inquiring about: ${prod.name} (${prod.brand}). Please provide price and stock availability.`
+              `Hello Premier Machine Tools, I am interested in ordering/inquiring about: ${prod.name} (${prod.brand}). Please provide price quote.`
             );
 
             return (
               <div 
                 key={prod.id} 
-                className="pmt-product-card" 
+                className="card-border-box" 
                 id={`card-${prod.id}`}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                }}
               >
                 {/* Header Icon + Brand Strip */}
                 <div style={{
                   padding: '20px 20px 14px',
-                  background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
-                  borderBottom: '1px solid #f1f5f9',
+                  background: 'linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%)',
+                  borderBottom: '1px solid #F1F5F9',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-start'
                 }}>
                   <div style={{
-                    width: '58px',
-                    height: '58px',
+                    width: '56px',
+                    height: '56px',
                     borderRadius: '12px',
-                    background: '#ffffff',
-                    border: '1.5px solid #e2e8f0',
+                    background: 'var(--pmt-white)',
+                    border: '1.5px solid #E2E8F0',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -251,8 +260,8 @@ export default function ProductCatalog({
                     <span className="badge-red" style={{ marginBottom: '4px' }}>
                       {prod.brand}
                     </span>
-                    <div style={{ fontSize: '0.72rem', color: '#106f3c', fontWeight: 800 }}>
-                      ✓ Genuine Stock
+                    <div style={{ fontSize: '0.72rem', color: 'var(--pmt-teal)', fontWeight: 800 }}>
+                      ✓ Genuine Supply
                     </div>
                   </div>
                 </div>
@@ -261,7 +270,7 @@ export default function ProductCatalog({
                 <div style={{ padding: '18px 20px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                   <h3 style={{
                     fontSize: '1.18rem',
-                    color: 'var(--pmt-navy)',
+                    color: 'var(--pmt-blue)',
                     marginBottom: '8px',
                     lineHeight: 1.3
                   }}>
@@ -280,29 +289,29 @@ export default function ProductCatalog({
 
                   {/* Key Specs Preview */}
                   <div style={{
-                    background: '#f8fafc',
+                    background: 'var(--bg-subtle)',
                     borderRadius: '8px',
                     padding: '10px 12px',
                     marginBottom: '16px',
-                    border: '1px solid #e2e8f0',
+                    border: '1px solid #E2E8F0',
                     fontSize: '0.8rem'
                   }}>
                     {Object.entries(prod.specs).slice(0, 3).map(([key, val]) => (
                       <div key={key} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                        <span style={{ color: '#64748b', textTransform: 'capitalize' }}>
+                        <span style={{ color: 'var(--text-light)', textTransform: 'capitalize' }}>
                           {key.replace(/([A-Z])/g, ' $1')}:
                         </span>
-                        <strong style={{ color: 'var(--pmt-navy)' }}>{val}</strong>
+                        <strong style={{ color: 'var(--pmt-black)' }}>{val}</strong>
                       </div>
                     ))}
                   </div>
 
-                  {/* Actions Row */}
+                  {/* Actions Row in Strict Colors */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                       <button
                         onClick={() => onSelectProduct(prod)}
-                        className="btn-outline-navy"
+                        className="btn-outline-blue"
                         style={{ padding: '8px 10px', fontSize: '0.82rem' }}
                       >
                         <Eye size={15} />
@@ -321,20 +330,20 @@ export default function ProductCatalog({
                           fontSize: '0.82rem',
                           fontWeight: 700,
                           transition: 'all 0.2s',
-                          background: isCarted ? 'var(--pmt-green-soft)' : 'var(--pmt-red-soft)',
-                          color: isCarted ? 'var(--pmt-green-dark)' : 'var(--pmt-red)',
-                          border: isCarted ? '1px solid var(--pmt-green)' : '1px solid rgba(198, 40, 40, 0.4)'
+                          background: isCarted ? 'var(--pmt-teal-soft)' : 'var(--pmt-red-soft)',
+                          color: isCarted ? 'var(--pmt-teal-dark)' : 'var(--pmt-red)',
+                          border: isCarted ? '1px solid var(--pmt-teal)' : '1px solid rgba(198, 28, 26, 0.4)'
                         }}
                       >
                         {isCarted ? (
                           <>
                             <Check size={15} />
-                            <span>{t.catalog.addedToQuote}</span>
+                            <span>{t.catalog.inList}</span>
                           </>
                         ) : (
                           <>
                             <ShoppingCart size={15} />
-                            <span>{t.catalog.requestQuote}</span>
+                            <span>{t.catalog.enquire}</span>
                           </>
                         )}
                       </button>
@@ -344,22 +353,14 @@ export default function ProductCatalog({
                       href={`https://wa.me/919487510127?text=${whatsappMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="btn-pmt-teal"
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '6px',
-                        background: '#25d366',
-                        color: '#ffffff',
                         padding: '8px 12px',
-                        borderRadius: '6px',
-                        fontSize: '0.82rem',
-                        fontWeight: 700,
-                        transition: 'opacity 0.2s'
+                        fontSize: '0.82rem'
                       }}
                     >
                       <MessageCircle size={15} />
-                      <span>{t.catalog.inquireWhatsApp}</span>
+                      <span>{t.catalog.whatsappInquire}</span>
                     </a>
                   </div>
                 </div>
@@ -371,16 +372,16 @@ export default function ProductCatalog({
         <div style={{
           textAlign: 'center',
           padding: '50px 20px',
-          background: '#ffffff',
+          background: 'var(--pmt-white)',
           borderRadius: '12px',
-          border: '1px dashed #cbd5e1'
+          border: '1px dashed #CBD5E1'
         }}>
-          <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: '14px' }}>
+          <p style={{ color: 'var(--text-light)', fontSize: '0.95rem', marginBottom: '14px' }}>
             No products found matching your search.
           </p>
           <button
             onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
-            className="btn-outline-navy"
+            className="btn-outline-blue"
             style={{ fontSize: '0.85rem' }}
           >
             <RotateCcw size={15} /> Reset Filters
