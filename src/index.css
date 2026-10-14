@@ -1,42 +1,35 @@
 :root {
-  /* Visiting Card Exact Brand Colors */
-  --pmt-red: #c62828;
-  --pmt-red-dark: #b71c1c;
-  --pmt-red-light: #ef5350;
-  --pmt-red-soft: #fde8e8;
-  
-  --pmt-green: #106f3c;
-  --pmt-green-dark: #0b502a;
-  --pmt-green-light: #2e7d32;
-  --pmt-green-soft: #e8f5e9;
-  
-  --pmt-navy: #0f2942;
-  --pmt-navy-dark: #091a2b;
-  --pmt-navy-light: #1e3a5f;
-  
-  --pmt-gold: #f59e0b;
-  --pmt-amber: #d97706;
+  /* Exact Colors Sampled from Visiting Card & Invoice */
+  --pmt-red: #E1281C;          /* Card Primary Red banner & title */
+  --pmt-red-dark: #B51A10;
+  --pmt-red-soft: #FDE8E7;
 
-  /* Clean Professional Surface Palette */
-  --bg-page: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-subtle: #f1f5f9;
-  --bg-card: #ffffff;
-  --bg-dark-footer: #0c1824;
-  
-  --text-main: #0f172a;
+  --pmt-green: #0B6E3B;        /* Card Tamil Title Green "பிரிமியர் மெஷின் டூல்ஸ்" */
+  --pmt-green-dark: #074E29;
+  --pmt-green-soft: #E8F5EE;
+
+  --pmt-indigo: #2E3192;       /* Card Address Indigo / Deep Navy */
+  --pmt-indigo-dark: #1E216B;
+  --pmt-indigo-soft: #ECEEF9;
+
+  --pmt-cyan: #1BA6CC;         /* Card Product Box Border Cyan */
+  --pmt-cyan-soft: #E6F7FB;
+
+  --bg-page: #F8FAFC;
+  --bg-white: #FFFFFF;
+  --bg-subtle: #F1F5F9;
+
+  --text-main: #1E293B;
   --text-muted: #475569;
-  --text-light: #64748b;
-  --text-white: #ffffff;
+  --text-light: #64748B;
   
-  --border-card: #e2e8f0;
-  --border-red: rgba(198, 40, 40, 0.35);
-  --border-green: rgba(16, 111, 60, 0.35);
+  --border-card: #E2E8F0;
+  --border-red: rgba(225, 40, 28, 0.4);
+  --border-cyan: #1BA6CC;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.12);
-  --shadow-red: 0 4px 16px rgba(198, 40, 40, 0.25);
+  --shadow-md: 0 4px 14px rgba(46, 49, 146, 0.08);
+  --shadow-lg: 0 12px 30px rgba(46, 49, 146, 0.12);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -44,8 +37,8 @@
   --radius-full: 9999px;
 
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-tamil: 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-tamil: 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 * {
@@ -67,6 +60,13 @@ body {
   overflow-x: hidden;
   background-color: var(--bg-page);
   min-height: 100vh;
+  padding-bottom: 64px; /* Space for mobile sticky CTA bar */
+}
+
+@media (min-width: 769px) {
+  body {
+    padding-bottom: 0;
+  }
 }
 
 /* Typography Defaults */
@@ -74,13 +74,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   letter-spacing: -0.01em;
   font-weight: 800;
-  color: var(--pmt-navy);
+  color: var(--pmt-indigo);
 }
 
-.tamil-text {
-  font-family: var(--font-tamil);
-  color: var(--pmt-green);
-  font-weight: 800;
+.tamil-font {
+  font-family: var(--font-tamil), sans-serif;
 }
 
 a {
@@ -99,27 +97,27 @@ input, select, textarea {
   font-family: var(--font-body);
 }
 
-/* Buttons Styled After Visiting Card Colors */
+/* PMT Visiting Card Color Action Buttons */
 .btn-pmt-red {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--pmt-red) 0%, var(--pmt-red-dark) 100%);
-  color: #ffffff;
+  background: var(--pmt-red);
+  color: #FFFFFF;
   font-weight: 700;
   padding: 12px 22px;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(198, 40, 40, 0.35);
+  box-shadow: 0 4px 14px rgba(225, 40, 28, 0.3);
   border: 1px solid var(--pmt-red-dark);
 }
 
 .btn-pmt-red:hover {
-  background: linear-gradient(135deg, #d32f2f 0%, var(--pmt-red) 100%);
+  background: var(--pmt-red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(198, 40, 40, 0.45);
+  box-shadow: 0 6px 20px rgba(225, 40, 28, 0.45);
 }
 
 .btn-pmt-green {
@@ -127,44 +125,82 @@ input, select, textarea {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--pmt-green) 0%, var(--pmt-green-dark) 100%);
-  color: #ffffff;
+  background: var(--pmt-green);
+  color: #FFFFFF;
   font-weight: 700;
   padding: 12px 22px;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(16, 111, 60, 0.3);
+  box-shadow: 0 4px 14px rgba(11, 110, 59, 0.3);
+  border: 1px solid var(--pmt-green-dark);
 }
 
 .btn-pmt-green:hover {
-  background: linear-gradient(135deg, #157347 0%, var(--pmt-green) 100%);
+  background: var(--pmt-green-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(16, 111, 60, 0.45);
+  box-shadow: 0 6px 20px rgba(11, 110, 59, 0.45);
 }
 
-.btn-outline-navy {
+.btn-pmt-indigo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #ffffff;
-  color: var(--pmt-navy);
+  background: var(--pmt-indigo);
+  color: #FFFFFF;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(46, 49, 146, 0.25);
+  border: 1px solid var(--pmt-indigo-dark);
+}
+
+.btn-pmt-indigo:hover {
+  background: var(--pmt-indigo-dark);
+  transform: translateY(-2px);
+}
+
+.btn-outline-indigo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #FFFFFF;
+  color: var(--pmt-indigo);
   font-weight: 700;
   padding: 11px 20px;
   border-radius: var(--radius-md);
-  border: 2px solid var(--pmt-navy);
+  border: 2px solid var(--pmt-indigo);
   font-size: 0.92rem;
   transition: all 0.2s ease;
 }
 
-.btn-outline-navy:hover {
-  background: var(--pmt-navy);
-  color: #ffffff;
+.btn-outline-indigo:hover {
+  background: var(--pmt-indigo);
+  color: #FFFFFF;
   transform: translateY(-2px);
 }
 
-/* Card Badge Tokens */
+/* Visiting Card Container Motif */
+.card-border-box {
+  background: #FFFFFF;
+  border: 2px solid var(--pmt-red);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  position: relative;
+}
+
+.card-cyan-border {
+  border: 2px solid var(--pmt-cyan);
+  border-radius: var(--radius-md);
+  background: #FFFFFF;
+}
+
+/* Badge Tokens */
 .badge-red {
   display: inline-flex;
   align-items: center;
@@ -175,8 +211,8 @@ input, select, textarea {
   font-weight: 700;
   text-transform: uppercase;
   background: var(--pmt-red-soft);
-  color: var(--pmt-red-dark);
-  border: 1px solid rgba(198, 40, 40, 0.3);
+  color: var(--pmt-red);
+  border: 1px solid rgba(225, 40, 28, 0.3);
 }
 
 .badge-green {
@@ -190,10 +226,10 @@ input, select, textarea {
   text-transform: uppercase;
   background: var(--pmt-green-soft);
   color: var(--pmt-green);
-  border: 1px solid rgba(16, 111, 60, 0.3);
+  border: 1px solid rgba(11, 110, 59, 0.3);
 }
 
-.badge-navy {
+.badge-indigo {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -202,58 +238,64 @@ input, select, textarea {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  background: #e2e8f0;
-  color: var(--pmt-navy);
-  border: 1px solid #cbd5e1;
+  background: var(--pmt-indigo-soft);
+  color: var(--pmt-indigo);
+  border: 1px solid rgba(46, 49, 146, 0.3);
 }
 
-/* Visiting Card Look & Feel Container */
-.visiting-card-frame {
-  background: #ffffff;
-  border: 2px solid var(--pmt-red);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  position: relative;
-  overflow: hidden;
+.badge-cyan {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--pmt-cyan-soft);
+  color: #0E7490;
+  border: 1px solid rgba(27, 166, 204, 0.4);
 }
 
-.visiting-card-frame::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, var(--pmt-red) 0%, var(--pmt-green) 50%, var(--pmt-navy) 100%);
+/* Sticky Mobile Bottom Bar */
+.sticky-mobile-bar {
+  display: none;
 }
 
-/* Product Card */
-.pmt-product-card {
-  background: #ffffff;
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.25s ease;
-  box-shadow: var(--shadow-sm);
-}
-
-.pmt-product-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-red);
-  box-shadow: var(--shadow-md), 0 0 0 1px rgba(198, 40, 40, 0.15);
-}
-
-/* Mobile Responsiveness Rules */
 @media (max-width: 768px) {
+  .sticky-mobile-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #FFFFFF;
+    border-top: 2px solid var(--pmt-red);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+    z-index: 190;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+  }
+  
+  .sticky-mobile-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 48px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 0 4px;
+    min-height: 44px; /* Accessible tap target */
+  }
+
   .hide-on-mobile {
     display: none !important;
-  }
-  .mobile-stack {
-    flex-direction: column !important;
-  }
-  .mobile-full-width {
-    width: 100% !important;
   }
 }

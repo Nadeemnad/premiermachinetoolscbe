@@ -1,1 +1,8 @@
-/*    /index.html   200
+# Clean URLs & legacy redirects
+/index.html                 /                                  301!
+/products                   /#products                         301
+/wire-rope                  /#products                         301
+/contact.html               /#contact                          301!
+
+# Single Page App routing for Netlify
+/*                          /index.html                        200

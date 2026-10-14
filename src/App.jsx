@@ -4,8 +4,10 @@ import Hero from './components/Hero';
 import ProductCatalog from './components/ProductCatalog';
 import ProductModal from './components/ProductModal';
 import BrandsSection from './components/BrandsSection';
+import FaqAndDeliverySection from './components/FaqAndDeliverySection';
 import BankDetailsSection from './components/BankDetailsSection';
 import Footer from './components/Footer';
+import StickyMobileBar from './components/StickyMobileBar';
 import RfqModal from './components/RfqModal';
 import Toast from './components/Toast';
 
@@ -59,26 +61,38 @@ export default function App() {
     setHeroSearchQuery(query);
   };
 
+  // Language Change with GTM dataLayer event
+  const handleLanguageChange = (newLang) => {
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'language_change',
+        from: currentLang,
+        to: newLang
+      });
+    }
+    setCurrentLang(newLang);
+  };
+
   return (
-    <div className="pmt-app" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Navbar with Multi-Language Control, GSTIN, and Visiting Card Contacts */}
+    <div className={`pmt-app ${currentLang === 'ta' ? 'tamil-font' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Navbar with Multi-Language Switcher, GSTIN, and Direct Phones */}
       <Navbar
         currentLang={currentLang}
-        onLanguageChange={(lang) => setCurrentLang(lang)}
+        onLanguageChange={handleLanguageChange}
         onOpenRfq={() => handleOpenRfq()}
         cartCount={cartItems.length}
       />
 
-      {/* Main Body */}
+      {/* Main Page Body */}
       <main style={{ flexGrow: 1 }}>
-        {/* Visiting Card Theme Hero Banner */}
+        {/* Hero Section matching Visiting Card & SEO H1 */}
         <Hero
           currentLang={currentLang}
           onSearchSubmit={handleHeroSearch}
           onOpenRfq={() => handleOpenRfq()}
         />
 
-        {/* Real Product Catalog: Wire Ropes, Chain Pulleys, Slings, Bandsaw Blades, Rigging Hardware */}
+        {/* Product Catalog covering the 8 Keyword Clusters */}
         <ProductCatalog
           currentLang={currentLang}
           initialSearch={heroSearchQuery}
@@ -87,18 +101,30 @@ export default function App() {
           onSelectProduct={(p) => setSelectedProduct(p)}
         />
 
-        {/* Certified Brand Partners: Usha Martin, Garware, ASIL, Triple Super Gear, Good Lift, ESI */}
+        {/* Brand Specialties: Usha Martin, Garware, ASIL, Good Lift */}
         <BrandsSection currentLang={currentLang} />
 
-        {/* Official Bank Billing Details (From Invoice) */}
+        {/* Pan-India Delivery & Buyer FAQ Section */}
+        <FaqAndDeliverySection
+          currentLang={currentLang}
+          onOpenRfq={() => handleOpenRfq()}
+        />
+
+        {/* Official Bank Account Details from Invoice */}
         <BankDetailsSection
           currentLang={currentLang}
           onShowToast={showToast}
         />
       </main>
 
-      {/* Footer with H.O., B.O., GSTIN, Contact Numbers & Pan-India Dispatch */}
+      {/* Footer with H.O., B.O., GSTIN, and Products */}
       <Footer
+        currentLang={currentLang}
+        onOpenRfq={() => handleOpenRfq()}
+      />
+
+      {/* Sticky Mobile Bottom Bar (Call, WhatsApp, Get Quote) */}
+      <StickyMobileBar
         currentLang={currentLang}
         onOpenRfq={() => handleOpenRfq()}
       />
@@ -115,7 +141,7 @@ export default function App() {
         />
       )}
 
-      {/* RFQ & WhatsApp Inquiry Drawer */}
+      {/* RFQ & Quote Inquiry Modal */}
       <RfqModal
         isOpen={isRfqOpen}
         onClose={() => setIsRfqOpen(false)}
@@ -126,7 +152,7 @@ export default function App() {
         onShowToast={showToast}
       />
 
-      {/* Toast Feedback */}
+      {/* Micro-Notification Toast */}
       <Toast
         message={toastMessage}
         onClose={() => setToastMessage(null)}

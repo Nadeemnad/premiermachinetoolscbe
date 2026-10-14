@@ -5,7 +5,6 @@ import {
   Search, 
   Truck, 
   ShieldCheck, 
-  CheckCircle2, 
   MapPin, 
   ArrowRight,
   Anchor,
@@ -29,22 +28,22 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
 
   return (
     <section style={{
-      background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
-      padding: '40px 20px 60px',
-      borderBottom: '1px solid #e2e8f0'
+      background: 'linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)',
+      padding: '36px 16px 54px',
+      borderBottom: '1px solid #E2E8F0'
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-        {/* Visiting Card Motif Main Box */}
-        <div className="visiting-card-frame" style={{ padding: '36px 32px 28px' }}>
-          {/* Top Line: GSTIN and Phone Numbers */}
+        {/* Visiting Card Frame Structure */}
+        <div className="card-border-box" style={{ padding: '32px 28px 24px' }}>
+          {/* Top Line: GSTIN and Phone Numbers from Card */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '12px',
+            gap: '10px',
             marginBottom: '16px',
-            borderBottom: '1px solid #f1f5f9',
+            borderBottom: '1px solid #F1F5F9',
             paddingBottom: '12px'
           }}>
             <div style={{
@@ -53,81 +52,94 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               color: 'var(--pmt-red)',
               letterSpacing: '0.04em'
             }}>
-              GSTIN: 33AALFP8180B2Z9
+              {t.gstinLabel}
             </div>
 
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '16px',
+              gap: '14px',
               flexWrap: 'wrap',
               fontSize: '0.88rem',
               fontWeight: 700,
-              color: 'var(--pmt-navy)'
+              color: 'var(--pmt-indigo)'
             }}>
-              <span>☎ 0422 - 2301274</span>
-              <span>📱 94875 10127</span>
-              <span>📱 94432 30127</span>
+              <span>☎ {t.phones.landline}</span>
+              <span>📱 {t.phones.mobile1}</span>
+              <span>📱 {t.phones.mobile2}</span>
             </div>
           </div>
 
-          {/* Brand Heading Section */}
-          <div style={{ textAlign: 'center', margin: '14px 0 24px' }}>
-            {/* Tamil Header from Card */}
-            <h2 className="tamil-text" style={{
-              fontSize: 'clamp(1.8rem, 3.8vw, 2.8rem)',
-              lineHeight: 1.2,
-              marginBottom: '6px'
-            }}>
-              {t.companyTamil}
-            </h2>
-
-            {/* PMT PREMIER MACHINE TOOLS Red Bar */}
+          {/* Clean Single-Language Header */}
+          <div style={{ textAlign: 'center', margin: '10px 0 24px' }}>
+            {/* Tagline */}
             <div style={{
-              background: 'linear-gradient(90deg, #b71c1c 0%, #c62828 50%, #b71c1c 100%)',
-              color: '#ffffff',
-              padding: '8px 16px',
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              color: 'var(--pmt-green)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              marginBottom: '8px'
+            }}>
+              {t.hero.tagline}
+            </div>
+
+            {/* PMT Banner Bar */}
+            <div style={{
+              background: 'linear-gradient(90deg, #B51A10 0%, #E1281C 50%, #B51A10 100%)',
+              color: '#FFFFFF',
+              padding: '8px 18px',
               borderRadius: '6px',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '12px',
-              boxShadow: '0 4px 14px rgba(198, 40, 40, 0.35)',
-              margin: '8px auto 16px'
+              boxShadow: '0 4px 14px rgba(225, 40, 28, 0.35)',
+              margin: '0 auto 16px'
             }}>
               <span style={{
-                background: '#ffffff',
-                color: '#b71c1c',
+                background: '#FFFFFF',
+                color: 'var(--pmt-red)',
                 fontWeight: 900,
-                fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
+                fontSize: 'clamp(1rem, 2.2vw, 1.5rem)',
                 padding: '2px 8px',
                 borderRadius: '4px',
                 lineHeight: 1
               }}>
                 PMT
               </span>
-              <h1 style={{
-                color: '#ffffff',
-                fontSize: 'clamp(1.2rem, 3.2vw, 2.2rem)',
+              <span style={{
+                color: '#FFFFFF',
+                fontSize: 'clamp(1.15rem, 3vw, 2.1rem)',
                 fontWeight: 900,
-                letterSpacing: '0.04em',
-                margin: 0,
+                letterSpacing: '0.03em',
                 lineHeight: 1.1
               }}>
-                PREMIER MACHINE TOOLS
-              </h1>
+                {t.companyName}
+              </span>
             </div>
 
-            {/* Dealer subtitle from visiting card */}
-            <p style={{
-              color: 'var(--pmt-navy)',
-              fontSize: 'clamp(0.95rem, 1.8vw, 1.12rem)',
-              fontWeight: 600,
+            {/* Exact H1 for SEO without language mixing */}
+            <h1 style={{
+              color: 'var(--pmt-indigo)',
+              fontSize: 'clamp(1.25rem, 2.8vw, 2rem)',
+              fontWeight: 800,
               maxWidth: '850px',
-              margin: '0 auto 18px',
-              lineHeight: 1.6
+              margin: '0 auto 14px',
+              lineHeight: 1.3
             }}>
-              {t.hero.subtitle}
+              {t.hero.h1}
+            </h1>
+
+            {/* Subtitle from Card */}
+            <p style={{
+              color: 'var(--text-muted)',
+              fontSize: 'clamp(0.92rem, 1.6vw, 1.05rem)',
+              lineHeight: 1.6,
+              maxWidth: '820px',
+              margin: '0 auto 18px'
+            }}>
+              {t.hero.sub}
             </p>
 
             {/* Pan-India Delivery Ribbon */}
@@ -140,30 +152,30 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
               border: '1.5px solid var(--pmt-green)',
               borderRadius: '30px',
               padding: '6px 18px',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 800,
-              boxShadow: '0 2px 8px rgba(16, 111, 60, 0.15)'
+              boxShadow: '0 2px 8px rgba(11, 110, 59, 0.15)'
             }}>
               <Truck size={17} style={{ color: 'var(--pmt-green)' }} />
               <span>{t.panIndiaBadge}</span>
             </div>
           </div>
 
-          {/* Quick Search Input */}
+          {/* Quick Product Search Input */}
           <form onSubmit={handleSearch} style={{
-            maxWidth: '680px',
-            margin: '0 auto 28px',
+            maxWidth: '660px',
+            margin: '0 auto 26px',
             display: 'flex',
             alignItems: 'center',
-            background: '#ffffff',
+            background: '#FFFFFF',
             border: '2px solid var(--pmt-red)',
             borderRadius: '12px',
-            padding: '4px 6px 4px 16px',
-            boxShadow: '0 4px 16px rgba(198, 40, 40, 0.15)'
+            padding: '4px 6px 4px 14px',
+            boxShadow: '0 4px 16px rgba(225, 40, 28, 0.12)'
           }}>
-            <Search size={20} color="var(--pmt-red)" style={{ flexShrink: 0, marginRight: '8px' }} />
+            <Search size={19} color="var(--pmt-red)" style={{ flexShrink: 0, marginRight: '8px' }} />
             <input
-              id="hero-product-search"
+              id="hero-search-input"
               type="text"
               placeholder={t.catalog.searchPlaceholder}
               value={query}
@@ -172,13 +184,13 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
                 width: '100%',
                 border: 'none',
                 outline: 'none',
-                fontSize: '0.95rem',
-                color: 'var(--pmt-navy)'
+                fontSize: '0.92rem',
+                color: 'var(--text-main)'
               }}
             />
             <button
               type="submit"
-              id="hero-search-submit"
+              id="hero-search-btn"
               className="btn-pmt-red"
               style={{ padding: '9px 18px', fontSize: '0.88rem', flexShrink: 0 }}
             >
@@ -186,157 +198,160 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
             </button>
           </form>
 
-          {/* Action Call & Quotation Buttons */}
+          {/* Primary Action Buttons with Event Tracking Attributes */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
             gap: '12px',
             flexWrap: 'wrap',
-            marginBottom: '28px'
+            marginBottom: '26px'
           }}>
             <a
-              href="tel:9443230127"
-              id="hero-call-primary"
+              href="tel:+919487510127"
+              id="cta-call-hero"
+              data-track="call"
               className="btn-pmt-red"
-              style={{ fontSize: '0.98rem', padding: '12px 24px' }}
+              style={{ fontSize: '0.95rem', padding: '12px 22px' }}
             >
               <PhoneCall size={18} />
-              <span>{t.hero.callNow}</span>
+              <span>{t.hero.callBtn}</span>
             </a>
 
             <a
               href="https://wa.me/919487510127?text=Hello%20PMT,%20I%20need%20a%20quotation%20for%20Wire%20Ropes%20/%20Chain%20Pulleys%20/%20Slings."
               target="_blank"
               rel="noopener noreferrer"
-              id="hero-whatsapp-quote"
+              id="cta-whatsapp-hero"
+              data-track="whatsapp"
               className="btn-pmt-green"
-              style={{ fontSize: '0.98rem', padding: '12px 24px' }}
+              style={{ fontSize: '0.95rem', padding: '12px 22px' }}
             >
               <MessageCircle size={18} />
-              <span>{t.hero.whatsappQuote}</span>
+              <span>{t.hero.whatsappBtn}</span>
             </a>
 
             <button
               onClick={onOpenRfq}
-              id="hero-rfq-drawer"
-              className="btn-outline-navy"
-              style={{ fontSize: '0.98rem', padding: '12px 22px' }}
+              id="cta-enquire-hero"
+              data-track="enquiry"
+              className="btn-outline-indigo"
+              style={{ fontSize: '0.95rem', padding: '12px 22px' }}
             >
               <span>{t.nav.getQuote}</span>
               <ArrowRight size={17} />
             </button>
           </div>
 
-          {/* Bottom Card Footer: H.O. and B.O. Addresses */}
+          {/* Bottom Card Footer with H.O. and B.O. Addresses */}
           <div style={{
-            background: '#f8fafc',
-            borderTop: '1px solid #e2e8f0',
-            margin: '0 -32px -28px',
-            padding: '16px 24px',
+            background: '#F8FAFC',
+            borderTop: '1px solid #E2E8F0',
+            margin: '0 -28px -24px',
+            padding: '14px 20px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '12px',
+            gap: '10px',
             fontSize: '0.82rem',
             color: 'var(--text-muted)'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <MapPin size={16} color="var(--pmt-red)" style={{ flexShrink: 0 }} />
-              <span><strong>H.O. :</strong> # 129/4 (Old No. 184) Dr. Nanjappa Road, Coimbatore - 641 018</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <MapPin size={15} color="var(--pmt-red)" style={{ flexShrink: 0 }} />
+              <span>{t.headOffice}</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <MapPin size={16} color="var(--pmt-green)" style={{ flexShrink: 0 }} />
-              <span><strong>B.O. :</strong> Basement Floor, 180, N.S.P. Shopping Complex, Coimbatore</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <MapPin size={15} color="var(--pmt-green)" style={{ flexShrink: 0 }} />
+              <span>{t.branchOffice}</span>
             </div>
 
-            <div style={{ color: 'var(--pmt-navy)', fontWeight: 600 }}>
+            <div style={{ color: 'var(--pmt-indigo)', fontWeight: 600 }}>
               ✉ pmtpremiermachinetools@gmail.com
             </div>
           </div>
         </div>
 
-        {/* Feature Highlights Strip */}
+        {/* 4 Feature Badges Strip */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '16px',
-          marginTop: '28px'
+          gap: '14px',
+          marginTop: '24px'
         }}>
           <div style={{
-            background: '#ffffff',
-            border: '1px solid #e2e8f0',
+            background: '#FFFFFF',
+            border: '1px solid #E2E8F0',
             borderRadius: '10px',
-            padding: '14px 18px',
+            padding: '14px 16px',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '10px',
             boxShadow: 'var(--shadow-sm)'
           }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '8px', background: 'var(--pmt-red-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-red)' }}>
-              <Award size={20} />
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-red-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-red)' }}>
+              <Award size={18} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--pmt-navy)' }}>Usha Martin Specialist</div>
-              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>Certified Steel Wire Ropes</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-indigo)' }}>{t.hero.stat1}</div>
+              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Certified 6x19 & 6x36 GI Wire Ropes</div>
             </div>
           </div>
 
           <div style={{
-            background: '#ffffff',
-            border: '1px solid #e2e8f0',
+            background: '#FFFFFF',
+            border: '1px solid #E2E8F0',
             borderRadius: '10px',
-            padding: '14px 18px',
+            padding: '14px 16px',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '10px',
             boxShadow: 'var(--shadow-sm)'
           }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '8px', background: 'var(--pmt-green-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-green)' }}>
-              <ShieldCheck size={20} />
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-green-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-green)' }}>
+              <ShieldCheck size={18} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--pmt-navy)' }}>Triple Super Gear & Good Lift</div>
-              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>0.5T to 20T Chain Hoists</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-indigo)' }}>{t.hero.stat2}</div>
+              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>0.5 Ton to 20 Ton Manual Hoists</div>
             </div>
           </div>
 
           <div style={{
-            background: '#ffffff',
-            border: '1px solid #e2e8f0',
+            background: '#FFFFFF',
+            border: '1px solid #E2E8F0',
             borderRadius: '10px',
-            padding: '14px 18px',
+            padding: '14px 16px',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '10px',
             boxShadow: 'var(--shadow-sm)'
           }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '8px', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0284c7' }}>
-              <Layers size={20} />
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-cyan-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0E7490' }}>
+              <Layers size={18} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--pmt-navy)' }}>Garware Garfil 3 Strand</div>
-              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>Original Polypropylene Ropes</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-indigo)' }}>{t.hero.stat3}</div>
+              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Original Polypropylene 3-Strand</div>
             </div>
           </div>
 
           <div style={{
-            background: '#ffffff',
-            border: '1px solid #e2e8f0',
+            background: '#FFFFFF',
+            border: '1px solid #E2E8F0',
             borderRadius: '10px',
-            padding: '14px 18px',
+            padding: '14px 16px',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '10px',
             boxShadow: 'var(--shadow-sm)'
           }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '8px', background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#b45309' }}>
-              <Truck size={20} />
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--pmt-indigo-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--pmt-indigo)' }}>
+              <Truck size={18} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--pmt-navy)' }}>All India Transport</div>
-              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>Fast Express Lorry Dispatch</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--pmt-indigo)' }}>{t.hero.stat4}</div>
+              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Daily Lorry Transport & Courier</div>
             </div>
           </div>
         </div>
