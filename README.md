@@ -1,84 +1,73 @@
 # Premier Machine Tools (PMT) Coimbatore
+### பிரீமியர் மெஷின் டூல்ஸ் • கோயம்புத்தூர்
 
-> High-Precision CNC & Heavy Industrial Machinery Showcase & RFQ Web Application.
-
-![Premier Machine Tools](/images/hero_cnc.jpg)
-
-## 📌 About The Project
-Premier Machine Tools (Coimbatore, Tamil Nadu) has been a trusted manufacturer and distributor of industrial CNC machinery, multi-axis machining centers, precision lathes, and cutting tools since 1994. 
-
-This modern web application provides:
-- **Interactive Machinery Catalog**: Slant-bed CNC turning centers, 5-axis vertical machining centers (VMC), all-geared precision lathes, and solid carbide tooling kits.
-- **Dynamic Specification Inspector Modal**: Deep-dive technical tables covering spindle speeds, axis travels, CNC controllers (Fanuc, Siemens, Mitsubishi), and repeatability.
-- **Factory ROI & Payback Calculator**: Interactive tool for factory owners to calculate cycle-time reductions, hours saved, monthly cost savings (₹), and investment payback periods.
-- **RFQ Quote Cart & Instant Ticket Generator**: Multi-machine selection drawer and instant inquiry submission with unique reference tracking codes (`PMT-CBE-2026-XXXX`).
-- **Coimbatore Demo & Benchmarking Center**: Live test-cutting reservation system for local clients in SIDCO Kurichi and Pan-India.
+> **Dealers & Specialists in:** All kinds of Tools, Steel Wire Ropes, Chains, Lifting Equipment, Polyester Web Slings, Rigging Hardware & Woodworking Bandsaw Blades.
 
 ---
 
-## 🛠️ Technology Stack
-- **Framework**: [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Styling**: Modern Vanilla CSS Design System with dark industrial aesthetics, glassmorphism, and responsive layout
-- **Typography**: Google Fonts (*Outfit* for bold industrial headers, *Inter* for crisp body copy)
+## 🏢 Business Identity & Visiting Card Details
+
+* **Head Office (H.O.):** # 129/4 (Old No. 184) Dr. Nanjappa Road, Coimbatore - 641 018, Tamil Nadu
+* **Branch Office (B.O.):** Basement Floor, 180, N.S.P. Shopping Complex, Coimbatore, Tamil Nadu
+* **GSTIN:** `33AALFP8180B2Z9`
+* **Landline:** `0422 - 2301274`
+* **Mobile / WhatsApp:** `94432 30127` / `94875 10127`
+* **Email:** `pmtpremiermachinetools@gmail.com`
+* **Delivery Scope:** **All Over India Delivery Available** (Fast transport dispatch from Coimbatore godown)
+
+### 🏦 Official Bank Billing Details (From Invoice)
+* **Bank Name:** DBS BANK INDIA LTD
+* **Branch:** Uppilipalayam Branch, Coimbatore
+* **Account Number:** `0191351000005295`
+* **IFSC Code:** `DBSS0IN0191`
 
 ---
 
-## 🚀 Quick Start
+## 🎨 Brand Design & Visiting Card Color Palette
 
-### 1. Install Dependencies
+* **Primary PMT Red:** `#c62828` / `#b71c1c` (Visiting card bold title bar, PMT badge, primary buttons)
+* **Secondary Forest Green:** `#106f3c` / `#157347` (Tamil brand typography *பிரீமியர் மெஷின் டூல்ஸ்*, WhatsApp buttons, badges)
+* **Deep Navy / Slate:** `#0f2942` / `#1e3a5f` (Landline/mobile labels, structured headers)
+* **Clean White:** `#ffffff` / `#f8fafc` (Clean white card background following the physical visiting card)
+
+---
+
+## 🌐 Multi-Language Support
+* **English** (Default)
+* **தமிழ் (Tamil)**: Full translation with Noto Sans Tamil typography
+* **हिन्दी (Hindi)**: Full translation for all-India industrial procurement
+
+---
+
+## 📦 Authentic Product Lineup
+
+1. **Usha Martin Steel Wire Ropes & Slings**: Galvanised/ungalvanised 6x19, 6x36, 19x7 non-rotating, elevator, crane & winch ropes.
+2. **Chain Pulley Blocks & Hoists**: Triple Super Gear (0.5T to 20T), Good Lift, Electric Wire Rope Hoists & Winches.
+3. **Polyester Slings & Cargo Lashings**: 1T to 20T flat woven webbing slings, round slings, ratchet tie-down lashing belts.
+4. **Wood Working Bandsaw Blades**: ESI, ANIL, GANESH SUPER, SAMSAW, Circular saw blades, T.C.T. blades, and marble cutters.
+5. **Ropes**: Garware Wall Ropes (Garfil 3 Strand PP Ropes), Pure Natural Manila Ropes, PVC Coated Gym cables, SS 304 ropes.
+6. **Rigging Hardware & Tackles**: 'U' Clamps (Wire rope clips), D-Shackles, Bow Shackles, Turnbuckles, Thimbles, Eye/Swivel Hooks, Plate Lifting Clamps.
+
+---
+
+## 🚀 Netlify Deployment Standards
+
+* [netlify.toml](file:///d:/pmt/netlify.toml): Configured build command (`npm run build`), publish directory (`dist`), and security headers.
+* [public/_redirects](file:///d:/pmt/public/_redirects): Single-Page App (SPA) redirect rule (`/* /index.html 200`).
+* [public/robots.txt](file:///d:/pmt/public/robots.txt) & [public/sitemap.xml](file:///d:/pmt/public/sitemap.xml): Search crawler directives.
+* [index.html](file:///d:/pmt/index.html): Google Tag Manager (GTM) placeholder, full SEO meta tags, OpenGraph, Canonical, and Schema.org JSON-LD LocalBusiness metadata.
+
+---
+
+## 💻 Local Development
+
 ```bash
+# Install dependencies
 npm install
-```
 
-### 2. Run Local Development Server
-```bash
+# Start development server
 npm run dev
-```
-The application will be live at `http://localhost:5173/`.
 
-### 3. Build for Production
-```bash
+# Build optimized production bundle
 npm run build
 ```
-Optimized static files will be generated in `dist/`.
-
----
-
-## 📂 Project Structure
-```text
-pmt/
-├── public/
-│   └── images/
-│       ├── hero_cnc.jpg            # Flagship CNC Machining Center hero image
-│       ├── lathe_machine.jpg       # Slant-bed CNC turning lathe
-│       ├── vmc_5axis.jpg           # 5-Axis aerospace machining center
-│       └── tooling_accessories.jpg # Micrograin carbide tooling & cutters
-├── src/
-│   ├── components/
-│   │   ├── Navbar.jsx              # Navigation with hotline, RFQ drawer counter
-│   │   ├── Hero.jsx                # High-impact hero banner & quick search
-│   │   ├── MachineCatalog.jsx      # Filterable machinery grid & cards
-│   │   ├── MachineModal.jsx        # Technical specifications inspector
-│   │   ├── RoiCalculator.jsx       # Interactive CNC ROI & payback calculator
-│   │   ├── IndustriesSection.jsx   # Sector applications & testimonials
-│   │   ├── FacilitySection.jsx     # Coimbatore SIDCO demo center & clean room
-│   │   ├── FaqSection.jsx          # Technical & warranty accordion FAQs
-│   │   ├── Footer.jsx              # Directory links & company info
-│   │   └── Toast.jsx               # Floating feedback notifications
-│   ├── data/
-│   │   └── machines.js             # Machinery dataset, specs, testimonials
-│   ├── App.jsx                     # Root application state & composition
-│   ├── index.css                   # Industrial design system & utilities
-│   └── main.jsx                    # React 19 entry point
-├── index.html                      # SEO metadata, Google Fonts & custom favicon
-└── package.json                    # Dependencies & scripts
-```
-
----
-
-## 🏭 Coimbatore Facility & Contact
-- **Address**: Plot No. 42-B, SIDCO Industrial Estate, Kurichi, Coimbatore, Tamil Nadu – 641021
-- **Phone**: +91 98422 15890 / +91 422 249 8812
-- **Email**: `sales@premiermachinetools.in`
-- **Hours**: Mon – Sat: 9:00 AM – 7:30 PM (Demo Trials by Appointment)

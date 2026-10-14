@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Wrench, 
   PhoneCall, 
+  MessageCircle, 
+  Globe, 
   FileText, 
-  ShoppingCart, 
-  Menu, 
-  X, 
   MapPin, 
   ShieldCheck, 
-  Sparkles,
-  ChevronRight
+  Menu, 
+  X, 
+  Truck, 
+  ChevronRight,
+  ShoppingCart
 } from 'lucide-react';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function Navbar({ cartCount, onOpenRfq, onOpenCart }) {
+export default function Navbar({ currentLang, onLanguageChange, onOpenRfq, cartCount = 0 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,13 +29,13 @@ export default function Navbar({ cartCount, onOpenRfq, onOpenCart }) {
 
   return (
     <>
-      {/* Top Engineering Micro-Bar */}
+      {/* Topmost Official Strip - Visiting Card Details & Pan-India Banner */}
       <div style={{
-        background: 'linear-gradient(90deg, #090e1a 0%, #111a2e 100%)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-        fontSize: '0.8rem',
-        color: '#94a3b8',
-        padding: '6px 24px'
+        background: 'linear-gradient(90deg, #b71c1c 0%, #c62828 50%, #9a0007 100%)',
+        color: '#ffffff',
+        fontSize: '0.82rem',
+        padding: '6px 20px',
+        borderBottom: '2px solid #106f3c'
       }}>
         <div style={{
           maxWidth: '1280px',
@@ -43,278 +46,354 @@ export default function Navbar({ cartCount, onOpenRfq, onOpenCart }) {
           flexWrap: 'wrap',
           gap: '8px'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#f59e0b', fontWeight: 600 }}>
-              <ShieldCheck size={14} /> ISO 9001:2015 Certified
+          {/* GSTIN & Delivery info */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+            <span style={{
+              background: '#ffffff',
+              color: '#b71c1c',
+              fontWeight: 800,
+              padding: '2px 8px',
+              borderRadius: '4px',
+              fontSize: '0.75rem',
+              letterSpacing: '0.05em'
+            }}>
+              GSTIN : 33AALFP8180B2Z9
             </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <MapPin size={13} style={{ color: '#06b6d4' }} /> SIDCO Industrial Estate, Kurichi, Coimbatore
-            </span>
-            <span style={{ display: 'none', md: 'inline-block', color: '#10b981', fontWeight: 500 }}>
-              ● Live Demo Center Open: Mon - Sat 9:00 AM - 7:30 PM
+
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: 600 }}>
+              <Truck size={15} style={{ color: '#ffeb3b' }} />
+              <span>{t.panIndiaBadge}</span>
             </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+          {/* Language Selector + Direct Call */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            {/* Language Switcher */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              background: 'rgba(0,0,0,0.25)',
+              padding: '2px 6px',
+              borderRadius: '6px'
+            }}>
+              <Globe size={13} style={{ color: '#ffeb3b' }} />
+              <button
+                onClick={() => onLanguageChange('en')}
+                style={{
+                  color: currentLang === 'en' ? '#ffeb3b' : '#ffffff',
+                  fontWeight: currentLang === 'en' ? 800 : 500,
+                  fontSize: '0.75rem',
+                  padding: '2px 6px',
+                  borderRadius: '3px',
+                  background: currentLang === 'en' ? 'rgba(255,255,255,0.15)' : 'none'
+                }}
+              >
+                English
+              </button>
+              <span style={{ opacity: 0.5 }}>|</span>
+              <button
+                onClick={() => onLanguageChange('ta')}
+                style={{
+                  color: currentLang === 'ta' ? '#ffeb3b' : '#ffffff',
+                  fontWeight: currentLang === 'ta' ? 800 : 500,
+                  fontSize: '0.75rem',
+                  padding: '2px 6px',
+                  borderRadius: '3px',
+                  background: currentLang === 'ta' ? 'rgba(255,255,255,0.15)' : 'none'
+                }}
+              >
+                தமிழ்
+              </button>
+              <span style={{ opacity: 0.5 }}>|</span>
+              <button
+                onClick={() => onLanguageChange('hi')}
+                style={{
+                  color: currentLang === 'hi' ? '#ffeb3b' : '#ffffff',
+                  fontWeight: currentLang === 'hi' ? 800 : 500,
+                  fontSize: '0.75rem',
+                  padding: '2px 6px',
+                  borderRadius: '3px',
+                  background: currentLang === 'hi' ? 'rgba(255,255,255,0.15)' : 'none'
+                }}
+              >
+                हिन्दी
+              </button>
+            </div>
+
+            {/* Direct Phone */}
             <a 
-              href="tel:+919842215890" 
-              id="header-phone-link"
+              href="tel:04222301274"
+              id="topbar-landline"
               style={{
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: '6px', 
-                color: '#f8fafc',
-                fontWeight: 600,
-                transition: 'color 0.2s ease'
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                color: '#ffffff',
+                fontWeight: 700
               }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#f59e0b'}
-              onMouseLeave={(e) => e.currentTarget.style.color = '#f8fafc'}
             >
-              <PhoneCall size={13} style={{ color: '#f59e0b' }} /> +91 98422 15890 / +91 422 249 8812
+              <PhoneCall size={13} /> 0422-2301274
             </a>
-            <span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>
-            <span style={{ color: '#06b6d4', fontWeight: 500 }}>Tamil Nadu Service Desk</span>
           </div>
         </div>
       </div>
 
-      {/* Main Sticky Navbar */}
-      <header 
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          background: isScrolled ? 'rgba(7, 10, 18, 0.92)' : 'rgba(11, 15, 25, 0.85)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderBottom: isScrolled ? '1px solid rgba(245, 158, 11, 0.2)' : '1px solid rgba(255, 255, 255, 0.08)',
-          transition: 'all 0.3s ease',
-          boxShadow: isScrolled ? '0 10px 30px rgba(0,0,0,0.5)' : 'none'
-        }}
-      >
+      {/* Main White Navbar */}
+      <header style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        background: '#ffffff',
+        borderBottom: '2px solid #e2e8f0',
+        boxShadow: isScrolled ? '0 6px 20px rgba(15, 23, 42, 0.1)' : '0 2px 6px rgba(0,0,0,0.04)',
+        transition: 'all 0.25s ease'
+      }}>
         <div style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          padding: '14px 24px',
+          padding: '10px 20px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '20px'
+          gap: '16px'
         }}>
-          {/* Brand Logo */}
-          <a href="#" id="brand-logo" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-              border: '2px solid #f59e0b',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 16px rgba(245, 158, 11, 0.3)',
-              position: 'relative'
-            }}>
-              <Wrench size={22} style={{ color: '#f59e0b' }} />
-              <span style={{
-                position: 'absolute',
-                bottom: '-4px',
-                right: '-4px',
-                background: '#06b6d4',
-                color: '#070a12',
-                fontSize: '0.55rem',
-                fontWeight: 800,
-                padding: '1px 4px',
-                borderRadius: '4px',
-                lineHeight: 1
-              }}>CBE</span>
-            </div>
-            <div>
-              <div style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: '1.28rem',
-                fontWeight: 800,
-                letterSpacing: '-0.02em',
-                lineHeight: 1.1,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
-                <span style={{ color: '#ffffff' }}>PREMIER</span>
-                <span style={{ color: '#f59e0b' }}>MACHINE TOOLS</span>
-              </div>
-              <div style={{
-                fontSize: '0.72rem',
-                color: '#94a3b8',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                fontWeight: 500
-              }}>
-                Industrial Machinery & CNC Solutions • Coimbatore
-              </div>
-            </div>
+          {/* Logo Brand matching visiting card */}
+          <a href="#" id="brand-home-link" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <img 
+              src="/pmt-logo.svg" 
+              alt="Premier Machine Tools Coimbatore" 
+              style={{ height: '54px', width: 'auto', display: 'block' }}
+            />
           </a>
 
-          {/* Desktop Nav Links */}
+          {/* Desktop Navigation Links */}
           <nav style={{
             display: 'none',
             alignItems: 'center',
-            gap: '26px'
-          }} className="desktop-nav">
-            <a href="#catalog" className="nav-link" id="nav-catalog">Machinery Catalog</a>
-            <a href="#industries" className="nav-link" id="nav-industries">Industries</a>
-            <a href="#roi-calc" className="nav-link" id="nav-roi">ROI Calculator</a>
-            <a href="#facility" className="nav-link" id="nav-facility">Coimbatore Hub</a>
-            <a href="#faq" className="nav-link" id="nav-faq">Engineering FAQs</a>
+            gap: '24px'
+          }} className="hide-on-mobile">
+            <a 
+              href="#products" 
+              id="nav-products"
+              style={{ fontWeight: 600, color: 'var(--pmt-navy)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-navy)'}
+            >
+              {t.nav.products}
+            </a>
+
+            <a 
+              href="#brands" 
+              id="nav-brands"
+              style={{ fontWeight: 600, color: 'var(--pmt-navy)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-navy)'}
+            >
+              {t.nav.specialties}
+            </a>
+
+            <a 
+              href="#bank-details" 
+              id="nav-bank"
+              style={{ fontWeight: 600, color: 'var(--pmt-navy)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-navy)'}
+            >
+              {t.nav.bankDetails}
+            </a>
+
+            <a 
+              href="#contact" 
+              id="nav-contact"
+              style={{ fontWeight: 600, color: 'var(--pmt-navy)', fontSize: '0.92rem', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.target.style.color = 'var(--pmt-red)'}
+              onMouseLeave={(e) => e.target.style.color = 'var(--pmt-navy)'}
+            >
+              {t.nav.contact}
+            </a>
           </nav>
 
-          {/* Right Action Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            {/* Quote Cart / Selection Drawer Trigger */}
-            <button
-              onClick={onOpenCart}
-              id="quote-cart-button"
-              title="View Selected Machines for RFQ"
+          {/* Action Call & Quote Buttons */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {/* Direct WhatsApp Call */}
+            <a
+              href="https://wa.me/919487510127?text=Hello%20Premier%20Machine%20Tools,%20I%20would%20like%20to%20inquire%20about%20your%20products."
+              target="_blank"
+              rel="noopener noreferrer"
+              id="whatsapp-direct-btn"
               style={{
-                position: 'relative',
                 display: 'inline-flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                width: '42px',
-                height: '42px',
-                borderRadius: '10px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                color: '#f8fafc',
-                transition: 'all 0.2s ease'
+                gap: '6px',
+                background: '#25d366',
+                color: '#ffffff',
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                padding: '9px 14px',
+                borderRadius: '8px',
+                boxShadow: '0 2px 8px rgba(37, 211, 102, 0.3)'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#f59e0b';
-                e.currentTarget.style.background = 'rgba(245, 158, 11, 0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-              }}
+              title="Chat with sales on WhatsApp (94875 10127)"
             >
-              <ShoppingCart size={19} />
+              <MessageCircle size={17} />
+              <span className="hide-on-mobile">WhatsApp</span>
+            </a>
+
+            {/* Inquiries / Quote Drawer button */}
+            <button
+              onClick={onOpenRfq}
+              id="navbar-rfq-btn"
+              className="btn-pmt-red"
+              style={{ padding: '9px 16px', fontSize: '0.88rem' }}
+            >
+              <FileText size={16} />
+              <span>{t.nav.getQuote}</span>
               {cartCount > 0 && (
                 <span style={{
-                  position: 'absolute',
-                  top: '-6px',
-                  right: '-6px',
-                  background: '#f59e0b',
-                  color: '#070a12',
+                  background: '#ffffff',
+                  color: 'var(--pmt-red)',
+                  fontWeight: 900,
                   fontSize: '0.72rem',
-                  fontWeight: 800,
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 0 8px rgba(245, 158, 11, 0.8)'
+                  padding: '2px 6px',
+                  borderRadius: '10px'
                 }}>
                   {cartCount}
                 </span>
               )}
             </button>
 
-            {/* Request Quotation Primary CTA */}
-            <button
-              onClick={onOpenRfq}
-              id="nav-rfq-btn"
-              className="btn-primary"
-              style={{ padding: '9px 18px', fontSize: '0.88rem' }}
-            >
-              <FileText size={16} />
-              <span>Get Instant RFQ</span>
-            </button>
-
-            {/* Mobile Menu Toggle Button */}
+            {/* Mobile Menu Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              id="mobile-menu-toggle"
-              aria-label="Toggle Menu"
+              id="mobile-nav-toggle"
+              aria-label="Toggle navigation"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '42px',
-                height: '42px',
-                borderRadius: '10px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                color: '#f8fafc',
-                md: 'none'
+                padding: '8px',
+                color: 'var(--pmt-navy)',
+                borderRadius: '6px',
+                border: '1px solid #cbd5e1'
               }}
-              className="mobile-toggle"
+              className="show-on-mobile"
             >
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Slide-Down Menu */}
+        {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div style={{
-            background: '#090e1a',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-            padding: '20px 24px',
+            background: '#ffffff',
+            borderTop: '1px solid #e2e8f0',
+            padding: '16px 20px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px'
+            gap: '12px',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
           }}>
+            <div style={{ display: 'flex', gap: '8px', paddingBottom: '10px', borderBottom: '1px solid #f1f5f9' }}>
+              <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#64748b' }}>Language:</span>
+              <button 
+                onClick={() => { onLanguageChange('en'); setMobileMenuOpen(false); }} 
+                style={{ fontWeight: currentLang === 'en' ? 800 : 500, color: currentLang === 'en' ? 'var(--pmt-red)' : '#334155' }}
+              >
+                English
+              </button>
+              <span>•</span>
+              <button 
+                onClick={() => { onLanguageChange('ta'); setMobileMenuOpen(false); }} 
+                style={{ fontWeight: currentLang === 'ta' ? 800 : 500, color: currentLang === 'ta' ? 'var(--pmt-green)' : '#334155' }}
+              >
+                தமிழ்
+              </button>
+              <span>•</span>
+              <button 
+                onClick={() => { onLanguageChange('hi'); setMobileMenuOpen(false); }} 
+                style={{ fontWeight: currentLang === 'hi' ? 800 : 500, color: currentLang === 'hi' ? 'var(--pmt-red)' : '#334155' }}
+              >
+                हिन्दी
+              </button>
+            </div>
+
             <a 
-              href="#catalog" 
+              href="#products" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-navy)', display: 'flex', justifyContent: 'space-between' }}
             >
-              <span>Machinery Catalog</span>
-              <ChevronRight size={16} color="#f59e0b" />
+              <span>{t.nav.products}</span>
+              <ChevronRight size={16} color="var(--pmt-red)" />
             </a>
+
             <a 
-              href="#industries" 
+              href="#brands" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-navy)', display: 'flex', justifyContent: 'space-between' }}
             >
-              <span>Industries & Solutions</span>
-              <ChevronRight size={16} color="#f59e0b" />
+              <span>{t.nav.specialties}</span>
+              <ChevronRight size={16} color="var(--pmt-red)" />
             </a>
+
             <a 
-              href="#roi-calc" 
+              href="#bank-details" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-navy)', display: 'flex', justifyContent: 'space-between' }}
             >
-              <span>CNC ROI Calculator</span>
-              <ChevronRight size={16} color="#f59e0b" />
+              <span>{t.nav.bankDetails}</span>
+              <ChevronRight size={16} color="var(--pmt-red)" />
             </a>
+
             <a 
-              href="#facility" 
+              href="#contact" 
               onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              style={{ padding: '8px 0', fontWeight: 600, color: 'var(--pmt-navy)', display: 'flex', justifyContent: 'space-between' }}
             >
-              <span>Coimbatore Experience Center</span>
-              <ChevronRight size={16} color="#f59e0b" />
+              <span>{t.nav.contact}</span>
+              <ChevronRight size={16} color="var(--pmt-red)" />
             </a>
-            <a 
-              href="#faq" 
-              onClick={() => setMobileMenuOpen(false)}
-              style={{ padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-            >
-              <span>Technical FAQs & Warranty</span>
-              <ChevronRight size={16} color="#f59e0b" />
-            </a>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenRfq();
-              }}
-              className="btn-primary"
-              style={{ width: '100%', marginTop: '8px' }}
-            >
-              <FileText size={18} /> Request Customized RFQ Quote
-            </button>
+
+            {/* Phone buttons */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '8px' }}>
+              <a 
+                href="tel:9443230127" 
+                style={{
+                  background: 'var(--pmt-green-soft)',
+                  color: 'var(--pmt-green-dark)',
+                  padding: '10px',
+                  borderRadius: '8px',
+                  textAlign: 'center',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '4px'
+                }}
+              >
+                <PhoneCall size={14} /> 94432 30127
+              </a>
+              <a 
+                href="tel:9487510127" 
+                style={{
+                  background: 'var(--pmt-red-soft)',
+                  color: 'var(--pmt-red-dark)',
+                  padding: '10px',
+                  borderRadius: '8px',
+                  textAlign: 'center',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '4px'
+                }}
+              >
+                <PhoneCall size={14} /> 94875 10127
+              </a>
+            </div>
           </div>
         )}
       </header>

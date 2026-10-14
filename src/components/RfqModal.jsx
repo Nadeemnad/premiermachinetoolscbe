@@ -5,59 +5,70 @@ import {
   CheckCircle2, 
   Trash2, 
   Send, 
-  Building, 
-  User, 
+  MessageCircle, 
   Phone, 
-  Mail, 
-  MapPin, 
-  Cpu, 
   Copy, 
-  Check,
-  Sparkles
+  Check, 
+  Truck,
+  Building,
+  User,
+  MapPin
 } from 'lucide-react';
+import { TRANSLATIONS } from '../data/translations';
 
 export default function RfqModal({ 
   isOpen, 
   onClose, 
-  selectedMachines = [], 
-  onRemoveItem,
-  onClearCart,
+  currentLang, 
+  selectedProducts = [], 
+  onRemoveItem, 
+  onClearCart, 
   onShowToast 
 }) {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
-    email: '',
     phone: '',
     city: 'Coimbatore',
-    controllerPreference: 'Fanuc',
-    ctsCoolant: true,
-    chipConveyor: true,
-    probingSystem: false,
-    timeline: 'Within 30 Days',
-    notes: ''
+    remarks: ''
   });
 
   const [submittedTicket, setSubmittedTicket] = useState(null);
   const [copied, setCopied] = useState(false);
+  const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const randomTicket = `PMT-CBE-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const ticketId = `PMT-CBE-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     setSubmittedTicket({
-      ticketId: randomTicket,
-      timestamp: new Date().toLocaleString(),
+      ticketId,
       name: formData.name,
       company: formData.company,
-      machines: selectedMachines.length > 0 ? selectedMachines : [{ name: 'Custom Machinery Consultation', series: 'CNC Solution' }]
+      phone: formData.phone,
+      city: formData.city,
+      products: selectedProducts.length > 0 ? selectedProducts : [{ name: 'General Industrial Supply Inquiry' }]
     });
 
-    onShowToast?.(`RFQ ${randomTicket} submitted successfully! Our Coimbatore engineering sales desk will contact you within 2 hours.`);
+    onShowToast?.(`Inquiry ${ticketId} recorded! We will dispatch quotation to ${formData.phone}.`);
   };
 
-  const copyTicketId = () => {
+  const sendWhatsAppInquiry = () => {
+    const productList = selectedProducts.map(p => `• ${p.name} (${p.brand})`).join('%0A') || 'General Tools & Wire Ropes';
+    const text = encodeURIComponent(
+      `*PREMIER MACHINE TOOLS - INQUIRY*%0A` +
+      `*Name:* ${formData.name || 'Customer'}%0A` +
+      `*Company:* ${formData.company || 'N/A'}%0A` +
+      `*Phone:* ${formData.phone || 'N/A'}%0A` +
+      `*Delivery City:* ${formData.city || 'Coimbatore'}%0A` +
+      `*Products:*%0A`
+    ) + productList + encodeURIComponent(`%0A*Remarks:* ${formData.remarks || 'Please provide best wholesale rates.'}`);
+
+    window.open(`https://wa.me/919487510127?text=${text}`, '_blank');
+  };
+
+  const copyTicket = () => {
     if (submittedTicket?.ticketId) {
       navigator.clipboard?.writeText(submittedTicket.ticketId);
       setCopied(true);
@@ -72,13 +83,13 @@ export default function RfqModal({
         position: 'fixed',
         inset: 0,
         zIndex: 250,
-        background: 'rgba(7, 10, 18, 0.88)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        background: 'rgba(15, 23, 42, 0.75)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '20px',
+        padding: '16px',
         overflowY: 'auto'
       }}
       onClick={(e) => {
@@ -87,257 +98,225 @@ export default function RfqModal({
     >
       <div 
         id="rfq-modal-dialog"
-        className="glass-card"
         style={{
           width: '100%',
-          maxWidth: '780px',
+          maxWidth: '680px',
           maxHeight: '92vh',
           overflowY: 'auto',
-          background: '#0d1322',
-          border: '1px solid rgba(6, 182, 212, 0.4)',
-          borderRadius: '20px',
-          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(6, 182, 212, 0.15)',
-          padding: '0'
+          background: '#ffffff',
+          borderRadius: '16px',
+          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
+          border: '2px solid var(--pmt-red)'
         }}
       >
-        {/* Header */}
+        {/* Top Header */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '18px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          background: 'rgba(15, 23, 42, 0.95)'
+          padding: '16px 20px',
+          background: 'linear-gradient(90deg, #b71c1c 0%, #c62828 100%)',
+          color: '#ffffff',
+          borderTopLeftRadius: '14px',
+          borderTopRightRadius: '14px'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '8px',
-              background: 'rgba(245, 158, 11, 0.15)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#f59e0b'
-            }}>
-              <FileText size={20} />
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FileText size={20} />
             <div>
-              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
-                Request Official Technical Quotation (RFQ)
+              <div style={{ fontWeight: 800, fontSize: '1.05rem' }}>
+                {t.rfq.title}
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
-                Premier Machine Tools Coimbatore • Direct Factory Pricing & Subsidies
+              <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>
+                GSTIN: 33AALFP8180B2Z9 • All India Delivery Dispatch
               </div>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            id="close-rfq-modal-btn"
             style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '8px',
-              background: 'rgba(255, 255, 255, 0.05)',
+              width: '32px',
+              height: '32px',
+              borderRadius: '6px',
+              background: 'rgba(255, 255, 255, 0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#94a3b8'
+              color: '#ffffff'
             }}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
-        {/* Content */}
+        {/* Modal Body */}
         <div style={{ padding: '24px' }}>
           {submittedTicket ? (
-            /* Submission Success View */
-            <div style={{ textAlign: 'center', padding: '30px 10px' }}>
+            /* Success Ticket View */
+            <div style={{ textAlign: 'center', padding: '20px 10px' }}>
               <div style={{
-                width: '72px',
-                height: '72px',
+                width: '64px',
+                height: '64px',
                 borderRadius: '50%',
-                background: 'rgba(16, 185, 129, 0.15)',
-                border: '2px solid #10b981',
+                background: 'var(--pmt-green-soft)',
+                border: '2px solid var(--pmt-green)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                margin: '0 auto 20px',
-                color: '#34d399',
-                boxShadow: '0 0 24px rgba(16, 185, 129, 0.4)'
+                margin: '0 auto 16px',
+                color: 'var(--pmt-green)'
               }}>
                 <CheckCircle2 size={36} />
               </div>
 
-              <h3 style={{ fontSize: '1.6rem', color: '#ffffff', marginBottom: '8px' }}>
-                Quotation Request Received!
+              <h3 style={{ fontSize: '1.5rem', color: 'var(--pmt-navy)', marginBottom: '6px' }}>
+                {t.rfq.submitted}
               </h3>
-              <p style={{ color: '#94a3b8', fontSize: '0.95rem', maxWidth: '520px', margin: '0 auto 24px' }}>
-                Thank you, <strong>{submittedTicket.name}</strong> from <strong>{submittedTicket.company}</strong>. Our senior technical application engineer in Coimbatore has been assigned to your RFQ.
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '20px' }}>
+                Thank you, <strong>{submittedTicket.name}</strong>. Our Coimbatore sales desk at Dr. Nanjappa Road has received your inquiry.
               </p>
 
-              {/* Reference Box */}
               <div style={{
-                background: 'rgba(0, 0, 0, 0.4)',
-                border: '1px solid rgba(245, 158, 11, 0.3)',
-                borderRadius: '12px',
-                padding: '20px',
-                maxWidth: '480px',
-                margin: '0 auto 28px',
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                borderRadius: '10px',
+                padding: '16px',
+                maxWidth: '460px',
+                margin: '0 auto 24px',
                 textAlign: 'left'
               }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '0.78rem', color: '#94a3b8', textTransform: 'uppercase' }}>
-                    RFQ Reference Code:
-                  </span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '0.78rem', color: '#64748b' }}>{t.rfq.refCode}</span>
                   <button
-                    onClick={copyTicketId}
+                    onClick={copyTicket}
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '4px',
                       fontSize: '0.78rem',
-                      color: copied ? '#10b981' : '#f59e0b',
-                      background: 'none'
+                      color: copied ? 'var(--pmt-green)' : 'var(--pmt-red)',
+                      fontWeight: 700
                     }}
                   >
-                    {copied ? <Check size={14} /> : <Copy size={14} />}
-                    <span>{copied ? 'Copied' : 'Copy Code'}</span>
+                    {copied ? <Check size={13} /> : <Copy size={13} />}
+                    <span>{copied ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
 
-                <div style={{
-                  fontSize: '1.3rem',
-                  fontWeight: 800,
-                  fontFamily: 'var(--font-mono)',
-                  color: '#fbbf24',
-                  marginBottom: '12px'
-                }}>
+                <div style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--pmt-red)', letterSpacing: '0.04em' }}>
                   {submittedTicket.ticketId}
-                </div>
-
-                <div style={{ fontSize: '0.82rem', color: '#94a3b8', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '10px' }}>
-                  <div style={{ marginBottom: '4px' }}><strong>Requested Units:</strong></div>
-                  {submittedTicket.machines.map((m, i) => (
-                    <div key={i} style={{ color: '#ffffff' }}>• {m.name} ({m.series})</div>
-                  ))}
                 </div>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '14px' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
                 <button
                   onClick={() => {
                     setSubmittedTicket(null);
                     onClearCart?.();
                     onClose();
                   }}
-                  className="btn-primary"
-                  style={{ padding: '10px 24px' }}
+                  className="btn-pmt-red"
                 >
-                  Done & Return to Catalog
+                  Done & Back to Products
+                </button>
+
+                <button
+                  onClick={sendWhatsAppInquiry}
+                  className="btn-pmt-green"
+                >
+                  <MessageCircle size={16} /> Send via WhatsApp Also
                 </button>
               </div>
             </div>
           ) : (
-            /* RFQ Form View */
+            /* Inquiry Form */
             <form onSubmit={handleSubmit}>
-              {/* Selected Machines Section */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#cbd5e1', fontWeight: 600 }}>
-                    Selected Machinery for Quote ({selectedMachines.length}):
+              {/* Product List */}
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--pmt-navy)' }}>
+                    Inquiry Items ({selectedProducts.length}):
                   </span>
-                  {selectedMachines.length > 0 && onClearCart && (
+                  {selectedProducts.length > 0 && (
                     <button
                       type="button"
                       onClick={onClearCart}
-                      style={{ fontSize: '0.78rem', color: '#ef4444', background: 'none' }}
+                      style={{ fontSize: '0.78rem', color: 'var(--pmt-red)', fontWeight: 600 }}
                     >
-                      Clear All
+                      Clear Items
                     </button>
                   )}
                 </div>
 
-                {selectedMachines.length > 0 ? (
+                {selectedProducts.length > 0 ? (
                   <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '8px',
-                    maxHeight: '160px',
+                    gap: '6px',
+                    maxHeight: '130px',
                     overflowY: 'auto'
                   }}>
-                    {selectedMachines.map((m) => (
-                      <div key={m.id} style={{
-                        background: 'rgba(0, 0, 0, 0.4)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
-                        borderRadius: '10px',
-                        padding: '10px 14px',
+                    {selectedProducts.map((p) => (
+                      <div key={p.id} style={{
+                        background: '#f8fafc',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '6px',
+                        padding: '8px 12px',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        fontSize: '0.85rem'
                       }}>
                         <div>
-                          <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#ffffff' }}>
-                            {m.name}
-                          </div>
-                          <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
-                            {m.series} • {m.priceRange}
-                          </div>
+                          <strong>{p.name}</strong> <span style={{ color: '#64748b' }}>({p.brand})</span>
                         </div>
-
-                        {onRemoveItem && (
-                          <button
-                            type="button"
-                            onClick={() => onRemoveItem(m.id)}
-                            style={{ color: '#ef4444', padding: '6px', borderRadius: '6px' }}
-                            title="Remove machine from RFQ"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        )}
+                        <button
+                          type="button"
+                          onClick={() => onRemoveItem(p.id)}
+                          style={{ color: '#ef4444', padding: '4px' }}
+                          title="Remove item"
+                        >
+                          <Trash2 size={14} />
+                        </button>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div style={{
-                    padding: '14px',
-                    background: 'rgba(245, 158, 11, 0.08)',
-                    border: '1px dashed rgba(245, 158, 11, 0.3)',
-                    borderRadius: '10px',
-                    fontSize: '0.85rem',
-                    color: '#fbbf24'
+                    padding: '10px 14px',
+                    background: '#fffdf5',
+                    border: '1px dashed #f59e0b',
+                    borderRadius: '8px',
+                    fontSize: '0.82rem',
+                    color: '#92400e'
                   }}>
-                    💡 No specific machine selected yet. You can submit general technical requirements or add machines from the catalog.
+                    💡 No specific item selected yet. You can submit general requirements or select products from the catalog.
                   </div>
                 )}
               </div>
 
-              {/* Form Input Fields Grid */}
+              {/* Form Input Fields */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                gap: '16px',
-                marginBottom: '20px'
+                gap: '14px',
+                marginBottom: '16px'
               }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>
-                    Full Contact Name *
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                    {t.rfq.name} *
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. S. Kumar"
+                    placeholder="e.g. Ramesh Kumar"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     style={{
                       width: '100%',
-                      background: 'rgba(0,0,0,0.4)',
-                      border: '1px solid rgba(255,255,255,0.12)',
+                      border: '1px solid #cbd5e1',
                       borderRadius: '8px',
                       padding: '10px 12px',
-                      color: '#ffffff',
                       fontSize: '0.88rem',
                       outline: 'none'
                     }}
@@ -345,22 +324,20 @@ export default function RfqModal({
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>
-                    Company / Factory Name *
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                    {t.rfq.company} *
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Texmo Precision Parts"
+                    placeholder="e.g. Sri Krishna Crane Works"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     style={{
                       width: '100%',
-                      background: 'rgba(0,0,0,0.4)',
-                      border: '1px solid rgba(255,255,255,0.12)',
+                      border: '1px solid #cbd5e1',
                       borderRadius: '8px',
                       padding: '10px 12px',
-                      color: '#ffffff',
                       fontSize: '0.88rem',
                       outline: 'none'
                     }}
@@ -368,22 +345,20 @@ export default function RfqModal({
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>
-                    Phone / WhatsApp Number *
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                    {t.rfq.phone} *
                   </label>
                   <input
                     type="tel"
                     required
-                    placeholder="+91 98422 XXXXX"
+                    placeholder="+91 94432 XXXXX"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     style={{
                       width: '100%',
-                      background: 'rgba(0,0,0,0.4)',
-                      border: '1px solid rgba(255,255,255,0.12)',
+                      border: '1px solid #cbd5e1',
                       borderRadius: '8px',
                       padding: '10px 12px',
-                      color: '#ffffff',
                       fontSize: '0.88rem',
                       outline: 'none'
                     }}
@@ -391,137 +366,41 @@ export default function RfqModal({
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>
-                    Corporate Email *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="procurement@company.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    style={{
-                      width: '100%',
-                      background: 'rgba(0,0,0,0.4)',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      borderRadius: '8px',
-                      padding: '10px 12px',
-                      color: '#ffffff',
-                      fontSize: '0.88rem',
-                      outline: 'none'
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>
-                    Delivery City / Region
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                    {t.rfq.city}
                   </label>
                   <input
                     type="text"
+                    placeholder="Coimbatore / Chennai / Mumbai / Pan-India"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    placeholder="Coimbatore / Chennai / Bangalore / Pune"
                     style={{
                       width: '100%',
-                      background: 'rgba(0,0,0,0.4)',
-                      border: '1px solid rgba(255,255,255,0.12)',
+                      border: '1px solid #cbd5e1',
                       borderRadius: '8px',
                       padding: '10px 12px',
-                      color: '#ffffff',
                       fontSize: '0.88rem',
                       outline: 'none'
                     }}
                   />
                 </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>
-                    Preferred CNC Controller
-                  </label>
-                  <select
-                    value={formData.controllerPreference}
-                    onChange={(e) => setFormData({ ...formData, controllerPreference: e.target.value })}
-                    style={{
-                      width: '100%',
-                      background: '#0f172a',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      borderRadius: '8px',
-                      padding: '10px 12px',
-                      color: '#ffffff',
-                      fontSize: '0.88rem',
-                      outline: 'none'
-                    }}
-                  >
-                    <option value="Fanuc">Fanuc 0i-TF / 0i-MF Plus</option>
-                    <option value="Siemens">Siemens Sinumerik 828D / ONE</option>
-                    <option value="Mitsubishi">Mitsubishi M80 High-Speed</option>
-                    <option value="Heidenhain">Heidenhain TNC 640</option>
-                  </select>
-                </div>
               </div>
 
-              {/* Optional Upgrades Checkboxes */}
-              <div style={{
-                background: 'rgba(0, 0, 0, 0.3)',
-                padding: '14px',
-                borderRadius: '10px',
-                marginBottom: '20px',
-                border: '1px solid rgba(255, 255, 255, 0.05)'
-              }}>
-                <div style={{ fontSize: '0.8rem', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '10px' }}>
-                  Requested Options & Accessories:
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#cbd5e1', cursor: 'pointer' }}>
-                    <input
-                      type="checkbox"
-                      checked={formData.ctsCoolant}
-                      onChange={(e) => setFormData({ ...formData, ctsCoolant: e.target.checked })}
-                      style={{ accentColor: '#f59e0b' }}
-                    />
-                    <span>Through Spindle Coolant (CTS 20 Bar)</span>
-                  </label>
-
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#cbd5e1', cursor: 'pointer' }}>
-                    <input
-                      type="checkbox"
-                      checked={formData.chipConveyor}
-                      onChange={(e) => setFormData({ ...formData, chipConveyor: e.target.checked })}
-                      style={{ accentColor: '#f59e0b' }}
-                    />
-                    <span>Automated Chip Conveyor & Bin</span>
-                  </label>
-
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#cbd5e1', cursor: 'pointer' }}>
-                    <input
-                      type="checkbox"
-                      checked={formData.probingSystem}
-                      onChange={(e) => setFormData({ ...formData, probingSystem: e.target.checked })}
-                      style={{ accentColor: '#f59e0b' }}
-                    />
-                    <span>Renishaw Workpiece Optical Probe</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Special Technical Requirements / Notes */}
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>
-                  Component Drawings / Material Details / Remarks:
+              {/* Remarks */}
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--pmt-navy)', marginBottom: '4px' }}>
+                  {t.rfq.remarks}
                 </label>
                 <textarea
-                  rows="3"
-                  placeholder="e.g. Machining SG Iron 400 pump impellers; required delivery by end of quarter; requesting MSME subsidy loan document."
-                  value={formData.notes}
-                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                  rows="2"
+                  placeholder="e.g. Required 500 metres of 12mm Usha Martin 6x36 wire rope + two 3-Ton Triple Super Gear pulley blocks with test certificate."
+                  value={formData.remarks}
+                  onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
                   style={{
                     width: '100%',
-                    background: 'rgba(0,0,0,0.4)',
-                    border: '1px solid rgba(255,255,255,0.12)',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '8px',
                     padding: '10px 12px',
-                    color: '#ffffff',
                     fontSize: '0.88rem',
                     outline: 'none',
                     resize: 'vertical'
@@ -530,23 +409,37 @@ export default function RfqModal({
               </div>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', flexWrap: 'wrap' }}>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="btn-secondary"
-                  style={{ padding: '10px 18px' }}
+                  style={{
+                    padding: '10px 16px',
+                    background: '#f1f5f9',
+                    color: '#475569',
+                    borderRadius: '8px',
+                    fontWeight: 600,
+                    fontSize: '0.88rem'
+                  }}
                 >
                   Cancel
                 </button>
 
                 <button
-                  type="submit"
-                  id="submit-rfq-quote-btn"
-                  className="btn-primary"
-                  style={{ padding: '10px 24px' }}
+                  type="button"
+                  onClick={sendWhatsAppInquiry}
+                  className="btn-pmt-green"
+                  style={{ padding: '10px 18px', fontSize: '0.88rem' }}
                 >
-                  <Send size={16} /> Submit RFQ to Coimbatore Sales Desk
+                  <MessageCircle size={16} /> WhatsApp Inquiry
+                </button>
+
+                <button
+                  type="submit"
+                  className="btn-pmt-red"
+                  style={{ padding: '10px 22px', fontSize: '0.88rem' }}
+                >
+                  <Send size={16} /> {t.rfq.submit}
                 </button>
               </div>
             </form>

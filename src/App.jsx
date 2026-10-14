@@ -1,78 +1,58 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import MachineCatalog from './components/MachineCatalog';
-import MachineModal from './components/MachineModal';
-import RoiCalculator from './components/RoiCalculator';
-import IndustriesSection from './components/IndustriesSection';
-import FacilitySection from './components/FacilitySection';
-import FaqSection from './components/FaqSection';
+import ProductCatalog from './components/ProductCatalog';
+import ProductModal from './components/ProductModal';
+import BrandsSection from './components/BrandsSection';
+import BankDetailsSection from './components/BankDetailsSection';
 import Footer from './components/Footer';
 import RfqModal from './components/RfqModal';
 import Toast from './components/Toast';
 
 export default function App() {
-  const [selectedMachine, setSelectedMachine] = useState(null);
+  const [currentLang, setCurrentLang] = useState('en'); // 'en' | 'ta' | 'hi'
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [isRfqOpen, setIsRfqOpen] = useState(false);
-  const [rfqPresetMachines, setRfqPresetMachines] = useState([]);
+  const [rfqPresetProducts, setRfqPresetProducts] = useState([]);
   const [toastMessage, setToastMessage] = useState(null);
   const [heroSearchQuery, setHeroSearchQuery] = useState('');
 
-  // Cart item toggler
-  const handleToggleCart = (machine) => {
-    const exists = cartItems.some((item) => item.id === machine.id);
+  // Cart item toggle
+  const handleToggleCart = (product) => {
+    const exists = cartItems.some((item) => item.id === product.id);
     if (exists) {
-      setCartItems(cartItems.filter((item) => item.id !== machine.id));
-      showToast(`Removed "${machine.name}" from your RFQ list.`);
+      setCartItems(cartItems.filter((item) => item.id !== product.id));
+      showToast(`Removed "${product.name}" from your inquiry list.`);
     } else {
-      setCartItems([...cartItems, machine]);
-      showToast(`Added "${machine.name}" to your RFQ quotation list!`);
+      setCartItems([...cartItems, product]);
+      showToast(`Added "${product.name}" to your inquiry list!`);
     }
   };
 
-  // Open RFQ modal with specific machine or current cart
-  const handleOpenRfqModal = (specificMachine = null) => {
-    if (specificMachine) {
-      setRfqPresetMachines([specificMachine]);
+  const handleOpenRfq = (specificProduct = null) => {
+    if (specificProduct) {
+      setRfqPresetProducts([specificProduct]);
     } else if (cartItems.length > 0) {
-      setRfqPresetMachines(cartItems);
+      setRfqPresetProducts(cartItems);
     } else {
-      setRfqPresetMachines([]);
+      setRfqPresetProducts([]);
     }
     setIsRfqOpen(true);
   };
 
-  // Open Cart specifically
-  const handleOpenCartDrawer = () => {
-    setRfqPresetMachines(cartItems);
-    setIsRfqOpen(true);
-  };
-
-  const handleRemoveFromCart = (machineId) => {
-    setCartItems(cartItems.filter((item) => item.id !== machineId));
-    setRfqPresetMachines(rfqPresetMachines.filter((item) => item.id !== machineId));
+  const handleRemoveFromCart = (productId) => {
+    setCartItems(cartItems.filter((item) => item.id !== productId));
+    setRfqPresetProducts(rfqPresetProducts.filter((item) => item.id !== productId));
   };
 
   const handleClearCart = () => {
     setCartItems([]);
-    setRfqPresetMachines([]);
+    setRfqPresetProducts([]);
   };
 
   const showToast = (msg) => {
     setToastMessage(msg);
-  };
-
-  const handleDownloadBrochure = (machineName) => {
-    showToast(`Downloading technical specification PDF & CAD drawing for ${machineName}...`);
-  };
-
-  const handleScheduleVisit = () => {
-    const facilityEl = document.getElementById('facility');
-    if (facilityEl) {
-      facilityEl.scrollIntoView({ behavior: 'smooth' });
-    }
-    showToast('Reserve your live test-cutting trial at our Coimbatore Demo Facility!');
   };
 
   const handleHeroSearch = (query) => {
@@ -81,76 +61,72 @@ export default function App() {
 
   return (
     <div className="pmt-app" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Navigation Bar */}
+      {/* Navbar with Multi-Language Control, GSTIN, and Visiting Card Contacts */}
       <Navbar
+        currentLang={currentLang}
+        onLanguageChange={(lang) => setCurrentLang(lang)}
+        onOpenRfq={() => handleOpenRfq()}
         cartCount={cartItems.length}
-        onOpenRfq={() => handleOpenRfqModal()}
-        onOpenCart={handleOpenCartDrawer}
       />
 
-      {/* Main Content Sections */}
+      {/* Main Body */}
       <main style={{ flexGrow: 1 }}>
+        {/* Visiting Card Theme Hero Banner */}
         <Hero
+          currentLang={currentLang}
           onSearchSubmit={handleHeroSearch}
-          onOpenRfq={() => handleOpenRfqModal()}
-          onScheduleVisit={handleScheduleVisit}
+          onOpenRfq={() => handleOpenRfq()}
         />
 
-        <MachineCatalog
+        {/* Real Product Catalog: Wire Ropes, Chain Pulleys, Slings, Bandsaw Blades, Rigging Hardware */}
+        <ProductCatalog
+          currentLang={currentLang}
           initialSearch={heroSearchQuery}
-          onSelectMachine={(m) => setSelectedMachine(m)}
           cartItems={cartItems}
           onToggleCart={handleToggleCart}
-          onDownloadBrochure={handleDownloadBrochure}
+          onSelectProduct={(p) => setSelectedProduct(p)}
         />
 
-        <RoiCalculator
-          onOpenRfq={() => handleOpenRfqModal()}
+        {/* Certified Brand Partners: Usha Martin, Garware, ASIL, Triple Super Gear, Good Lift, ESI */}
+        <BrandsSection currentLang={currentLang} />
+
+        {/* Official Bank Billing Details (From Invoice) */}
+        <BankDetailsSection
+          currentLang={currentLang}
           onShowToast={showToast}
         />
-
-        <IndustriesSection
-          onFilterByIndustry={(ind) => {
-            const catalogEl = document.getElementById('catalog');
-            if (catalogEl) catalogEl.scrollIntoView({ behavior: 'smooth' });
-          }}
-        />
-
-        <FacilitySection
-          onBookVisit={() => {
-            showToast('Thank you! Our Coimbatore application engineering team will contact you to confirm your demo schedule.');
-          }}
-        />
-
-        <FaqSection />
       </main>
 
-      {/* Corporate Footer */}
-      <Footer onOpenRfq={() => handleOpenRfqModal()} />
+      {/* Footer with H.O., B.O., GSTIN, Contact Numbers & Pan-India Dispatch */}
+      <Footer
+        currentLang={currentLang}
+        onOpenRfq={() => handleOpenRfq()}
+      />
 
-      {/* Machine Full Technical Modal */}
-      {selectedMachine && (
-        <MachineModal
-          machine={selectedMachine}
-          onClose={() => setSelectedMachine(null)}
-          onOpenRfqWithMachine={(m) => handleOpenRfqModal(m)}
+      {/* Product Technical Specifications Modal */}
+      {selectedProduct && (
+        <ProductModal
+          product={selectedProduct}
+          currentLang={currentLang}
+          onClose={() => setSelectedProduct(null)}
+          onOpenRfqWithProduct={(p) => handleOpenRfq(p)}
           onToggleCart={handleToggleCart}
-          isCarted={cartItems.some((item) => item.id === selectedMachine.id)}
-          onDownloadBrochure={handleDownloadBrochure}
+          isCarted={cartItems.some((item) => item.id === selectedProduct.id)}
         />
       )}
 
-      {/* RFQ & Quote Cart Modal */}
+      {/* RFQ & WhatsApp Inquiry Drawer */}
       <RfqModal
         isOpen={isRfqOpen}
         onClose={() => setIsRfqOpen(false)}
-        selectedMachines={rfqPresetMachines}
+        currentLang={currentLang}
+        selectedProducts={rfqPresetProducts}
         onRemoveItem={handleRemoveFromCart}
         onClearCart={handleClearCart}
         onShowToast={showToast}
       />
 
-      {/* Feedback Toast System */}
+      {/* Toast Feedback */}
       <Toast
         message={toastMessage}
         onClose={() => setToastMessage(null)}

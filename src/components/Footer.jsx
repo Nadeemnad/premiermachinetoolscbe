@@ -1,168 +1,242 @@
 import React from 'react';
 import { 
-  Wrench, 
   MapPin, 
   Phone, 
   Mail, 
+  Truck, 
   ShieldCheck, 
-  Clock, 
   ArrowUp,
+  Landmark,
+  MessageCircle,
   FileText
 } from 'lucide-react';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function Footer({ onOpenRfq }) {
+export default function Footer({ currentLang, onOpenRfq }) {
+  const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer style={{
-      background: '#060911',
-      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-      padding: '70px 24px 30px',
-      color: '#94a3b8'
+    <footer id="contact" style={{
+      background: 'var(--bg-dark-footer)',
+      color: '#cbd5e1',
+      padding: '60px 20px 24px',
+      borderTop: '4px solid var(--pmt-red)'
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         {/* Top Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '40px',
-          marginBottom: '50px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '36px',
+          marginBottom: '44px'
         }}>
-          {/* Brand Info */}
+          {/* Brand & All-India Delivery Scope */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+            <div style={{ marginBottom: '14px' }}>
               <div style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '10px',
-                background: '#111827',
-                border: '1.5px solid #f59e0b',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#f59e0b'
+                fontFamily: 'var(--font-tamil)',
+                color: '#34d399',
+                fontSize: '1.25rem',
+                fontWeight: 800,
+                marginBottom: '4px'
               }}>
-                <Wrench size={20} />
+                பிரீமியர் மெஷின் டூல்ஸ்
               </div>
-              <div>
-                <div style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1.15rem',
-                  fontWeight: 800,
-                  color: '#ffffff',
-                  letterSpacing: '-0.02em'
-                }}>
-                  PREMIER MACHINE TOOLS
-                </div>
-                <div style={{ fontSize: '0.7rem', color: '#f59e0b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Coimbatore • Est. 1994
-                </div>
+              <div style={{
+                fontFamily: 'var(--font-heading)',
+                color: '#ffffff',
+                fontSize: '1.4rem',
+                fontWeight: 900,
+                letterSpacing: '0.03em'
+              }}>
+                PREMIER MACHINE TOOLS
               </div>
             </div>
 
-            <p style={{ fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '18px', color: '#94a3b8' }}>
-              Leading manufacturer, importer, and distributor of high-rigidity CNC turning centers, multi-axis VMCs, precision lathes, and premium carbide cutting tools.
+            <p style={{ fontSize: '0.86rem', lineHeight: 1.6, color: '#94a3b8', marginBottom: '16px' }}>
+              Dealers in all kinds of Tools, Ropes, Chains, Lifting Equipment, Polyester Web Slings, and Woodworking Bandsaw Blades.
             </p>
 
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '6px 12px', borderRadius: '6px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
-              <ShieldCheck size={14} /> ISO 9001:2015 Quality Management
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'rgba(16, 111, 60, 0.25)',
+              border: '1px solid #106f3c',
+              padding: '6px 12px',
+              borderRadius: '6px',
+              fontSize: '0.78rem',
+              color: '#4ade80',
+              fontWeight: 700,
+              marginBottom: '14px'
+            }}>
+              <Truck size={15} /> All Over India Delivery Available
+            </div>
+
+            <div style={{
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              color: '#ffffff',
+              background: 'rgba(198, 40, 40, 0.35)',
+              border: '1px solid var(--pmt-red)',
+              padding: '4px 10px',
+              borderRadius: '6px',
+              display: 'inline-block'
+            }}>
+              GSTIN : 33AALFP8180B2Z9
             </div>
           </div>
 
-          {/* Quick Machinery Links */}
+          {/* Address & Office Locations (From Visiting Card) */}
           <div>
-            <h4 style={{ fontSize: '0.95rem', color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '18px' }}>
-              Machinery Products
+            <h4 style={{
+              fontSize: '0.95rem',
+              color: '#ffffff',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              marginBottom: '16px',
+              borderBottom: '2px solid var(--pmt-red)',
+              paddingBottom: '6px',
+              display: 'inline-block'
+            }}>
+              Office Locations (Coimbatore)
             </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem' }}>
-              <li><a href="#catalog" style={{ transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#f59e0b'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>CNC Slant Bed Turning Centers</a></li>
-              <li><a href="#catalog" style={{ transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#f59e0b'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>Vertical Machining Centers (VMC 850)</a></li>
-              <li><a href="#catalog" style={{ transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#f59e0b'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>Simultaneous 5-Axis Centers (Aero-5X)</a></li>
-              <li><a href="#catalog" style={{ transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#f59e0b'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>Heavy-Duty All Geared Lathes</a></li>
-              <li><a href="#catalog" style={{ transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#f59e0b'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>Precision Solid Carbide Tooling & Chucks</a></li>
-            </ul>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.85rem' }}>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <MapPin size={18} color="var(--pmt-red)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <strong style={{ color: '#ffffff' }}>Head Office (H.O.):</strong><br />
+                  # 129/4 (Old No. 184) Dr. Nanjappa Road,<br />
+                  Coimbatore - 641 018, Tamil Nadu
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <MapPin size={18} color="#34d399" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <strong style={{ color: '#ffffff' }}>Branch Office (B.O.):</strong><br />
+                  Basement Floor, 180, N.S.P. Shopping Complex,<br />
+                  Coimbatore, Tamil Nadu
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Industries & Solutions */}
+          {/* Phone Numbers & Direct Email */}
           <div>
-            <h4 style={{ fontSize: '0.95rem', color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '18px' }}>
-              Industrial Verticals
+            <h4 style={{
+              fontSize: '0.95rem',
+              color: '#ffffff',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              marginBottom: '16px',
+              borderBottom: '2px solid var(--pmt-red)',
+              paddingBottom: '6px',
+              display: 'inline-block'
+            }}>
+              Direct Contact Lines
             </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem' }}>
-              <li><a href="#industries">Automotive & EV Transmission</a></li>
-              <li><a href="#industries">Aerospace & Defense Subcontracting</a></li>
-              <li><a href="#industries">Pump, Motor & Valve Castings (Coimbatore)</a></li>
-              <li><a href="#industries">High Hardness Die & Mold Cavity</a></li>
-              <li><a href="#roi-calc">CNC Investment & Payback Calculator</a></li>
-            </ul>
-          </div>
 
-          {/* Contact & Support */}
-          <div>
-            <h4 style={{ fontSize: '0.95rem', color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '18px' }}>
-              Coimbatore Sales & Service
-            </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.85rem' }}>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <MapPin size={16} color="#f59e0b" style={{ flexShrink: 0, marginTop: '2px' }} />
-                <span>Plot 42-B, SIDCO Industrial Estate, Kurichi, Coimbatore – 641021, Tamil Nadu</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Phone size={16} color="#38bdf8" />
+                <a href="tel:04222301274" style={{ color: '#ffffff', fontWeight: 700 }}>
+                  0422 - 2301274 (Landline)
+                </a>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <Phone size={16} color="#06b6d4" style={{ flexShrink: 0 }} />
-                <span>+91 98422 15890 / +91 422 249 8812</span>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Phone size={16} color="#4ade80" />
+                <a href="tel:9443230127" style={{ color: '#ffffff', fontWeight: 700 }}>
+                  94432 30127 (Mobile)
+                </a>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <Mail size={16} color="#10b981" style={{ flexShrink: 0 }} />
-                <span>sales@premiermachinetools.in</span>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Phone size={16} color="#f59e0b" />
+                <a href="tel:9487510127" style={{ color: '#ffffff', fontWeight: 700 }}>
+                  94875 10127 (Mobile / WhatsApp)
+                </a>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <Clock size={16} color="#a855f7" style={{ flexShrink: 0 }} />
-                <span>Mon – Sat: 9:00 AM – 7:30 PM</span>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Mail size={16} color="#ef4444" />
+                <a href="mailto:pmtpremiermachinetools@gmail.com" style={{ color: '#cbd5e1' }}>
+                  pmtpremiermachinetools@gmail.com
+                </a>
               </div>
             </div>
 
             <button
               onClick={onOpenRfq}
-              className="btn-primary"
+              className="btn-pmt-red"
               style={{ width: '100%', marginTop: '16px', padding: '10px', fontSize: '0.85rem' }}
             >
-              <FileText size={16} /> Request Machine RFQ
+              <FileText size={16} /> Request Pricing / Quotation
             </button>
+          </div>
+
+          {/* Core Product Ranges */}
+          <div>
+            <h4 style={{
+              fontSize: '0.95rem',
+              color: '#ffffff',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              marginBottom: '16px',
+              borderBottom: '2px solid var(--pmt-red)',
+              paddingBottom: '6px',
+              display: 'inline-block'
+            }}>
+              Product Specialists
+            </h4>
+
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
+              <li>• Usha Martin Steel Wire Ropes</li>
+              <li>• Triple Super Gear Chain Pulleys</li>
+              <li>• Good Lift Industrial Hoists</li>
+              <li>• Polyester Web Slings & Lashings</li>
+              <li>• Wood Working Bandsaw Blades (ESI/Anil)</li>
+              <li>• Garware Garfil 3 Strand Ropes</li>
+              <li>• Manila Ropes, 'U' Clamps & D-Shackles</li>
+            </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Strip */}
         <div style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-          paddingTop: '24px',
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+          paddingTop: '20px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
-          gap: '16px',
-          fontSize: '0.82rem'
+          gap: '14px',
+          fontSize: '0.8rem',
+          color: '#64748b'
         }}>
           <div>
-            © {new Date().getFullYear()} Premier Machine Tools (Coimbatore). All Rights Reserved. Engineered for Precision.
+            © {new Date().getFullYear()} Premier Machine Tools. All rights reserved. Subject to Coimbatore Jurisdiction.
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <span>GSTIN: 33AAACP8921K1ZM</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <span>GSTIN : 33AALFP8180B2Z9</span>
             <button
               onClick={scrollToTop}
-              id="scroll-to-top-btn"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                color: '#f59e0b',
-                background: 'rgba(245, 158, 11, 0.1)',
-                padding: '6px 12px',
+                gap: '4px',
+                color: 'var(--pmt-red)',
+                background: 'rgba(255,255,255,0.06)',
+                padding: '5px 10px',
                 borderRadius: '6px',
-                fontSize: '0.78rem',
-                border: '1px solid rgba(245, 158, 11, 0.25)'
+                fontWeight: 700
               }}
             >
               <span>Back to Top</span>
