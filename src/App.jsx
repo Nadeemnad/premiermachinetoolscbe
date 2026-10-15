@@ -5,7 +5,6 @@ import ProductCatalog from './components/ProductCatalog';
 import ProductModal from './components/ProductModal';
 import BrandsSection from './components/BrandsSection';
 import FaqAndDeliverySection from './components/FaqAndDeliverySection';
-import BankDetailsSection from './components/BankDetailsSection';
 import ContactPage from './components/ContactPage';
 import Footer from './components/Footer';
 import StickyMobileBar from './components/StickyMobileBar';
@@ -86,13 +85,33 @@ export default function App() {
     }
   }, [currentPage, currentLang]);
 
+  // Handle initial hash scrolling on mount or route change
+  useEffect(() => {
+    if (window.location.hash) {
+      const targetId = window.location.hash.replace('#', '');
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
+  }, [currentPage]);
+
   const navigateToPage = (page, targetId = null) => {
     setCurrentPage(page);
     if (page === 'contact') {
-      if (window.location.pathname !== '/contact-us/') {
-        window.history.pushState(null, '', '/contact-us/');
+      const url = targetId ? `/contact-us/#${targetId}` : '/contact-us/';
+      if (window.location.pathname !== '/contact-us/' || (targetId && window.location.hash !== `#${targetId}`)) {
+        window.history.pushState(null, '', url);
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (targetId) {
+        setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          else window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     } else {
       if (targetId) {
         window.history.pushState(null, '', `/#${targetId}`);
@@ -173,7 +192,8 @@ export default function App() {
         cartCount={cartItems.length}
         currentPage={currentPage}
         onNavigateHome={() => navigateToPage('home')}
-        onNavigateContact={() => navigateToPage('contact')}
+        onNavigateContact={(targetId) => navigateToPage('contact', targetId)}
+        onNavigateBank={() => navigateToPage('contact', 'bank-details')}
       />
 
       {/* Main Page Body */}
@@ -209,12 +229,6 @@ export default function App() {
             <FaqAndDeliverySection
               currentLang={currentLang}
               onOpenRfq={() => handleOpenRfq()}
-            />
-
-            {/* Official Bank Account Details from Invoice */}
-            <BankDetailsSection
-              currentLang={currentLang}
-              onShowToast={showToast}
             />
           </>
         )}

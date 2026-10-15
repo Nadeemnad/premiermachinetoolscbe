@@ -12,9 +12,11 @@ import {
   ShieldCheck,
   Truck,
   ExternalLink,
-  ArrowLeft
+  ArrowLeft,
+  Landmark
 } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
+import BankDetailsSection from './BankDetailsSection';
 
 export default function ContactPage({ currentLang, onShowToast, onNavigateHome }) {
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
@@ -225,110 +227,86 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                 </div>
               </div>
 
-              {/* Exact DBS Bank Details as Requested */}
+              {/* Branch Office Details */}
               <div style={{
-                background: 'var(--bg-subtle)',
-                border: '1px solid #CBD5E1',
+                background: '#F8FAFC',
+                border: '1.5px solid #E2E8F0',
                 borderRadius: '12px',
-                padding: '16px 18px'
+                padding: '14px 18px',
+                marginBottom: '16px'
               }}>
                 <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
                   fontSize: '0.82rem',
                   fontWeight: 800,
                   color: 'var(--pmt-blue)',
                   textTransform: 'uppercase',
                   letterSpacing: '0.04em',
-                  marginBottom: '10px'
+                  marginBottom: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
                 }}>
-                  <CreditCard size={16} color="var(--pmt-teal)" />
-                  <span>DBS Bank Billing Details (NEFT / RTGS)</span>
+                  <Building2 size={16} color="var(--pmt-teal)" />
+                  <span>Branch Office (B.O.):</span>
                 </div>
-
                 <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                  gap: '10px',
-                  fontSize: '0.88rem'
+                  fontSize: '0.92rem',
+                  color: 'var(--pmt-black)',
+                  fontWeight: 600,
+                  lineHeight: 1.5
                 }}>
-                  {/* Account Number */}
-                  <div style={{
-                    background: 'var(--pmt-white)',
-                    padding: '8px 12px',
-                    borderRadius: '8px',
-                    border: '1px solid #E2E8F0',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}>
-                    <div>
-                      <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', display: 'block' }}>A/c No:</span>
-                      <strong style={{ color: 'var(--pmt-black)', letterSpacing: '0.03em' }}>0191351000005295</strong>
-                    </div>
-                    <button
-                      onClick={() => copyToClipboard('0191351000005295', 'A/c No')}
-                      style={{
-                        background: copiedField === 'A/c No' ? 'var(--pmt-teal)' : '#F1F5F9',
-                        color: copiedField === 'A/c No' ? '#FFF' : 'var(--pmt-blue)',
-                        border: 'none',
-                        borderRadius: '6px',
-                        padding: '5px 8px',
-                        cursor: 'pointer',
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '3px'
-                      }}
-                      title="Copy Account Number"
-                    >
-                      {copiedField === 'A/c No' ? <Check size={13} /> : <Copy size={13} />}
-                      <span>{copiedField === 'A/c No' ? 'Copied' : 'Copy'}</span>
-                    </button>
-                  </div>
+                  Basement Floor, 180, N.S.P. Shopping Complex,<br />
+                  Coimbatore, Tamil Nadu
+                </div>
+              </div>
 
-                  {/* IFSC Code */}
-                  <div style={{
-                    background: 'var(--pmt-white)',
-                    padding: '8px 12px',
-                    borderRadius: '8px',
-                    border: '1px solid #E2E8F0',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}>
-                    <div>
-                      <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', display: 'block' }}>IFSC Code:</span>
-                      <strong style={{ color: 'var(--pmt-red)', letterSpacing: '0.04em' }}>DBSS0IN0191</strong>
-                    </div>
-                    <button
-                      onClick={() => copyToClipboard('DBSS0IN0191', 'IFSC')}
-                      style={{
-                        background: copiedField === 'IFSC' ? 'var(--pmt-teal)' : '#F1F5F9',
-                        color: copiedField === 'IFSC' ? '#FFF' : 'var(--pmt-blue)',
-                        border: 'none',
-                        borderRadius: '6px',
-                        padding: '5px 8px',
-                        cursor: 'pointer',
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '3px'
-                      }}
-                      title="Copy IFSC Code"
-                    >
-                      {copiedField === 'IFSC' ? <Check size={13} /> : <Copy size={13} />}
-                      <span>{copiedField === 'IFSC' ? 'Copied' : 'Copy'}</span>
-                    </button>
+              {/* Quick Jump to Bank Transfer Details */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
+                background: 'linear-gradient(135deg, rgba(3, 78, 161, 0.06) 0%, rgba(5, 171, 165, 0.08) 100%)',
+                border: '1.5px solid rgba(3, 78, 161, 0.18)',
+                borderRadius: '12px',
+                padding: '14px 18px'
+              }}>
+                <div>
+                  <div style={{ fontSize: '0.74rem', fontWeight: 800, color: 'var(--text-light)', textTransform: 'uppercase' }}>
+                    Need Bank Account For NEFT / RTGS?
+                  </div>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 900, color: 'var(--pmt-blue)' }}>
+                    DBS Bank Current A/C Details
                   </div>
                 </div>
-
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px', lineHeight: 1.4 }}>
-                  <strong>Bank:</strong> DBS BANK INDIA LIMITED • <strong>Branch:</strong> UPPILIPALAYAM, NO 1 HEAD QUARTERS ROAD, Coimbatore - 641 018
-                </div>
+                <a
+                  href="#bank-details"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById('bank-details');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    background: 'var(--pmt-blue)',
+                    color: '#FFFFFF',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    boxShadow: '0 2px 8px rgba(3, 78, 161, 0.25)',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = 'var(--pmt-red)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'var(--pmt-blue)'}
+                >
+                  <Landmark size={15} />
+                  <span>View Bank Details ↓</span>
+                </a>
               </div>
             </div>
 
@@ -865,6 +843,20 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
               </div>
             )}
           </form>
+        </div>
+
+        {/* ========================================================== */}
+        {/* SECTION 3: DIRECT BANK TRANSFER (NEFT / RTGS) DETAILS       */}
+        {/* ========================================================== */}
+        <div style={{
+          marginTop: '40px',
+          background: 'var(--pmt-white)',
+          borderRadius: '20px',
+          padding: 'clamp(20px, 3.5vw, 40px)',
+          border: '1px solid #E2E8F0',
+          boxShadow: 'var(--shadow-md)'
+        }}>
+          <BankDetailsSection currentLang={currentLang} onShowToast={onShowToast} />
         </div>
 
         {/* ========================================================== */}

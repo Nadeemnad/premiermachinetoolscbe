@@ -15,10 +15,10 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
 
   return (
     <section id="bank-details" style={{
-      padding: '70px 16px',
+      padding: '20px 0',
       maxWidth: '1000px',
       margin: '0 auto',
-      background: 'var(--pmt-white)'
+      background: 'transparent'
     }}>
       <div style={{ textAlign: 'center', marginBottom: '36px' }}>
         <div className="badge-red" style={{ marginBottom: '10px' }}>

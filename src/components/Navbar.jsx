@@ -17,7 +17,8 @@ export default function Navbar({
   cartCount = 0,
   currentPage = 'home',
   onNavigateHome,
-  onNavigateContact
+  onNavigateContact,
+  onNavigateBank
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -240,17 +241,15 @@ export default function Navbar({
             </a>
 
             <a 
-              href="#bank-details" 
+              href="/contact-us/#bank-details" 
               id="subnav-bank"
               className="subnav-link"
               onClick={(e) => {
-                if (currentPage !== 'home') {
-                  e.preventDefault();
-                  onNavigateHome();
-                  setTimeout(() => {
-                    const el = document.getElementById('bank-details');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 80);
+                e.preventDefault();
+                if (onNavigateBank) {
+                  onNavigateBank();
+                } else if (onNavigateContact) {
+                  onNavigateContact('bank-details');
                 }
               }}
             >
@@ -408,16 +407,14 @@ export default function Navbar({
           </a>
 
           <a 
-            href="#bank-details" 
+            href="/contact-us/#bank-details" 
             onClick={(e) => {
+              e.preventDefault();
               setMobileMenuOpen(false);
-              if (currentPage !== 'home') {
-                e.preventDefault();
-                onNavigateHome();
-                setTimeout(() => {
-                  const el = document.getElementById('bank-details');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 80);
+              if (onNavigateBank) {
+                onNavigateBank();
+              } else if (onNavigateContact) {
+                onNavigateContact('bank-details');
               }
             }}
             style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
