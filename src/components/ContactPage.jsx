@@ -98,26 +98,36 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
           alignItems: 'center',
           justifyContent: 'space-between'
         }}>
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              background: 'none',
-              border: 'none',
               color: 'var(--pmt-blue)',
               fontSize: '0.88rem',
               fontWeight: 700,
-              cursor: 'pointer'
+              cursor: 'pointer',
+              textDecoration: 'none'
             }}
           >
             <ArrowLeft size={16} />
             <span>{t.nav.home}</span>
-          </button>
+          </a>
 
           <div style={{ fontSize: '0.82rem', color: 'var(--text-light)', fontWeight: 600 }}>
-            {t.nav.home} / <span style={{ color: 'var(--pmt-red)' }}>{t.nav.contact}</span>
+            <a 
+              href="/" 
+              onClick={(e) => { e.preventDefault(); onNavigateHome(); }}
+              style={{ color: 'var(--text-light)', textDecoration: 'none' }}
+            >
+              {t.nav.home}
+            </a>
+            {' '}/ <span style={{ color: 'var(--pmt-red)' }}>{t.nav.contact}</span>
           </div>
         </div>
       </div>

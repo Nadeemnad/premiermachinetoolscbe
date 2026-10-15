@@ -124,8 +124,12 @@ export default function Footer({ currentLang, onOpenRfq, onNavigateContact }) {
               </div>
 
               {onNavigateContact && (
-                <button
-                  onClick={onNavigateContact}
+                <a
+                  href="/contact-us/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigateContact();
+                  }}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -140,6 +144,7 @@ export default function Footer({ currentLang, onOpenRfq, onNavigateContact }) {
                     cursor: 'pointer',
                     marginTop: '4px',
                     width: 'fit-content',
+                    textDecoration: 'none',
                     transition: 'all 0.2s ease'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.background = 'var(--pmt-blue)'}
@@ -147,7 +152,7 @@ export default function Footer({ currentLang, onOpenRfq, onNavigateContact }) {
                 >
                   <MapPin size={14} color="var(--pmt-red)" />
                   <span>{t.nav.contact} &amp; Bank Details Page →</span>
-                </button>
+                </a>
               )}
             </div>
           </div>

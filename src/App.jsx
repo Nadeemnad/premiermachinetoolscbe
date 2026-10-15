@@ -15,12 +15,20 @@ import Toast from './components/Toast';
 export default function App() {
   const [currentLang, setCurrentLang] = useState('en'); // 'en' | 'ta' | 'hi'
 
+  // Clean URL helper for /contact-us/
+  const isContactUrl = (pathname, hash) => {
+    const cleanPath = (pathname || '').toLowerCase().replace(/\/+$/, '');
+    const cleanHash = (hash || '').toLowerCase();
+    return cleanPath === '/contact-us' || 
+           cleanPath === '/contact' || 
+           cleanHash === '#contact' || 
+           cleanHash === '#contact-us';
+  };
+
   // Route state: 'home' | 'contact'
   const getInitialPage = () => {
     if (typeof window !== 'undefined') {
-      const hash = window.location.hash;
-      const path = window.location.pathname;
-      if (hash === '#contact' || path === '/contact' || hash.startsWith('#contact')) {
+      if (isContactUrl(window.location.pathname, window.location.hash)) {
         return 'contact';
       }
     }
@@ -35,12 +43,10 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState(null);
   const [heroSearchQuery, setHeroSearchQuery] = useState('');
 
-  // Sync with browser back/forward and hash changes
+  // Sync with browser back/forward and clean URL changes
   useEffect(() => {
     const handleLocationChange = () => {
-      const hash = window.location.hash;
-      const path = window.location.pathname;
-      if (hash === '#contact' || path === '/contact' || hash.startsWith('#contact')) {
+      if (isContactUrl(window.location.pathname, window.location.hash)) {
         setCurrentPage('contact');
       } else {
         setCurrentPage('home');
@@ -55,24 +61,49 @@ export default function App() {
     };
   }, []);
 
+  // Update Page Title and Canonical Meta Tags for /contact-us/ vs /
+  useEffect(() => {
+    const canonicalLink = document.querySelector("link[rel='canonical']");
+    const ogUrl = document.querySelector("meta[property='og:url']");
+    const twitterUrl = document.querySelector("meta[property='twitter:url']");
+
+    if (currentPage === 'contact') {
+      document.title = currentLang === 'ta' 
+        ? "தொடர்பு கொள்ள | Premier Machine Tools, Coimbatore" 
+        : currentLang === 'hi' 
+        ? "संपर्क करें | Premier Machine Tools, Coimbatore"
+        : "Contact Us | Premier Machine Tools, Coimbatore";
+      const contactUrl = 'https://www.pmtpremiermachinetools.com/contact-us/';
+      if (canonicalLink) canonicalLink.setAttribute('href', contactUrl);
+      if (ogUrl) ogUrl.setAttribute('content', contactUrl);
+      if (twitterUrl) twitterUrl.setAttribute('content', contactUrl);
+    } else {
+      document.title = "Wire Rope & Lifting Tools, Coimbatore | Premier Machine Tools";
+      const homeUrl = 'https://www.pmtpremiermachinetools.com/';
+      if (canonicalLink) canonicalLink.setAttribute('href', homeUrl);
+      if (ogUrl) ogUrl.setAttribute('content', homeUrl);
+      if (twitterUrl) twitterUrl.setAttribute('content', homeUrl);
+    }
+  }, [currentPage, currentLang]);
+
   const navigateToPage = (page, targetId = null) => {
     setCurrentPage(page);
     if (page === 'contact') {
-      if (window.location.hash !== '#contact') {
-        window.history.pushState(null, '', '#contact');
+      if (window.location.pathname !== '/contact-us/') {
+        window.history.pushState(null, '', '/contact-us/');
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       if (targetId) {
-        window.history.pushState(null, '', `#${targetId}`);
+        window.history.pushState(null, '', `/#${targetId}`);
         setTimeout(() => {
           const el = document.getElementById(targetId);
           if (el) el.scrollIntoView({ behavior: 'smooth' });
           else window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 60);
+        }, 80);
       } else {
-        if (window.location.hash && window.location.hash !== '#') {
-          window.history.pushState(null, '', '#');
+        if (window.location.pathname !== '/' || window.location.hash) {
+          window.history.pushState(null, '', '/');
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }

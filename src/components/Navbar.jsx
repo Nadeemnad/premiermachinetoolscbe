@@ -47,8 +47,12 @@ export default function Navbar({
       {/* Tier 1: Main Header Row (Logo, Search, Language Switcher, WhatsApp, Quote) */}
       <div className="pmt-main-header-row">
         {/* Brand Logo */}
-        <button 
-          onClick={onNavigateHome}
+        <a 
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigateHome();
+          }}
           id="brand-logo" 
           style={{ 
             display: 'flex', 
@@ -58,7 +62,8 @@ export default function Navbar({
             background: 'none',
             border: 'none',
             padding: 0,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            textDecoration: 'none'
           }}
         >
           <img 
@@ -66,7 +71,7 @@ export default function Navbar({
             alt="PMT Premier Machine Tools Coimbatore" 
             style={{ height: '52px', width: 'auto', display: 'block' }}
           />
-        </button>
+        </a>
 
         {/* Right Controls: Language Changer, WhatsApp, Quote */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
@@ -252,25 +257,28 @@ export default function Navbar({
               {t.nav.bank}
             </a>
 
-            <button
-              onClick={onNavigateContact}
+            <a
+              href="/contact-us/"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateContact();
+              }}
               id="subnav-contact"
               className={`subnav-link ${currentPage === 'contact' ? 'active-subnav-link' : ''}`}
               style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
+                textDecoration: 'none',
                 fontFamily: 'inherit',
                 fontSize: '0.9rem',
                 fontWeight: 700,
                 color: currentPage === 'contact' ? 'var(--pmt-red)' : 'var(--pmt-blue)',
                 borderBottom: currentPage === 'contact' ? '2.5px solid var(--pmt-red)' : '2.5px solid transparent',
                 padding: '10px 0',
-                transition: 'all 0.2s'
+                transition: 'all 0.2s',
+                display: 'inline-block'
               }}
             >
               {t.nav.contact}
-            </button>
+            </a>
           </nav>
 
           {/* Hamburger Menu on Far Right of Sub-Header (Manipal Hospitals Reference Style) */}
@@ -418,8 +426,10 @@ export default function Navbar({
             <ChevronRight size={16} color="var(--pmt-red)" />
           </a>
 
-          <button 
-            onClick={() => {
+          <a 
+            href="/contact-us/"
+            onClick={(e) => {
+              e.preventDefault();
               setMobileMenuOpen(false);
               onNavigateContact();
             }}
@@ -430,18 +440,15 @@ export default function Navbar({
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
+              textDecoration: 'none',
               width: '100%',
-              textAlign: 'left',
               fontFamily: 'inherit',
               fontSize: '1rem'
             }}
           >
             <span>{t.nav.contact}</span>
             <ChevronRight size={16} color="var(--pmt-red)" />
-          </button>
+          </a>
 
           {/* Mobile Direct Call CTAs */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '6px' }}>
