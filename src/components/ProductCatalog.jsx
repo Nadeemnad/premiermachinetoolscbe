@@ -37,6 +37,8 @@ export default function ProductCatalog({
     { id: 'electric-hoist', label: t.nav.electricHoist },
     { id: 'lifting-slings-shackles', label: t.nav.slings },
     { id: 'ratchet-lashing-belt', label: t.nav.lashingBelt },
+    { id: 'material-handling', label: t.nav.materialHandling || 'Material Handling' },
+    { id: 'industrial-chains', label: t.nav.industrialChains || 'Industrial Chains' },
     { id: 'pp-rope-danline', label: t.nav.ropes },
     { id: 'saw-blades', label: t.nav.blades }
   ];
@@ -226,37 +228,122 @@ export default function ProductCatalog({
                   transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                 }}
               >
-                {/* Header Icon + Brand Strip */}
-                <div style={{
-                  padding: '20px 20px 14px',
-                  background: 'linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%)',
-                  borderBottom: '1px solid #F1F5F9',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start'
-                }}>
-                  <div style={{
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '12px',
-                    background: 'var(--pmt-white)',
-                    border: '1.5px solid #E2E8F0',
+                {/* Product Image Showcase Container */}
+                <div 
+                  style={{
+                    position: 'relative',
+                    height: '210px',
+                    background: '#F8FAFC',
+                    borderBottom: '1px solid #E2E8F0',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: 'var(--shadow-sm)'
-                  }}>
-                    {getProductIcon(prod.icon)}
-                  </div>
+                    overflow: 'hidden',
+                    cursor: 'pointer'
+                  }} 
+                  onClick={() => onSelectProduct(prod)}
+                >
+                  {prod.image ? (
+                    <img 
+                      src={prod.image} 
+                      alt={displayName}
+                      loading="lazy"
+                      className="product-card-image"
+                      style={{
+                        maxWidth: '92%',
+                        maxHeight: '92%',
+                        objectFit: 'contain',
+                        padding: '10px',
+                        transition: 'transform 0.3s ease'
+                      }}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
 
-                  <div style={{ textAlign: 'right' }}>
-                    <span className="badge-red" style={{ marginBottom: '4px' }}>
-                      {prod.brand}
-                    </span>
-                    <div style={{ fontSize: '0.72rem', color: 'var(--pmt-teal)', fontWeight: 800 }}>
-                      ✓ Genuine Supply
+                  {/* Fallback Icon Box if image missing or error */}
+                  <div style={{
+                    display: prod.image ? 'none' : 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%'
+                  }}>
+                    <div style={{
+                      width: '64px',
+                      height: '64px',
+                      borderRadius: '16px',
+                      background: 'var(--pmt-white)',
+                      border: '1.5px solid #E2E8F0',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: 'var(--shadow-sm)'
+                    }}>
+                      {getProductIcon(prod.icon)}
                     </div>
                   </div>
+
+                  {/* Top Badges Overlay */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '10px',
+                    left: '10px',
+                    right: '10px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    pointerEvents: 'none'
+                  }}>
+                    <span style={{
+                      background: 'rgba(3, 78, 161, 0.92)',
+                      color: 'var(--pmt-white)',
+                      fontSize: '0.68rem',
+                      fontWeight: 800,
+                      padding: '3px 8px',
+                      borderRadius: '6px',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+                      letterSpacing: '0.02em',
+                      textTransform: 'uppercase'
+                    }}>
+                      {prod.badge || 'Certified'}
+                    </span>
+
+                    <span style={{
+                      background: 'rgba(198, 28, 26, 0.92)',
+                      color: 'var(--pmt-white)',
+                      fontSize: '0.72rem',
+                      fontWeight: 800,
+                      padding: '3px 8px',
+                      borderRadius: '6px',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
+                    }}>
+                      {prod.brand}
+                    </span>
+                  </div>
+
+                  {/* Price Tag Badge on Bottom Right */}
+                  {prod.price && (
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '8px',
+                      right: '10px',
+                      background: 'rgba(19, 17, 12, 0.88)',
+                      color: 'var(--pmt-white)',
+                      fontSize: '0.76rem',
+                      fontWeight: 800,
+                      padding: '3px 9px',
+                      borderRadius: '6px',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.25)',
+                      backdropFilter: 'blur(4px)',
+                      WebkitBackdropFilter: 'blur(4px)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)'
+                    }}>
+                      {prod.price}
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}

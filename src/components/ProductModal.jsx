@@ -127,39 +127,101 @@ export default function ProductModal({
 
         {/* Modal Content */}
         <div style={{ padding: '24px' }}>
-          <h2 style={{
-            fontSize: '1.45rem',
-            color: 'var(--pmt-blue)',
-            marginBottom: '8px'
-          }}>
-            {displayName}
-          </h2>
-
-          <p style={{
-            fontSize: '0.95rem',
-            color: 'var(--text-muted)',
-            lineHeight: 1.6,
-            marginBottom: '20px'
-          }}>
-            {displayTagline}
-          </p>
-
-          {/* Delivery & Assurance Strip in Teal #05aba5 */}
+          {/* Top Showcase: Image + Title & Delivery */}
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            background: 'var(--pmt-teal-soft)',
-            border: '1px solid var(--pmt-teal)',
-            padding: '10px 14px',
-            borderRadius: '8px',
-            fontSize: '0.85rem',
-            color: 'var(--pmt-teal-dark)',
-            fontWeight: 700,
-            marginBottom: '22px'
+            display: 'grid',
+            gridTemplateColumns: product.image ? 'repeat(auto-fit, minmax(260px, 1fr))' : '1fr',
+            gap: '20px',
+            marginBottom: '20px',
+            alignItems: 'center'
           }}>
-            <Truck size={18} />
-            <span>All Over India Delivery Available • Lorry Transport &amp; Express Courier</span>
+            {/* Image Preview Box */}
+            {product.image && (
+              <div style={{
+                position: 'relative',
+                height: '240px',
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                padding: '12px'
+              }}>
+                <img 
+                  src={product.image} 
+                  alt={displayName}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain'
+                  }}
+                />
+                {product.price && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '10px',
+                    left: '10px',
+                    background: 'var(--pmt-blue)',
+                    color: 'var(--pmt-white)',
+                    fontSize: '0.82rem',
+                    fontWeight: 800,
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(3, 78, 161, 0.3)'
+                  }}>
+                    {product.price}
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <span className="badge-red" style={{ fontSize: '0.72rem' }}>
+                  {product.badge || 'Certified'}
+                </span>
+                <span className="badge-blue" style={{ fontSize: '0.72rem' }}>
+                  {product.brand}
+                </span>
+              </div>
+
+              <h2 style={{
+                fontSize: '1.45rem',
+                color: 'var(--pmt-blue)',
+                marginBottom: '8px',
+                lineHeight: 1.25
+              }}>
+                {displayName}
+              </h2>
+
+              <p style={{
+                fontSize: '0.92rem',
+                color: 'var(--text-muted)',
+                lineHeight: 1.55,
+                marginBottom: '16px'
+              }}>
+                {displayTagline}
+              </p>
+
+              {/* Delivery & Assurance Strip in Teal #05aba5 */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                background: 'var(--pmt-teal-soft)',
+                border: '1px solid var(--pmt-teal)',
+                padding: '9px 12px',
+                borderRadius: '8px',
+                fontSize: '0.82rem',
+                color: 'var(--pmt-teal-dark)',
+                fontWeight: 700
+              }}>
+                <Truck size={17} />
+                <span>All Over India Delivery • Lorry Transport &amp; Express Courier</span>
+              </div>
+            </div>
           </div>
 
           {/* Detailed Specifications Table */}
