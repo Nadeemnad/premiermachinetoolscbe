@@ -14,7 +14,10 @@ export default function Navbar({
   currentLang, 
   onLanguageChange, 
   onOpenRfq, 
-  cartCount = 0 
+  cartCount = 0,
+  currentPage = 'home',
+  onNavigateHome,
+  onNavigateContact
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -44,13 +47,26 @@ export default function Navbar({
       {/* Tier 1: Main Header Row (Logo, Search, Language Switcher, WhatsApp, Quote) */}
       <div className="pmt-main-header-row">
         {/* Brand Logo */}
-        <a href="#" id="brand-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+        <button 
+          onClick={onNavigateHome}
+          id="brand-logo" 
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '10px', 
+            flexShrink: 0,
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer'
+          }}
+        >
           <img 
             src="/pmt-logo.svg" 
             alt="PMT Premier Machine Tools Coimbatore" 
             style={{ height: '52px', width: 'auto', display: 'block' }}
           />
-        </a>
+        </button>
 
         {/* Right Controls: Language Changer, WhatsApp, Quote */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
@@ -168,6 +184,16 @@ export default function Navbar({
               href="#products" 
               id="subnav-wire-rope"
               className="subnav-link"
+              onClick={(e) => {
+                if (currentPage !== 'home') {
+                  e.preventDefault();
+                  onNavigateHome();
+                  setTimeout(() => {
+                    const el = document.getElementById('products');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 80);
+                }
+              }}
             >
               {t.nav.wireRope}
             </a>
@@ -176,6 +202,16 @@ export default function Navbar({
               href="#products" 
               id="subnav-chain-pulley"
               className="subnav-link"
+              onClick={(e) => {
+                if (currentPage !== 'home') {
+                  e.preventDefault();
+                  onNavigateHome();
+                  setTimeout(() => {
+                    const el = document.getElementById('products');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 80);
+                }
+              }}
             >
               {t.nav.chainPulley}
             </a>
@@ -184,6 +220,16 @@ export default function Navbar({
               href="#brands" 
               id="subnav-brands"
               className="subnav-link"
+              onClick={(e) => {
+                if (currentPage !== 'home') {
+                  e.preventDefault();
+                  onNavigateHome();
+                  setTimeout(() => {
+                    const el = document.getElementById('brands');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 80);
+                }
+              }}
             >
               {t.brands.badge}
             </a>
@@ -192,17 +238,39 @@ export default function Navbar({
               href="#bank-details" 
               id="subnav-bank"
               className="subnav-link"
+              onClick={(e) => {
+                if (currentPage !== 'home') {
+                  e.preventDefault();
+                  onNavigateHome();
+                  setTimeout(() => {
+                    const el = document.getElementById('bank-details');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 80);
+                }
+              }}
             >
               {t.nav.bank}
             </a>
 
-            <a 
-              href="#contact" 
+            <button
+              onClick={onNavigateContact}
               id="subnav-contact"
-              className="subnav-link"
+              className={`subnav-link ${currentPage === 'contact' ? 'active-subnav-link' : ''}`}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                color: currentPage === 'contact' ? 'var(--pmt-red)' : 'var(--pmt-blue)',
+                borderBottom: currentPage === 'contact' ? '2.5px solid var(--pmt-red)' : '2.5px solid transparent',
+                padding: '10px 0',
+                transition: 'all 0.2s'
+              }}
             >
               {t.nav.contact}
-            </a>
+            </button>
           </nav>
 
           {/* Hamburger Menu on Far Right of Sub-Header (Manipal Hospitals Reference Style) */}
@@ -276,7 +344,17 @@ export default function Navbar({
 
           <a 
             href="#products" 
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              if (currentPage !== 'home') {
+                e.preventDefault();
+                onNavigateHome();
+                setTimeout(() => {
+                  const el = document.getElementById('products');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 80);
+              }
+            }}
             style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
           >
             <span>{t.nav.wireRope}</span>
@@ -285,7 +363,17 @@ export default function Navbar({
 
           <a 
             href="#products" 
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              if (currentPage !== 'home') {
+                e.preventDefault();
+                onNavigateHome();
+                setTimeout(() => {
+                  const el = document.getElementById('products');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 80);
+              }
+            }}
             style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
           >
             <span>{t.nav.chainPulley}</span>
@@ -294,7 +382,17 @@ export default function Navbar({
 
           <a 
             href="#brands" 
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              if (currentPage !== 'home') {
+                e.preventDefault();
+                onNavigateHome();
+                setTimeout(() => {
+                  const el = document.getElementById('brands');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 80);
+              }
+            }}
             style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
           >
             <span>{t.brands.badge}</span>
@@ -303,21 +401,47 @@ export default function Navbar({
 
           <a 
             href="#bank-details" 
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              if (currentPage !== 'home') {
+                e.preventDefault();
+                onNavigateHome();
+                setTimeout(() => {
+                  const el = document.getElementById('bank-details');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 80);
+              }
+            }}
             style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
           >
             <span>{t.nav.bank}</span>
             <ChevronRight size={16} color="var(--pmt-red)" />
           </a>
 
-          <a 
-            href="#contact" 
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
+          <button 
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onNavigateContact();
+            }}
+            style={{
+              padding: '8px 0',
+              fontWeight: 700,
+              color: currentPage === 'contact' ? 'var(--pmt-red)' : 'var(--pmt-blue)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              width: '100%',
+              textAlign: 'left',
+              fontFamily: 'inherit',
+              fontSize: '1rem'
+            }}
           >
             <span>{t.nav.contact}</span>
             <ChevronRight size={16} color="var(--pmt-red)" />
-          </a>
+          </button>
 
           {/* Mobile Direct Call CTAs */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '6px' }}>

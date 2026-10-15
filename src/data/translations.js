@@ -100,6 +100,29 @@ export const TRANSLATIONS = {
       quickLinks: "Quick Navigation",
       contactTitle: "Store & Branch Locations",
       rights: "PMT Premier Machine Tools. All rights reserved. Subject to Coimbatore Jurisdiction."
+    },
+    contactPage: {
+      badge: "CONTACT PREMIER MACHINE TOOLS",
+      title: "Contact Us",
+      sub: "Visit our store at Dr. Nanjappa Road, Coimbatore or reach out directly for instant quotes, technical support, and Pan-India dispatches.",
+      storeAddressHeading: "Store & Office Address:",
+      bankDetailsHeading: "Official DBS Bank Account Details:",
+      openInMaps: "Open in Maps",
+      callNow: "Call Now",
+      chatWhatsapp: "Chat on Whatsapp",
+      contactPhone: "Contact",
+      contactEmail: "Email",
+      formHeading: "Send Us an Inquiry",
+      name: "Name",
+      mobile: "Mobile Number",
+      email: "Email Address",
+      city: "Choose City",
+      location: "Choose Location / Office",
+      subject: "Subject (Optional)",
+      message: "Type Your Message",
+      verify: "Verified",
+      sendBtn: "Send Message",
+      successMsg: "Thank you! Your message has been sent to our sales team. We will call you back shortly."
     }
   },
 
@@ -204,6 +227,29 @@ export const TRANSLATIONS = {
       quickLinks: "முக்கிய இணைப்புகள்",
       contactTitle: "கடை & கிளை முகவரி",
       rights: "பிரிமியர் மெஷின் டூல்ஸ். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை. கோயம்புத்தூர் எல்லைக்குட்பட்டது."
+    },
+    contactPage: {
+      badge: "பிரிமியர் மெஷின் டூல்ஸ் தொடர்பு கொள்ள",
+      title: "எங்களை தொடர்பு கொள்ளவும்",
+      sub: "கோயம்புத்தூர் டாக்டர் நஞ்சப்பா ரோட்டில் உள்ள எங்கள் கடைக்கு வருகை தரவும் அல்லது உடனடி விலைப்புள்ளிக்கு தொடர்பு கொள்ளவும்.",
+      storeAddressHeading: "கடை & அலுவலக முகவரி:",
+      bankDetailsHeading: "அதிகாரப்பூர்வ DBS வங்கி விவரங்கள்:",
+      openInMaps: "வரைபடத்தில் பார்க்க (Maps)",
+      callNow: "அழைக்க (Call Now)",
+      chatWhatsapp: "வாட்ஸ்அப் அரட்டை",
+      contactPhone: "தொலைபேசி",
+      contactEmail: "மின்னஞ்சல்",
+      formHeading: "தகவல் அனுப்பவும்",
+      name: "பெயர்",
+      mobile: "கைபேசி எண்",
+      email: "மின்னஞ்சல் முகவரி",
+      city: "நகரத்தை தேர்வு செய்யவும்",
+      location: "இடம் / கிளை தேர்வு",
+      subject: "பொருள் (விருப்பத்தேர்வு)",
+      message: "உங்கள் தகவலை உள்ளிடவும்",
+      verify: "சரிபார்க்கப்பட்டது",
+      sendBtn: "தகவல் அனுப்புக",
+      successMsg: "நன்றி! உங்கள் தகவல் எங்கள் விற்பனை குழுவுக்கு அனுப்பப்பட்டுள்ளது. விரைவில் அழைக்கிறோம்."
     }
   },
 
@@ -308,6 +354,29 @@ export const TRANSLATIONS = {
       quickLinks: "त्वरित लिंक",
       contactTitle: "दुकान एवं शाखा का पता",
       rights: "प्रीमियर मशीन टूल्स। सर्वाधिकार सुरक्षित। कोयंबटूर क्षेत्राधिकार।"
+    },
+    contactPage: {
+      badge: "प्रीमियर मशीन टूल्स संपर्क",
+      title: "हमसे संपर्क करें (Contact Us)",
+      sub: "डॉ. नंजप्पा रोड, कोयंबटूर स्थित हमारी दुकान पर पधारें या तत्काल कोटेशन और डिलीवरी के लिए संपर्क करें।",
+      storeAddressHeading: "दुकान एवं कार्यालय का पता:",
+      bankDetailsHeading: "आधिकारिक डीबीएस बैंक खाता विवरण:",
+      openInMaps: "गूगल मैप्स में खोलें (Open in Maps)",
+      callNow: "कॉल करें (Call Now)",
+      chatWhatsapp: "व्हाट्सएप चैट",
+      contactPhone: "फ़ोन",
+      contactEmail: "ईमेल",
+      formHeading: "पूछताछ भेजें",
+      name: "नाम",
+      mobile: "मोबाइल नंबर",
+      email: "ईमेल पता",
+      city: "शहर चुनें",
+      location: "स्थान / शाखा चुनें",
+      subject: "विषय (वैकल्पिक)",
+      message: "अपना संदेश लिखें",
+      verify: "सत्यापित",
+      sendBtn: "संदेश भेजें",
+      successMsg: "धन्यवाद! आपका संदेश हमारी बिक्री टीम को भेज दिया गया है। हम जल्द ही संपर्क करेंगे।"
     }
   }
 };

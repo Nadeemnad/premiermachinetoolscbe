@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
-export default function Footer({ currentLang, onOpenRfq }) {
+export default function Footer({ currentLang, onOpenRfq, onNavigateContact }) {
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   const scrollToTop = () => {
@@ -17,7 +17,7 @@ export default function Footer({ currentLang, onOpenRfq }) {
   };
 
   return (
-    <footer id="contact" style={{
+    <footer id="footer-section" style={{
       background: 'var(--pmt-black)',
       color: 'rgba(255, 255, 255, 0.85)',
       padding: '60px 16px 24px',
@@ -122,6 +122,33 @@ export default function Footer({ currentLang, onOpenRfq }) {
                   Coimbatore, Tamil Nadu
                 </div>
               </div>
+
+              {onNavigateContact && (
+                <button
+                  onClick={onNavigateContact}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    color: 'var(--pmt-white)',
+                    background: 'rgba(3, 78, 161, 0.45)',
+                    border: '1px solid var(--pmt-blue)',
+                    borderRadius: '6px',
+                    padding: '8px 14px',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    marginTop: '4px',
+                    width: 'fit-content',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = 'var(--pmt-blue)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(3, 78, 161, 0.45)'}
+                >
+                  <MapPin size={14} color="var(--pmt-red)" />
+                  <span>{t.nav.contact} &amp; Bank Details Page →</span>
+                </button>
+              )}
             </div>
           </div>
 
