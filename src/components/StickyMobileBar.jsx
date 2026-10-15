@@ -20,7 +20,7 @@ export default function StickyMobileBar({ currentLang, onOpenRfq }) {
         style={{
           background: 'var(--pmt-red-soft)',
           color: 'var(--pmt-red)',
-          border: '1px solid rgba(225, 40, 28, 0.3)'
+          border: '1px solid var(--pmt-red)'
         }}
         title="Call 94875 10127"
       >
@@ -37,8 +37,8 @@ export default function StickyMobileBar({ currentLang, onOpenRfq }) {
         data-track="whatsapp"
         className="sticky-mobile-btn"
         style={{
-          background: 'var(--pmt-green)',
-          color: '#FFFFFF'
+          background: 'var(--pmt-teal)',
+          color: 'var(--pmt-white)'
         }}
         title="Chat on WhatsApp"
       >
@@ -53,8 +53,8 @@ export default function StickyMobileBar({ currentLang, onOpenRfq }) {
         data-track="enquiry"
         className="sticky-mobile-btn"
         style={{
-          background: 'var(--pmt-indigo)',
-          color: '#FFFFFF'
+          background: 'var(--pmt-red)',
+          color: 'var(--pmt-white)'
         }}
         title="Get Quote"
       >

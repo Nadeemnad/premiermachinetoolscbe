@@ -75,7 +75,7 @@ export default function App() {
 
   return (
     <div className={`pmt-app ${currentLang === 'ta' ? 'tamil-font' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Navbar with Multi-Language Switcher, GSTIN, and Direct Phones */}
+      {/* Navbar with Multi-Language Switcher and Sub-Header */}
       <Navbar
         currentLang={currentLang}
         onLanguageChange={handleLanguageChange}

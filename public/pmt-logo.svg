@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 110" width="460" height="110">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 68" width="640" height="68">
   <!-- Tamil Header in Teal #05aba5 -->
-  <text x="110" y="28" font-family="'Noto Sans Tamil', 'Inter', sans-serif" font-size="22" font-weight="800" fill="#05aba5" letter-spacing="0.5">
+  <text x="86" y="16" font-family="'Noto Sans Tamil', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="15.5" font-weight="800" fill="#05aba5" letter-spacing="0.4">
     பிரிமியர் மெஷின் டூல்ஸ்
   </text>
   
   <!-- Wire Rope Reel Spool Graphic in #13110c, #034ea1 and #ffffff -->
-  <g transform="translate(10, 36)">
+  <g transform="translate(4, 8) scale(0.85)">
     <!-- Spool Flange Left -->
     <ellipse cx="22" cy="30" rx="18" ry="26" fill="#13110c" stroke="#034ea1" stroke-width="2"/>
     <ellipse cx="22" cy="30" rx="14" ry="20" fill="#034ea1"/>
@@ -24,18 +24,18 @@
   </g>
 
   <!-- PMT Red Badge Box in #c61c1a -->
-  <rect x="110" y="38" width="70" height="40" rx="4" fill="#c61c1a"/>
-  <text x="145" y="66" font-family="'Outfit', sans-serif" font-size="23" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
+  <rect x="86" y="24" width="50" height="26" rx="3" fill="#c61c1a"/>
+  <text x="111" y="43" font-family="'Outfit', -apple-system, BlinkMacSystemFont, sans-serif" font-size="16.5" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">
     PMT
   </text>
 
   <!-- PREMIER MACHINE TOOLS Red Bold Title in #c61c1a -->
-  <text x="190" y="67" font-family="'Outfit', sans-serif" font-size="27" font-weight="900" fill="#c61c1a" letter-spacing="0.5">
+  <text x="144" y="44" font-family="'Outfit', -apple-system, BlinkMacSystemFont, sans-serif" font-size="20.5" font-weight="900" fill="#c61c1a" letter-spacing="0.2">
     PREMIER MACHINE TOOLS
   </text>
 
-  <!-- Tagline / Subtitle in #034ea1 -->
-  <text x="112" y="96" font-family="'Inter', sans-serif" font-size="10.5" font-weight="700" fill="#034ea1" letter-spacing="0.5">
+  <!-- Below Tagline in PMT Blue #034ea1 - Large, Bold, Sharp & Full Visibility -->
+  <text x="86" y="62" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="800" fill="#034ea1" letter-spacing="0.4">
     WIRE ROPES • SLINGS • CHAINS • LIFTING TACKLES • BANDSAW BLADES
   </text>
 </svg>

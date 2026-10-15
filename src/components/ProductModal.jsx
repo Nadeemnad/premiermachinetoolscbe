@@ -51,7 +51,7 @@ export default function ProductModal({
       style={{
         position: 'fixed',
         inset: 0,
-        zIndex: 220,
+        zIndex: 'var(--z-modal-backdrop)',
         background: 'rgba(19, 17, 12, 0.75)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
@@ -76,7 +76,8 @@ export default function ProductModal({
           borderRadius: '16px',
           boxShadow: '0 20px 50px rgba(19, 17, 12, 0.3)',
           border: '2px solid var(--pmt-red)',
-          position: 'relative'
+          position: 'relative',
+          zIndex: 'var(--z-modal-content)'
         }}
       >
         {/* Modal Top Header in Red #c61c1a */}

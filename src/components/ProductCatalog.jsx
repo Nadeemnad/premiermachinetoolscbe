@@ -115,14 +115,7 @@ export default function ProductCatalog({
         boxShadow: 'var(--shadow-sm)'
       }}>
         {/* Category Filter Buttons */}
-        <div style={{
-          display: 'flex',
-          gap: '8px',
-          overflowX: 'auto',
-          paddingBottom: '10px',
-          marginBottom: '14px',
-          borderBottom: '1px solid #f1f5f9'
-        }}>
+        <div className="category-scroll-container">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
