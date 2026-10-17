@@ -111,6 +111,9 @@ html {
   color: var(--pmt-black);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 section[id], div[id] {
@@ -120,18 +123,30 @@ section[id], div[id] {
 main {
   position: relative;
   z-index: var(--z-base);
+  width: 100%;
+  max-width: 100%;
 }
 
 section {
   position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 body {
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
   background-color: var(--pmt-white);
   color: var(--pmt-black);
   min-height: 100vh;
   padding-bottom: 64px; /* Space for mobile sticky CTA bar */
+}
+
+#root, .pmt-app {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 @media (min-width: 769px) {
@@ -266,6 +281,16 @@ input, select, textarea {
   position: relative;
 }
 
+.hero-card-container {
+  padding: 32px 28px 24px;
+}
+
+@media (max-width: 640px) {
+  .hero-card-container {
+    padding: 18px 14px 18px !important;
+  }
+}
+
 .card-teal-box {
   background: var(--pmt-white);
   border: 2px solid var(--pmt-teal);
@@ -341,13 +366,77 @@ input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  width: 100%;
+}
+
+.pmt-header-logo {
+  height: 48px;
+  width: auto;
+  max-width: 440px;
+  object-fit: contain;
+  display: block;
+}
+
+.pmt-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .pmt-main-header-row {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .pmt-header-logo {
+    height: auto;
+    max-height: 36px;
+    max-width: min(210px, 46vw);
+  }
+  .pmt-header-controls {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pmt-main-header-row {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+  .pmt-header-logo {
+    max-height: 32px;
+    max-width: min(175px, 44vw);
+  }
+  .hide-on-mobile-sm {
+    display: none !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .pmt-header-logo {
+    max-height: 28px;
+    max-width: 150px;
+  }
+  .hide-on-mobile-xs {
+    display: none !important;
+  }
+  .show-on-mobile-xs {
+    display: inline !important;
+  }
+}
+
+.show-on-mobile-xs {
+  display: none;
 }
 
 .pmt-sub-header-row {
   border-top: 1px solid #e2e8f0;
   background: var(--pmt-white);
   width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .pmt-sub-header-inner {
@@ -357,13 +446,26 @@ input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .pmt-sub-header-inner {
+    padding: 0 10px;
+    gap: 8px;
+  }
 }
 
 .desktop-subnav-links {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 22px;
+  flex: 1;
+  min-width: 0; /* Critical: allows flex child to shrink below intrinsic content width */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .subnav-link {
@@ -379,6 +481,7 @@ input, select, textarea {
   white-space: nowrap;
   letter-spacing: 0.01em;
   transition: color 0.2s ease;
+  flex-shrink: 0;
 }
 
 .subnav-link:hover {
@@ -403,15 +506,13 @@ input, select, textarea {
 
 @media (max-width: 900px) {
   .desktop-subnav-links {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    gap: 16px !important;
-    padding: 6px 0;
+    gap: 14px !important;
+    padding: 4px 0;
     scrollbar-width: thin;
     scrollbar-color: var(--pmt-blue) rgba(3, 78, 161, 0.08);
   }
   .desktop-subnav-links::-webkit-scrollbar {
-    height: 4px;
+    height: 3px;
   }
   .desktop-subnav-links::-webkit-scrollbar-track {
     background: rgba(3, 78, 161, 0.04);

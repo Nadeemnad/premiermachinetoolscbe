@@ -34,7 +34,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         {/* Visiting Card Frame Structure with #c61c1a Border */}
-        <div className="card-border-box" style={{ padding: '32px 28px 24px' }}>
+        <div className="card-border-box hero-card-container">
           {/* Top Line: GSTIN in Red #c61c1a, Phone Numbers in Blue #034ea1 */}
           <div style={{
             display: 'flex',
@@ -275,7 +275,7 @@ export default function Hero({ currentLang, onSearchSubmit, onOpenRfq }) {
         {/* 4 Feature Badges in Red, Teal, Blue */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
           gap: '14px',
           marginTop: '24px'
         }}>

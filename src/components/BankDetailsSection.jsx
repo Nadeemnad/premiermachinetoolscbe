@@ -89,7 +89,7 @@ export default function BankDetailsSection({ currentLang, onShowToast }) {
         <div style={{
           padding: '24px',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
           gap: '20px'
         }}>
           {/* Account Name */}

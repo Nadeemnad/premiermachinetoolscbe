@@ -24,7 +24,8 @@ export default function ProductCatalog({
   initialSearch = '', 
   cartItems = [], 
   onToggleCart, 
-  onSelectProduct 
+  onSelectProduct,
+  onNavigateCategory
 }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState(initialSearch);
@@ -32,15 +33,22 @@ export default function ProductCatalog({
 
   const categories = [
     { id: 'all', label: t.catalog.all },
-    { id: 'steel-wire-rope', label: t.nav.wireRope },
-    { id: 'chain-pulley-block', label: t.nav.chainPulley },
-    { id: 'electric-hoist', label: t.nav.electricHoist },
-    { id: 'lifting-slings-shackles', label: t.nav.slings },
-    { id: 'ratchet-lashing-belt', label: t.nav.lashingBelt },
-    { id: 'material-handling', label: t.nav.materialHandling || 'Material Handling' },
-    { id: 'industrial-chains', label: t.nav.industrialChains || 'Industrial Chains' },
-    { id: 'pp-rope-danline', label: t.nav.ropes },
-    { id: 'saw-blades', label: t.nav.blades }
+    { 
+      id: 'rigging', 
+      label: currentLang === 'ta' ? 'ரிக்சிங் & ஸ்லிங்குகள்' : currentLang === 'hi' ? 'रिगिंग और स्लिंग्स' : 'Rigging & Slings'
+    },
+    { 
+      id: 'lifting', 
+      label: currentLang === 'ta' ? 'லிஃப்டிங் & ஹோயிஸ்டுகள்' : currentLang === 'hi' ? 'लिफ्टिंग और होइस्ट्स' : 'Lifting & Hoists'
+    },
+    { 
+      id: 'lashing', 
+      label: currentLang === 'ta' ? 'கார்கோ லேஷிங்' : currentLang === 'hi' ? 'कार्गो लैशिंग' : 'Cargo Lashing'
+    },
+    { 
+      id: 'bandsaw-blades', 
+      label: currentLang === 'ta' ? 'மர அறுக்கும் பிளேடுகள்' : currentLang === 'hi' ? 'बैंडसॉ ब्लेड्स' : 'Bandsaw Blades & Ropes'
+    }
   ];
 
   const filteredProducts = useMemo(() => {
@@ -144,6 +152,51 @@ export default function ProductCatalog({
           })}
         </div>
 
+        {/* Dedicated Category Page Jump Banner */}
+        {activeCategory !== 'all' && (
+          <div style={{
+            marginTop: '12px',
+            marginBottom: '16px',
+            padding: '12px 16px',
+            background: 'linear-gradient(135deg, rgba(3, 78, 161, 0.07) 0%, rgba(198, 28, 26, 0.07) 100%)',
+            borderRadius: '8px',
+            border: '1px solid rgba(3, 78, 161, 0.18)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '10px'
+          }}>
+            <div style={{ fontSize: '0.86rem', color: 'var(--pmt-blue)', fontWeight: 600 }}>
+              Viewing {categories.find(c => c.id === activeCategory)?.label}. Need subcategory filters, engineering tables, and technical FAQs?
+            </div>
+            <a
+              href={`/${activeCategory}/`}
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigateCategory) onNavigateCategory(activeCategory);
+                else window.location.href = `/${activeCategory}/`;
+              }}
+              style={{
+                background: 'var(--pmt-blue)',
+                color: 'var(--pmt-white)',
+                padding: '7px 14px',
+                borderRadius: '6px',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                boxShadow: '0 2px 6px rgba(3, 78, 161, 0.25)'
+              }}
+            >
+              <span>Explore Dedicated {categories.find(c => c.id === activeCategory)?.label} Page</span>
+              <span>→</span>
+            </a>
+          </div>
+        )}
+
         {/* Search Bar + Result Counter */}
         <div style={{
           display: 'flex',
@@ -194,7 +247,7 @@ export default function ProductCatalog({
       {filteredProducts.length > 0 ? (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))',
           gap: '24px'
         }}>
           {filteredProducts.map((prod) => {

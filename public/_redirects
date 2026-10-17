@@ -3,8 +3,14 @@
 /contact                    /contact-us/                       301!
 /contact.html               /contact-us/                       301!
 /contact-us                 /contact-us/                       301!
+/rigging                    /rigging/                          301!
+/lifting                    /lifting/                          301!
+/lashing                    /lashing/                          301!
+/bandsaw-blades             /bandsaw-blades/                   301!
+/bandsaw                    /bandsaw-blades/                   301!
+/blades                     /bandsaw-blades/                   301!
 /products                   /#products                         301
-/wire-rope                  /#products                         301
+/wire-rope                  /rigging/                          301
 
 # Single Page App routing for Netlify
 /*                          /index.html                        200

@@ -122,7 +122,7 @@ export const TRANSLATIONS = {
       message: "Type Your Message",
       verify: "Verified",
       sendBtn: "Send Message",
-      successMsg: "Thank you! Your message has been sent to our sales team. We will call you back shortly."
+      successMsg: "Thank you! Your message has been sent to our team. We will call you back shortly."
     }
   },
 
@@ -249,7 +249,7 @@ export const TRANSLATIONS = {
       message: "உங்கள் தகவலை உள்ளிடவும்",
       verify: "சரிபார்க்கப்பட்டது",
       sendBtn: "தகவல் அனுப்புக",
-      successMsg: "நன்றி! உங்கள் தகவல் எங்கள் விற்பனை குழுவுக்கு அனுப்பப்பட்டுள்ளது. விரைவில் அழைக்கிறோம்."
+      successMsg: "நன்றி! உங்கள் தகவல் எங்கள் குழுவுக்கு அனுப்பப்பட்டுள்ளது. விரைவில் அழைக்கிறோம்."
     }
   },
 
@@ -376,7 +376,7 @@ export const TRANSLATIONS = {
       message: "अपना संदेश लिखें",
       verify: "सत्यापित",
       sendBtn: "संदेश भेजें",
-      successMsg: "धन्यवाद! आपका संदेश हमारी बिक्री टीम को भेज दिया गया है। हम जल्द ही संपर्क करेंगे।"
+      successMsg: "धन्यवाद! आपका संदेश हमारी टीम को भेज दिया गया है। हम जल्द ही संपर्क करेंगे।"
     }
   }
 };

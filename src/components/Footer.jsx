@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
-export default function Footer({ currentLang, onOpenRfq, onNavigateContact }) {
+export default function Footer({ currentLang, onOpenRfq, onNavigateContact, onNavigateCategory }) {
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   const scrollToTop = () => {
@@ -27,7 +27,7 @@ export default function Footer({ currentLang, onOpenRfq, onNavigateContact }) {
         {/* Top Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))',
           gap: '36px',
           marginBottom: '44px'
         }}>
@@ -226,14 +226,71 @@ export default function Footer({ currentLang, onOpenRfq, onNavigateContact }) {
               Product Specialists
             </h4>
 
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
-              <li>• Usha Martin Steel Wire Ropes</li>
-              <li>• Triple Super Gear Chain Pulley Blocks</li>
-              <li>• Good Lift Industrial Hoists</li>
-              <li>• Polyester Web Slings &amp; Lashings</li>
-              <li>• Wood Working Bandsaw Blades (ESI/Anil)</li>
-              <li>• Garware Garfil 3 Strand Ropes</li>
-              <li>• Manila Ropes, 'U' Clamps &amp; D-Shackles</li>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.84rem' }}>
+              <li>
+                <a 
+                  href="/rigging/#category-products" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onNavigateCategory) onNavigateCategory('rigging', 'category-products');
+                    else window.location.href = '/rigging/#category-products';
+                  }}
+                  style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', transition: 'color 0.2s ease' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pmt-teal)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.85)'}
+                >
+                  <span style={{ color: 'var(--pmt-red)' }}>•</span>
+                  <span><strong>Rigging &amp; Slings:</strong> Wire Ropes, Web Slings &amp; Shackles</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/lifting/#category-products" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onNavigateCategory) onNavigateCategory('lifting', 'category-products');
+                    else window.location.href = '/lifting/#category-products';
+                  }}
+                  style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', transition: 'color 0.2s ease' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pmt-teal)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.85)'}
+                >
+                  <span style={{ color: 'var(--pmt-red)' }}>•</span>
+                  <span><strong>Lifting &amp; Hoists:</strong> Triple Super Gear, INDEF &amp; Pallet Trucks</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/lashing/#category-products" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onNavigateCategory) onNavigateCategory('lashing', 'category-products');
+                    else window.location.href = '/lashing/#category-products';
+                  }}
+                  style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', transition: 'color 0.2s ease' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pmt-teal)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.85)'}
+                >
+                  <span style={{ color: 'var(--pmt-red)' }}>•</span>
+                  <span><strong>Cargo Lashing:</strong> Ratchet Belts, Load Binders &amp; Air Bags</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/bandsaw-blades/#category-products" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onNavigateCategory) onNavigateCategory('bandsaw-blades', 'category-products');
+                    else window.location.href = '/bandsaw-blades/#category-products';
+                  }}
+                  style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', transition: 'color 0.2s ease' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pmt-teal)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.85)'}
+                >
+                  <span style={{ color: 'var(--pmt-red)' }}>•</span>
+                  <span><strong>Bandsaw Blades &amp; Ropes:</strong> Anil, Ganesh Super &amp; Garware</span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>

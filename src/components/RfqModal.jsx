@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import { 
-  X, 
-  FileText, 
-  CheckCircle2, 
-  Trash2, 
-  Send, 
-  MessageCircle, 
-  Copy, 
-  Check 
+import {
+  X,
+  FileText,
+  CheckCircle2,
+  Trash2,
+  Send,
+  MessageCircle,
+  Copy,
+  Check
 } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 
-export default function RfqModal({ 
-  isOpen, 
-  onClose, 
-  currentLang, 
-  selectedProducts = [], 
-  onRemoveItem, 
-  onClearCart, 
-  onShowToast 
+export default function RfqModal({
+  isOpen,
+  onClose,
+  currentLang,
+  selectedProducts = [],
+  onRemoveItem,
+  onClearCart,
+  onShowToast
 }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -36,12 +36,21 @@ export default function RfqModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.name.trim()) {
+      onShowToast?.('Please enter your contact name');
+      return;
+    }
+    const cleanPhone = (formData.phone || '').replace(/\D/g, '');
+    if (!cleanPhone || cleanPhone.length !== 10 || !/^[6-9]/.test(cleanPhone)) {
+      onShowToast?.('Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9');
+      return;
+    }
     const ticketId = `PMT-CBE-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     setSubmittedTicket({
       ticketId,
       name: formData.name,
       company: formData.company,
-      phone: formData.phone,
+      phone: cleanPhone,
       city: formData.city,
       products: selectedProducts.length > 0 ? selectedProducts : [{ name: 'General Industrial Supply Inquiry' }]
     });
@@ -54,21 +63,30 @@ export default function RfqModal({
       });
     }
 
-    onShowToast?.(`Inquiry ${ticketId} recorded! We will contact you at ${formData.phone}.`);
+    onShowToast?.(`Inquiry ${ticketId} recorded! We will contact you at ${cleanPhone}.`);
   };
 
   const sendWhatsAppInquiry = () => {
-    const productList = selectedProducts.map(p => `• ${p.name} (${p.brand})`).join('%0A') || 'General Tools & Wire Ropes';
-    const text = encodeURIComponent(
-      `*PMT PREMIER MACHINE TOOLS - INQUIRY*%0A` +
-      `*Name:* ${formData.name || 'Customer'}%0A` +
-      `*Company:* ${formData.company || 'N/A'}%0A` +
-      `*Phone:* ${formData.phone || 'N/A'}%0A` +
-      `*Delivery City:* ${formData.city || 'Coimbatore'}%0A` +
-      `*Products:*%0A`
-    ) + productList + encodeURIComponent(`%0A*Remarks:* ${formData.remarks || 'Please provide best wholesale rates.'}`);
+    const productsFormatted = selectedProducts.length > 0
+      ? selectedProducts.map(p => `• ${p.name}${p.brand ? ` (${p.brand})` : ''}`).join('\n')
+      : '• General Industrial Tools & Wire Ropes';
 
-    window.open(`https://wa.me/919487510127?text=${text}`, '_blank');
+    const lines = [
+      '*PMT PREMIER MACHINE TOOLS - INQUIRY*',
+      submittedTicket?.ticketId ? `*Ref No:* ${submittedTicket.ticketId}` : null,
+      `*Name:* ${formData.name ? formData.name.trim() : 'Customer'}`,
+      `*Company:* ${formData.company ? formData.company.trim() : 'N/A'}`,
+      `*Phone:* ${formData.phone ? formData.phone.trim() : 'N/A'}`,
+      `*Delivery City:* ${formData.city ? formData.city.trim() : 'Coimbatore'}`,
+      '',
+      '*Products:*',
+      productsFormatted,
+      '',
+      `*Remarks:* ${formData.remarks ? formData.remarks.trim() : 'Please provide best rates and stock availability.'}`
+    ].filter(line => line !== null);
+
+    const fullMessage = lines.join('\n');
+    window.open(`https://wa.me/919487510127?text=${encodeURIComponent(fullMessage)}`, '_blank');
   };
 
   const copyTicket = () => {
@@ -80,7 +98,7 @@ export default function RfqModal({
   };
 
   return (
-    <div 
+    <div
       id="rfq-modal-backdrop"
       style={{
         position: 'fixed',
@@ -99,7 +117,7 @@ export default function RfqModal({
         if (e.target.id === 'rfq-modal-backdrop') onClose();
       }}
     >
-      <div 
+      <div
         id="rfq-modal-dialog"
         style={{
           width: '100%',
@@ -235,10 +253,10 @@ export default function RfqModal({
             </div>
           ) : (
             /* Inquiry Form with Netlify Attributes */
-            <form 
-              name="enquiry" 
-              method="POST" 
-              data-netlify="true" 
+            <form
+              name="enquiry"
+              method="POST"
+              data-netlify="true"
               action="/thank-you/"
               onSubmit={handleSubmit}
             >
@@ -363,22 +381,86 @@ export default function RfqModal({
                   <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--pmt-blue)', marginBottom: '4px' }}>
                     {t.rfq.phone} *
                   </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
-                    placeholder="+91 94875 XXXXX"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    style={{
-                      width: '100%',
-                      border: '1px solid #CBD5E1',
-                      borderRadius: '8px',
-                      padding: '10px 12px',
-                      fontSize: '0.88rem',
-                      outline: 'none'
-                    }}
-                  />
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    background: '#FFFFFF'
+                  }}>
+                    <span style={{
+                      padding: '0 10px',
+                      fontSize: '0.85rem',
+                      fontWeight: 700,
+                      color: 'var(--text-light)',
+                      background: '#F8FAFC',
+                      borderRight: '1px solid #CBD5E1',
+                      lineHeight: '40px'
+                    }}>
+                      +91
+                    </span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      required
+                      maxLength={10}
+                      inputMode="numeric"
+                      placeholder="98765 43210"
+                      value={formData.phone}
+                      onChange={(e) => {
+                        const clean = e.target.value.replace(/\D/g, '').slice(0, 10);
+                        setFormData({ ...formData, phone: clean });
+                      }}
+                      style={{
+                        flexGrow: 1,
+                        border: 'none',
+                        padding: '10px 12px',
+                        fontSize: '0.88rem',
+                        outline: 'none',
+                        color: 'var(--pmt-black)'
+                      }}
+                    />
+                    {formData.phone && formData.phone.length > 0 && formData.phone.length < 10 && (
+                      <span style={{
+                        marginRight: '8px',
+                        background: '#F1F5F9',
+                        color: '#64748B',
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        padding: '2px 6px',
+                        borderRadius: '4px'
+                      }}>
+                        {formData.phone.length}/10
+                      </span>
+                    )}
+                    {formData.phone && formData.phone.length === 10 && /^[6-9]/.test(formData.phone) && (
+                      <span style={{
+                        marginRight: '8px',
+                        background: 'rgba(5, 171, 165, 0.15)',
+                        color: 'var(--pmt-teal-dark)',
+                        fontSize: '0.7rem',
+                        fontWeight: 800,
+                        padding: '2px 6px',
+                        borderRadius: '4px'
+                      }}>
+                        ✓ Valid
+                      </span>
+                    )}
+                    {formData.phone && formData.phone.length === 10 && !/^[6-9]/.test(formData.phone) && (
+                      <span style={{
+                        marginRight: '8px',
+                        background: 'rgba(198, 28, 26, 0.12)',
+                        color: 'var(--pmt-red)',
+                        fontSize: '0.7rem',
+                        fontWeight: 800,
+                        padding: '2px 6px',
+                        borderRadius: '4px'
+                      }}>
+                        Must start 6-9
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div>

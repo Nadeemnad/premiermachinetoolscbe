@@ -41,7 +41,7 @@ export default function BrandsSection({ currentLang }) {
         {/* Brands Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
           gap: '20px'
         }}>
           {AUTHORIZED_BRANDS.map((brand, idx) => {

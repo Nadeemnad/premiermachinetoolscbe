@@ -32,6 +32,8 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
     subject: 'Product Price Quote',
     message: ''
   });
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -42,15 +44,77 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
     setTimeout(() => setCopiedField(null), 2500);
   };
 
+  const isMobileValid = (num) => {
+    return /^[6-9]\d{9}$/.test(num || '');
+  };
+
+  const isEmailValid = (em) => {
+    return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(em || '');
+  };
+
+  const validateField = (fieldName, value) => {
+    let err = '';
+    if (fieldName === 'name') {
+      if (!value || !value.trim()) err = 'Please enter your name or company name';
+      else if (value.trim().length < 2) err = 'Name must be at least 2 characters';
+    } else if (fieldName === 'mobile') {
+      if (!value) err = 'Mobile number is required';
+      else if (value.length < 10) err = `Please enter all 10 digits (${value.length}/10 entered)`;
+      else if (!/^[6-9]/.test(value)) err = 'Mobile number must start with 6, 7, 8, or 9';
+      else if (!isMobileValid(value)) err = 'Please enter a valid 10-digit mobile number';
+    } else if (fieldName === 'email') {
+      if (!value || !value.trim()) err = 'Email address is required';
+      else if (!isEmailValid(value.trim())) err = 'Please enter a valid email address';
+    } else if (fieldName === 'message') {
+      if (!value || !value.trim()) err = 'Message / inquiry specifications required';
+      else if (value.trim().length < 5) err = 'Please enter at least 5 characters for your message';
+    }
+    return err;
+  };
+
+  const handleBlur = (fieldName) => {
+    setTouched(prev => ({ ...prev, [fieldName]: true }));
+    const err = validateField(fieldName, formData[fieldName] || '');
+    setErrors(prev => ({ ...prev, [fieldName]: err }));
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    let cleanVal = value;
+    if (name === 'mobile') {
+      // Restrict strictly to digits and limit to 10 characters maximum
+      cleanVal = value.replace(/\D/g, '').slice(0, 10);
+    }
+    setFormData(prev => ({ ...prev, [name]: cleanVal }));
+
+    // If already touched, validate on the fly
+    if (touched[name]) {
+      const err = validateField(name, cleanVal);
+      setErrors(prev => ({ ...prev, [name]: err }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.mobile.trim() || !formData.message.trim()) {
-      if (onShowToast) onShowToast('Please fill in Name, Mobile Number, and Message.');
+
+    setTouched({ name: true, mobile: true, email: true, message: true });
+
+    const nameErr = validateField('name', formData.name);
+    const mobileErr = validateField('mobile', formData.mobile);
+    const emailErr = validateField('email', formData.email);
+    const msgErr = validateField('message', formData.message);
+
+    const newErrors = {
+      name: nameErr,
+      mobile: mobileErr,
+      email: emailErr,
+      message: msgErr
+    };
+    setErrors(newErrors);
+
+    if (nameErr || mobileErr || emailErr || msgErr) {
+      const firstError = mobileErr || nameErr || emailErr || msgErr;
+      if (onShowToast) onShowToast(firstError);
       return;
     }
 
@@ -80,10 +144,10 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
   };
 
   const whatsappInquiryUrl = `https://wa.me/919487510127?text=${encodeURIComponent(
-    `Hello Premier Machine Tools,\nMy Name: ${formData.name || 'Customer'}\nMobile: ${formData.mobile || '94875 10127'}\nCity: ${formData.city}\nSubject: ${formData.subject}\nRequirement: ${formData.message || 'I would like to inquire about your products & pricing.'}`
+    `Hello Premier Machine Tools,\nMy Name: ${formData.name || 'Customer'}\nMobile: ${formData.mobile || 'Not specified'}\nCity: ${formData.city}\nSubject: ${formData.subject}\nRequirement: ${formData.message || 'I would like to inquire about your products & pricing.'}`
   )}`;
 
-  const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Premier+Machine+Tools+129%2F4+Dr+Nanjappa+Road+Coimbatore+641018";
+  const googleMapsUrl = "https://www.google.com/maps/place/129%2F4,+Dr+Nanjappa+Rd,+Grey+Town,+ATT+Colony,+Gopalapuram,+Coimbatore,+Tamil+Nadu+641018/@11.0027602,76.9641784,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859a7d618d02d:0x18b3aa0b6b112823!8m2!3d11.0027549!4d76.9667533!16s%2Fg%2F11y44mtkgg?entry=ttu";
 
   return (
     <div style={{ background: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
@@ -122,8 +186,8 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
           </a>
 
           <div style={{ fontSize: '0.82rem', color: 'var(--text-light)', fontWeight: 600 }}>
-            <a 
-              href="/" 
+            <a
+              href="/"
               onClick={(e) => { e.preventDefault(); onNavigateHome(); }}
               style={{ color: 'var(--text-light)', textDecoration: 'none' }}
             >
@@ -173,7 +237,7 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
         }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
             gap: '32px',
             alignItems: 'center'
           }}>
@@ -217,13 +281,31 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                   # 129/4 (Old No. 184), Dr. Nanjappa Road,<br />
                   Coimbatore - 641 018, Tamil Nadu, India.
                 </div>
-                <div style={{
-                  fontSize: '0.82rem',
-                  color: 'var(--pmt-teal)',
-                  fontWeight: 800,
-                  marginTop: '6px'
-                }}>
-                  GSTIN: 33AALFP8180B2Z9 • Pan-India Lorry Transport Dispatch
+                <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
+                  <div style={{
+                    fontSize: '0.82rem',
+                    color: 'var(--pmt-teal)',
+                    fontWeight: 800
+                  }}>
+                    GSTIN: 33AALFP8180B2Z9 • Pan-India Lorry Transport Dispatch
+                  </div>
+                  <a
+                    href={googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      fontSize: '0.8rem',
+                      color: 'var(--pmt-blue)',
+                      fontWeight: 700,
+                      textDecoration: 'none'
+                    }}
+                  >
+                    <MapPin size={13} color="var(--pmt-red)" />
+                    <span>View on Google Maps ↗</span>
+                  </a>
                 </div>
               </div>
 
@@ -321,10 +403,10 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                 background: '#EDF2F7',
                 boxShadow: '0 8px 24px rgba(3, 78, 161, 0.12)'
               }}>
-                {/* Real Google Maps Embed with Stylized Pin */}
+                {/* Real Google Maps Embed with Exact 129/4 Dr Nanjappa Road Pin */}
                 <iframe
                   title="PMT Premier Machine Tools Location"
-                  src="https://maps.google.com/maps?q=Premier%20Machine%20Tools%20129%2F4%20Dr%20Nanjappa%20Road%20Coimbatore%20641018&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=129%2F4%2C+Dr+Nanjappa+Rd%2C+Grey+Town%2C+ATT+Colony%2C+Gopalapuram%2C+Coimbatore%2C+Tamil+Nadu+641018&t=&z=17&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -518,7 +600,7 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
             {/* Row 1: Name * | Mobile Number * */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
               gap: '20px',
               marginBottom: '18px'
             }}>
@@ -533,20 +615,27 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                   placeholder="John / Machine Shop / Factory Name"
                   value={formData.name}
                   onChange={handleInputChange}
+                  onBlur={() => handleBlur('name')}
                   style={{
                     width: '100%',
                     padding: '11px 14px',
                     borderRadius: '8px',
-                    border: '1.5px solid #CBD5E1',
+                    border: touched.name && errors.name ? '1.5px solid var(--pmt-red)' : '1.5px solid #CBD5E1',
                     fontSize: '0.9rem',
                     color: 'var(--pmt-black)',
                     background: '#FFFFFF',
                     outline: 'none',
                     transition: 'border-color 0.2s'
                   }}
-                  onFocus={(e) => e.target.style.borderColor = 'var(--pmt-blue)'}
-                  onBlur={(e) => e.target.style.borderColor = '#CBD5E1'}
+                  onFocus={(e) => {
+                    if (!errors.name) e.target.style.borderColor = 'var(--pmt-blue)';
+                  }}
                 />
+                {touched.name && errors.name && (
+                  <span style={{ fontSize: '0.76rem', color: 'var(--pmt-red)', fontWeight: 600, marginTop: '4px', display: 'block' }}>
+                    {errors.name}
+                  </span>
+                )}
               </div>
 
               <div>
@@ -558,8 +647,9 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                   alignItems: 'center',
                   background: '#FFFFFF',
                   borderRadius: '8px',
-                  border: '1.5px solid #CBD5E1',
-                  overflow: 'hidden'
+                  border: touched.mobile && errors.mobile ? '1.5px solid var(--pmt-red)' : '1.5px solid #CBD5E1',
+                  overflow: 'hidden',
+                  transition: 'border-color 0.2s'
                 }}>
                   <span style={{
                     padding: '0 12px',
@@ -576,9 +666,12 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                     type="tel"
                     name="mobile"
                     required
-                    placeholder="94875 10127"
+                    maxLength={10}
+                    inputMode="numeric"
+                    placeholder="98765 43210"
                     value={formData.mobile}
                     onChange={handleInputChange}
+                    onBlur={() => handleBlur('mobile')}
                     style={{
                       flexGrow: 1,
                       padding: '11px 12px',
@@ -588,27 +681,61 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                       outline: 'none'
                     }}
                   />
-                  {formData.mobile.length >= 10 && (
+                  {formData.mobile.length > 0 && formData.mobile.length < 10 && (
                     <span style={{
                       marginRight: '8px',
-                      background: 'var(--pmt-teal-soft)',
+                      background: '#F1F5F9',
+                      color: '#64748B',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      padding: '3px 8px',
+                      borderRadius: '4px'
+                    }}>
+                      {formData.mobile.length}/10 digits
+                    </span>
+                  )}
+                  {formData.mobile.length === 10 && isMobileValid(formData.mobile) && (
+                    <span style={{
+                      marginRight: '8px',
+                      background: 'rgba(5, 171, 165, 0.15)',
                       color: 'var(--pmt-teal-dark)',
+                      fontSize: '0.72rem',
+                      fontWeight: 800,
+                      padding: '3px 8px',
+                      borderRadius: '4px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '3px'
+                    }}>
+                      ✓ {cp.verify || "Valid"}
+                    </span>
+                  )}
+                  {formData.mobile.length === 10 && !isMobileValid(formData.mobile) && (
+                    <span style={{
+                      marginRight: '8px',
+                      background: 'rgba(198, 28, 26, 0.12)',
+                      color: 'var(--pmt-red)',
                       fontSize: '0.72rem',
                       fontWeight: 800,
                       padding: '3px 8px',
                       borderRadius: '4px'
                     }}>
-                      ✓ {cp.verify || "Verified"}
+                      Must start with 6-9
                     </span>
                   )}
                 </div>
+                {touched.mobile && errors.mobile && (
+                  <span style={{ fontSize: '0.76rem', color: 'var(--pmt-red)', fontWeight: 600, marginTop: '4px', display: 'block' }}>
+                    {errors.mobile}
+                  </span>
+                )}
               </div>
             </div>
 
             {/* Row 2: Email Address * | Choose City * */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
               gap: '20px',
               marginBottom: '18px'
             }}>
@@ -621,7 +748,7 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                   alignItems: 'center',
                   background: '#FFFFFF',
                   borderRadius: '8px',
-                  border: '1.5px solid #CBD5E1',
+                  border: touched.email && errors.email ? '1.5px solid var(--pmt-red)' : '1.5px solid #CBD5E1',
                   overflow: 'hidden'
                 }}>
                   <input
@@ -631,6 +758,7 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                     placeholder="example@example.com"
                     value={formData.email}
                     onChange={handleInputChange}
+                    onBlur={() => handleBlur('email')}
                     style={{
                       flexGrow: 1,
                       padding: '11px 14px',
@@ -640,20 +768,25 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                       outline: 'none'
                     }}
                   />
-                  {formData.email.includes('@') && (
+                  {formData.email && isEmailValid(formData.email) && (
                     <span style={{
                       marginRight: '8px',
-                      background: 'var(--pmt-teal-soft)',
+                      background: 'rgba(5, 171, 165, 0.15)',
                       color: 'var(--pmt-teal-dark)',
                       fontSize: '0.72rem',
                       fontWeight: 800,
                       padding: '3px 8px',
                       borderRadius: '4px'
                     }}>
-                      ✓ {cp.verify || "Verified"}
+                      ✓ {cp.verify || "Valid"}
                     </span>
                   )}
                 </div>
+                {touched.email && errors.email && (
+                  <span style={{ fontSize: '0.76rem', color: 'var(--pmt-red)', fontWeight: 600, marginTop: '4px', display: 'block' }}>
+                    {errors.email}
+                  </span>
+                )}
               </div>
 
               <div>
@@ -692,7 +825,7 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
             {/* Row 3: Choose Hospital/Office Location * | Subject (Optional) */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
               gap: '20px',
               marginBottom: '18px'
             }}>
@@ -768,11 +901,12 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                 placeholder="Please enter your required product specifications, diameter, tonnage capacity, quantity, and delivery destination..."
                 value={formData.message}
                 onChange={handleInputChange}
+                onBlur={() => handleBlur('message')}
                 style={{
                   width: '100%',
                   padding: '12px 14px',
                   borderRadius: '8px',
-                  border: '1.5px solid #CBD5E1',
+                  border: touched.message && errors.message ? '1.5px solid var(--pmt-red)' : '1.5px solid #CBD5E1',
                   fontSize: '0.9rem',
                   color: 'var(--pmt-black)',
                   background: '#FFFFFF',
@@ -781,6 +915,11 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
                   fontFamily: 'inherit'
                 }}
               />
+              {touched.message && errors.message && (
+                <span style={{ fontSize: '0.76rem', color: 'var(--pmt-red)', fontWeight: 600, marginTop: '4px', display: 'block' }}>
+                  {errors.message}
+                </span>
+              )}
             </div>
 
             {/* Row 5: Exactly Matching "Send Message" Full-Width Button */}
@@ -827,7 +966,7 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Check size={18} />
-                  <span>{cp.successMsg || "Thank you! Your message has been received by our Coimbatore sales team."}</span>
+                  <span>{cp.successMsg || "Thank you! Your message has been sent to our team. We will call you back shortly."}</span>
                 </div>
 
                 <a
@@ -865,7 +1004,7 @@ export default function ContactPage({ currentLang, onShowToast, onNavigateHome }
         <div style={{
           marginTop: '36px',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))',
           gap: '16px'
         }}>
           <div style={{

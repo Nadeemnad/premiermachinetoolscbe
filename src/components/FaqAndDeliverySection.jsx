@@ -104,7 +104,7 @@ export default function FaqAndDeliverySection({ currentLang, onOpenRfq }) {
           {/* Grid of States in Clean Contrast Boxes */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))',
             gap: '14px'
           }}>
             {states.map((st, idx) => (

@@ -13,7 +13,7 @@
   </url>
   <url>
     <loc>https://www.pmtpremiermachinetools.com/contact-us/</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.pmtpremiermachinetools.com/contact-us/"/>
@@ -22,26 +22,66 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmtpremiermachinetools.com/contact-us/"/>
   </url>
   <url>
-    <loc>https://www.pmtpremiermachinetools.com/#products</loc>
-    <lastmod>2026-10-15</lastmod>
+    <loc>https://www.pmtpremiermachinetools.com/rigging/</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.pmtpremiermachinetools.com/rigging/"/>
+    <xhtml:link rel="alternate" hreflang="ta-IN" href="https://www.pmtpremiermachinetools.com/rigging/?lang=ta"/>
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.pmtpremiermachinetools.com/rigging/?lang=hi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmtpremiermachinetools.com/rigging/"/>
+  </url>
+  <url>
+    <loc>https://www.pmtpremiermachinetools.com/lifting/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.pmtpremiermachinetools.com/lifting/"/>
+    <xhtml:link rel="alternate" hreflang="ta-IN" href="https://www.pmtpremiermachinetools.com/lifting/?lang=ta"/>
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.pmtpremiermachinetools.com/lifting/?lang=hi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmtpremiermachinetools.com/lifting/"/>
+  </url>
+  <url>
+    <loc>https://www.pmtpremiermachinetools.com/lashing/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.pmtpremiermachinetools.com/lashing/"/>
+    <xhtml:link rel="alternate" hreflang="ta-IN" href="https://www.pmtpremiermachinetools.com/lashing/?lang=ta"/>
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.pmtpremiermachinetools.com/lashing/?lang=hi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmtpremiermachinetools.com/lashing/"/>
+  </url>
+  <url>
+    <loc>https://www.pmtpremiermachinetools.com/bandsaw-blades/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.pmtpremiermachinetools.com/bandsaw-blades/"/>
+    <xhtml:link rel="alternate" hreflang="ta-IN" href="https://www.pmtpremiermachinetools.com/bandsaw-blades/?lang=ta"/>
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.pmtpremiermachinetools.com/bandsaw-blades/?lang=hi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmtpremiermachinetools.com/bandsaw-blades/"/>
+  </url>
+  <url>
+    <loc>https://www.pmtpremiermachinetools.com/#products</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.pmtpremiermachinetools.com/#brands</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.pmtpremiermachinetools.com/#delivery</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.pmtpremiermachinetools.com/#bank-details</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

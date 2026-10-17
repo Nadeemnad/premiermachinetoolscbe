@@ -18,7 +18,8 @@ export default function Navbar({
   currentPage = 'home',
   onNavigateHome,
   onNavigateContact,
-  onNavigateBank
+  onNavigateBank,
+  onNavigateCategory
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -58,8 +59,9 @@ export default function Navbar({
           style={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: '10px', 
-            flexShrink: 0,
+            gap: '8px', 
+            flexShrink: 1,
+            minWidth: 0,
             background: 'none',
             border: 'none',
             padding: 0,
@@ -70,12 +72,12 @@ export default function Navbar({
           <img 
             src="/pmt-logo.svg" 
             alt="PMT Premier Machine Tools Coimbatore" 
-            style={{ height: '52px', width: 'auto', display: 'block' }}
+            className="pmt-header-logo"
           />
         </a>
 
         {/* Right Controls: Language Changer, WhatsApp, Quote */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+        <div className="pmt-header-controls">
           {/* Language Switcher - Placed Directly Before WhatsApp */}
           <div 
             id="header-language-changer"
@@ -85,24 +87,25 @@ export default function Navbar({
               gap: '2px',
               background: 'rgba(3, 78, 161, 0.06)',
               border: '1px solid rgba(3, 78, 161, 0.18)',
-              padding: '3px 6px',
+              padding: '2px 4px',
               borderRadius: '8px'
             }}
           >
-            <Globe size={13} style={{ color: 'var(--pmt-blue)', marginLeft: '2px' }} />
+            <Globe size={12} style={{ color: 'var(--pmt-blue)', marginLeft: '2px' }} />
             <button
               onClick={() => onLanguageChange('en')}
               style={{
                 color: currentLang === 'en' ? 'var(--pmt-white)' : 'var(--pmt-blue)',
                 fontWeight: currentLang === 'en' ? 800 : 600,
-                fontSize: '0.78rem',
-                padding: '3px 7px',
-                borderRadius: '5px',
+                fontSize: '0.74rem',
+                padding: '2px 5px',
+                borderRadius: '4px',
                 background: currentLang === 'en' ? 'var(--pmt-blue)' : 'transparent',
                 transition: 'all 0.15s ease'
               }}
             >
-              English
+              <span className="hide-on-mobile-xs">English</span>
+              <span className="show-on-mobile-xs">EN</span>
             </button>
             <span style={{ opacity: 0.3, color: 'var(--pmt-blue)' }}>|</span>
             <button
@@ -110,14 +113,15 @@ export default function Navbar({
               style={{
                 color: currentLang === 'ta' ? 'var(--pmt-white)' : 'var(--pmt-blue)',
                 fontWeight: currentLang === 'ta' ? 800 : 600,
-                fontSize: '0.78rem',
-                padding: '3px 7px',
-                borderRadius: '5px',
+                fontSize: '0.74rem',
+                padding: '2px 5px',
+                borderRadius: '4px',
                 background: currentLang === 'ta' ? 'var(--pmt-blue)' : 'transparent',
                 transition: 'all 0.15s ease'
               }}
             >
-              தமிழ்
+              <span className="hide-on-mobile-xs">தமிழ்</span>
+              <span className="show-on-mobile-xs">தமி</span>
             </button>
             <span style={{ opacity: 0.3, color: 'var(--pmt-blue)' }}>|</span>
             <button
@@ -125,14 +129,15 @@ export default function Navbar({
               style={{
                 color: currentLang === 'hi' ? 'var(--pmt-white)' : 'var(--pmt-blue)',
                 fontWeight: currentLang === 'hi' ? 800 : 600,
-                fontSize: '0.78rem',
-                padding: '3px 7px',
-                borderRadius: '5px',
+                fontSize: '0.74rem',
+                padding: '2px 5px',
+                borderRadius: '4px',
                 background: currentLang === 'hi' ? 'var(--pmt-blue)' : 'transparent',
                 transition: 'all 0.15s ease'
               }}
             >
-              हिन्दी
+              <span className="hide-on-mobile-xs">हिन्दी</span>
+              <span className="show-on-mobile-xs">हिं</span>
             </button>
           </div>
 
@@ -143,15 +148,15 @@ export default function Navbar({
             rel="noopener noreferrer"
             id="cta-whatsapp-header"
             data-track="whatsapp"
-            className="btn-pmt-teal"
+            className="btn-pmt-teal hide-on-mobile-sm"
             style={{
-              fontSize: '0.85rem',
-              padding: '8px 14px',
-              borderRadius: '8px'
+              fontSize: '0.82rem',
+              padding: '6px 10px',
+              borderRadius: '7px'
             }}
             title="Chat on WhatsApp"
           >
-            <MessageCircle size={16} />
+            <MessageCircle size={15} />
             <span className="hide-on-mobile">WhatsApp</span>
           </a>
 
@@ -161,17 +166,18 @@ export default function Navbar({
             id="cta-enquire-header"
             data-track="enquiry"
             className="btn-pmt-red"
-            style={{ padding: '8px 15px', fontSize: '0.85rem', borderRadius: '8px' }}
+            style={{ padding: '6px 12px', fontSize: '0.82rem', borderRadius: '7px' }}
           >
-            <FileText size={15} />
-            <span>{t.nav.getQuote}</span>
+            <FileText size={14} />
+            <span className="hide-on-mobile-xs">{t.nav.getQuote}</span>
+            <span className="show-on-mobile-xs">Quote</span>
             {cartCount > 0 && (
               <span style={{
                 background: 'var(--pmt-white)',
                 color: 'var(--pmt-red)',
                 fontWeight: 900,
-                fontSize: '0.72rem',
-                padding: '2px 6px',
+                fontSize: '0.70rem',
+                padding: '1px 5px',
                 borderRadius: '10px'
               }}>
                 {cartCount}
@@ -187,45 +193,111 @@ export default function Navbar({
           {/* Sub-Header Horizontal Links */}
           <nav className="desktop-subnav-links" aria-label="Product and Sections Navigation">
             <a 
-              href="#products" 
-              id="subnav-wire-rope"
-              className="subnav-link"
+              href="/rigging/" 
+              id="subnav-rigging"
+              className={`subnav-link ${currentPage === 'rigging' ? 'active-subnav-link' : ''}`}
+              style={{
+                textDecoration: 'none',
+                fontFamily: 'inherit',
+                fontSize: '0.88rem',
+                fontWeight: currentPage === 'rigging' ? 800 : 700,
+                color: currentPage === 'rigging' ? 'var(--pmt-red)' : 'var(--pmt-blue)',
+                borderBottom: currentPage === 'rigging' ? '2.5px solid var(--pmt-red)' : '2.5px solid transparent',
+                padding: '10px 0',
+                transition: 'all 0.2s',
+                display: 'inline-block'
+              }}
               onClick={(e) => {
-                if (currentPage !== 'home') {
-                  e.preventDefault();
-                  onNavigateHome();
-                  setTimeout(() => {
-                    const el = document.getElementById('products');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 80);
-                }
+                e.preventDefault();
+                if (onNavigateCategory) onNavigateCategory('rigging', 'category-products');
               }}
             >
-              {t.nav.wireRope}
+              {currentLang === 'ta' ? 'ரிக்சிங் ஸ்லிங்குகள்' : currentLang === 'hi' ? 'रिगिंग स्लिंग्स' : 'Rigging & Slings'}
             </a>
 
             <a 
-              href="#products" 
-              id="subnav-chain-pulley"
-              className="subnav-link"
+              href="/lifting/" 
+              id="subnav-lifting"
+              className={`subnav-link ${currentPage === 'lifting' ? 'active-subnav-link' : ''}`}
+              style={{
+                textDecoration: 'none',
+                fontFamily: 'inherit',
+                fontSize: '0.88rem',
+                fontWeight: currentPage === 'lifting' ? 800 : 700,
+                color: currentPage === 'lifting' ? 'var(--pmt-red)' : 'var(--pmt-blue)',
+                borderBottom: currentPage === 'lifting' ? '2.5px solid var(--pmt-red)' : '2.5px solid transparent',
+                padding: '10px 0',
+                transition: 'all 0.2s',
+                display: 'inline-block'
+              }}
               onClick={(e) => {
-                if (currentPage !== 'home') {
-                  e.preventDefault();
-                  onNavigateHome();
-                  setTimeout(() => {
-                    const el = document.getElementById('products');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 80);
-                }
+                e.preventDefault();
+                if (onNavigateCategory) onNavigateCategory('lifting', 'category-products');
               }}
             >
-              {t.nav.chainPulley}
+              {currentLang === 'ta' ? 'லிஃப்டிங் & ஹோயிஸ்டுகள்' : currentLang === 'hi' ? 'लिफ्टिंग व होइस्ट्स' : 'Lifting & Hoists'}
+            </a>
+
+            <a 
+              href="/lashing/" 
+              id="subnav-lashing"
+              className={`subnav-link ${currentPage === 'lashing' ? 'active-subnav-link' : ''}`}
+              style={{
+                textDecoration: 'none',
+                fontFamily: 'inherit',
+                fontSize: '0.88rem',
+                fontWeight: currentPage === 'lashing' ? 800 : 700,
+                color: currentPage === 'lashing' ? 'var(--pmt-red)' : 'var(--pmt-blue)',
+                borderBottom: currentPage === 'lashing' ? '2.5px solid var(--pmt-red)' : '2.5px solid transparent',
+                padding: '10px 0',
+                transition: 'all 0.2s',
+                display: 'inline-block'
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigateCategory) onNavigateCategory('lashing', 'category-products');
+              }}
+            >
+              {currentLang === 'ta' ? 'கார்கோ லேஷிங்' : currentLang === 'hi' ? 'कार्गो लैशिंग' : 'Cargo Lashing'}
+            </a>
+
+            <a 
+              href="/bandsaw-blades/" 
+              id="subnav-bandsaw"
+              className={`subnav-link ${currentPage === 'bandsaw-blades' ? 'active-subnav-link' : ''}`}
+              style={{
+                textDecoration: 'none',
+                fontFamily: 'inherit',
+                fontSize: '0.88rem',
+                fontWeight: currentPage === 'bandsaw-blades' ? 800 : 700,
+                color: currentPage === 'bandsaw-blades' ? 'var(--pmt-red)' : 'var(--pmt-blue)',
+                borderBottom: currentPage === 'bandsaw-blades' ? '2.5px solid var(--pmt-red)' : '2.5px solid transparent',
+                padding: '10px 0',
+                transition: 'all 0.2s',
+                display: 'inline-block'
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigateCategory) onNavigateCategory('bandsaw-blades', 'category-products');
+              }}
+            >
+              {currentLang === 'ta' ? 'பேண்ட்சா பிளேடுகள்' : currentLang === 'hi' ? 'बैंडसॉ ब्लेड्स' : 'Bandsaw Blades'}
             </a>
 
             <a 
               href="#brands" 
               id="subnav-brands"
               className="subnav-link"
+              style={{
+                textDecoration: 'none',
+                fontFamily: 'inherit',
+                fontSize: '0.88rem',
+                fontWeight: 700,
+                color: 'var(--pmt-blue)',
+                padding: '10px 0',
+                transition: 'all 0.2s',
+                display: 'inline-block'
+              }}
               onClick={(e) => {
                 if (currentPage !== 'home') {
                   e.preventDefault();
@@ -244,6 +316,16 @@ export default function Navbar({
               href="/contact-us/#bank-details" 
               id="subnav-bank"
               className="subnav-link"
+              style={{
+                textDecoration: 'none',
+                fontFamily: 'inherit',
+                fontSize: '0.88rem',
+                fontWeight: 700,
+                color: 'var(--pmt-blue)',
+                padding: '10px 0',
+                transition: 'all 0.2s',
+                display: 'inline-block'
+              }}
               onClick={(e) => {
                 e.preventDefault();
                 if (onNavigateBank) {
@@ -267,7 +349,7 @@ export default function Navbar({
               style={{
                 textDecoration: 'none',
                 fontFamily: 'inherit',
-                fontSize: '0.9rem',
+                fontSize: '0.88rem',
                 fontWeight: 700,
                 color: currentPage === 'contact' ? 'var(--pmt-red)' : 'var(--pmt-blue)',
                 borderBottom: currentPage === 'contact' ? '2.5px solid var(--pmt-red)' : '2.5px solid transparent',
@@ -350,40 +432,54 @@ export default function Navbar({
           </div>
 
           <a 
-            href="#products" 
+            href="/rigging/" 
             onClick={(e) => {
+              e.preventDefault();
               setMobileMenuOpen(false);
-              if (currentPage !== 'home') {
-                e.preventDefault();
-                onNavigateHome();
-                setTimeout(() => {
-                  const el = document.getElementById('products');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 80);
-              }
+              if (onNavigateCategory) onNavigateCategory('rigging', 'category-products');
             }}
-            style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
+            style={{ padding: '8px 0', fontWeight: currentPage === 'rigging' ? 800 : 700, color: currentPage === 'rigging' ? 'var(--pmt-red)' : 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
           >
-            <span>{t.nav.wireRope}</span>
+            <span>{currentLang === 'ta' ? 'ரிக்சிங் உபகரணங்கள் & ஸ்லிங்குகள்' : currentLang === 'hi' ? 'रिगिंग उपकरण और स्लिंग्स' : 'Rigging Equipments & Slings'}</span>
             <ChevronRight size={16} color="var(--pmt-red)" />
           </a>
 
           <a 
-            href="#products" 
+            href="/lifting/" 
             onClick={(e) => {
+              e.preventDefault();
               setMobileMenuOpen(false);
-              if (currentPage !== 'home') {
-                e.preventDefault();
-                onNavigateHome();
-                setTimeout(() => {
-                  const el = document.getElementById('products');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 80);
-              }
+              if (onNavigateCategory) onNavigateCategory('lifting', 'category-products');
             }}
-            style={{ padding: '8px 0', fontWeight: 700, color: 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
+            style={{ padding: '8px 0', fontWeight: currentPage === 'lifting' ? 800 : 700, color: currentPage === 'lifting' ? 'var(--pmt-red)' : 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
           >
-            <span>{t.nav.chainPulley}</span>
+            <span>{currentLang === 'ta' ? 'தொழிற்சாலை லிஃப்டிங் & ஹோயிஸ்டுகள்' : currentLang === 'hi' ? 'इंडस्ट्रियल लिफ्टिंग और होइस्ट्स' : 'Industrial Lifting & Hoists'}</span>
+            <ChevronRight size={16} color="var(--pmt-red)" />
+          </a>
+
+          <a 
+            href="/lashing/" 
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              if (onNavigateCategory) onNavigateCategory('lashing', 'category-products');
+            }}
+            style={{ padding: '8px 0', fontWeight: currentPage === 'lashing' ? 800 : 700, color: currentPage === 'lashing' ? 'var(--pmt-red)' : 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
+          >
+            <span>{currentLang === 'ta' ? 'கார்கோ லேஷிங் பெல்ட்டுகள் & ராட்செட்' : currentLang === 'hi' ? 'कार्गो लैशिंग बेल्ट्स और लोड बाइंडर्स' : 'Cargo Lashing & Load Restraint'}</span>
+            <ChevronRight size={16} color="var(--pmt-red)" />
+          </a>
+
+          <a 
+            href="/bandsaw-blades/" 
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              if (onNavigateCategory) onNavigateCategory('bandsaw-blades', 'category-products');
+            }}
+            style={{ padding: '8px 0', fontWeight: currentPage === 'bandsaw-blades' ? 800 : 700, color: currentPage === 'bandsaw-blades' ? 'var(--pmt-red)' : 'var(--pmt-blue)', display: 'flex', justifyContent: 'space-between' }}
+          >
+            <span>{currentLang === 'ta' ? 'மர அறுக்கும் பேண்ட்சா பிளேடுகள் & கயிறுகள்' : currentLang === 'hi' ? 'बैंडसॉ ब्लेड और गारवारे रस्सियां' : 'Woodworking Bandsaw Blades & Ropes'}</span>
             <ChevronRight size={16} color="var(--pmt-red)" />
           </a>
 
