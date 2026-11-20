@@ -532,7 +532,7 @@ input, select, textarea {
 .category-scroll-container {
   display: flex;
   gap: 8px;
-  overflow-x: auto;
+  overflow-x: scroll;
   padding-bottom: 10px;
   margin-bottom: 14px;
   border-bottom: 1px solid #f1f5f9;
@@ -589,7 +589,7 @@ input, select, textarea {
   /* Circular Trigger Button Exactly Matching Image 2 */
   .mobile-fab-btn {
     position: fixed;
-    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
     right: calc(18px + env(safe-area-inset-right, 0px));
     z-index: var(--z-mobile-bar);
     width: 60px;
@@ -665,7 +665,7 @@ input, select, textarea {
   /* Action Popup Card Floating Above Button */
   .mobile-action-popup {
     position: fixed;
-    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(148px + env(safe-area-inset-bottom, 0px));
     right: calc(18px + env(safe-area-inset-right, 0px));
     z-index: var(--z-mobile-bar);
     width: 240px;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   PhoneCall, 
   MessageCircle, 
@@ -24,6 +24,17 @@ export default function Navbar({
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  const subNavRef = useRef(null);
+
+  // Auto-scroll active nav link into view when currentPage changes
+  useEffect(() => {
+    if (subNavRef.current) {
+      const activeLink = subNavRef.current.querySelector('[data-active="true"]');
+      if (activeLink) {
+        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [currentPage]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -191,10 +202,11 @@ export default function Navbar({
       <div className="pmt-sub-header-row">
         <div className="pmt-sub-header-inner">
           {/* Sub-Header Horizontal Links */}
-          <nav className="desktop-subnav-links" aria-label="Product and Sections Navigation">
+          <nav ref={subNavRef} className="desktop-subnav-links" aria-label="Product and Sections Navigation">
             <a 
               href="/rigging/" 
               id="subnav-rigging"
+              data-active={currentPage === 'rigging' ? 'true' : 'false'}
               className={`subnav-link ${currentPage === 'rigging' ? 'active-subnav-link' : ''}`}
               style={{
                 textDecoration: 'none',
@@ -218,6 +230,7 @@ export default function Navbar({
             <a 
               href="/lifting/" 
               id="subnav-lifting"
+              data-active={currentPage === 'lifting' ? 'true' : 'false'}
               className={`subnav-link ${currentPage === 'lifting' ? 'active-subnav-link' : ''}`}
               style={{
                 textDecoration: 'none',
@@ -241,6 +254,7 @@ export default function Navbar({
             <a 
               href="/lashing/" 
               id="subnav-lashing"
+              data-active={currentPage === 'lashing' ? 'true' : 'false'}
               className={`subnav-link ${currentPage === 'lashing' ? 'active-subnav-link' : ''}`}
               style={{
                 textDecoration: 'none',
@@ -264,6 +278,7 @@ export default function Navbar({
             <a 
               href="/bandsaw-blades/" 
               id="subnav-bandsaw"
+              data-active={currentPage === 'bandsaw-blades' ? 'true' : 'false'}
               className={`subnav-link ${currentPage === 'bandsaw-blades' ? 'active-subnav-link' : ''}`}
               style={{
                 textDecoration: 'none',
@@ -345,6 +360,7 @@ export default function Navbar({
                 onNavigateContact();
               }}
               id="subnav-contact"
+              data-active={currentPage === 'contact' ? 'true' : 'false'}
               className={`subnav-link ${currentPage === 'contact' ? 'active-subnav-link' : ''}`}
               style={{
                 textDecoration: 'none',

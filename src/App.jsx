@@ -248,8 +248,27 @@ export default function App() {
   }, [currentPage]);
 
   const navigateToPage = (page, targetId = null) => {
+    // If we're already on the home page and user clicks a category subnav link,
+    // just scroll smoothly to the products section without navigating away
+    const isHomeNow = currentPage === 'home' || currentPage === null;
+    const isCategoryLink = ['rigging', 'lifting', 'lashing', 'bandsaw-blades'].includes(page);
+    if (isHomeNow && isCategoryLink) {
+      const scrollTargetId = targetId || 'category-products';
+      const el = document.getElementById(scrollTargetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Retry in case element isn't rendered yet
+        setTimeout(() => {
+          const el2 = document.getElementById(scrollTargetId);
+          if (el2) el2.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
+      }
+      return;
+    }
+
     // When clicking any category page, default to scrolling directly to the products section
-    const effectiveTargetId = targetId || (['rigging', 'lifting', 'lashing', 'bandsaw-blades'].includes(page) ? 'category-products' : null);
+    const effectiveTargetId = targetId || (isCategoryLink ? 'category-products' : null);
     const isSamePage = currentPage === page;
 
     setCurrentPage(page);

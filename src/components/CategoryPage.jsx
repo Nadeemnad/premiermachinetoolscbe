@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { 
   ShieldCheck, 
   PhoneCall, 
@@ -197,6 +197,30 @@ export default function CategoryPage({
   const [sortBy, setSortBy] = useState('popular');
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
+  // Refs for auto-scrolling active tab into view
+  const subCatBarRef = useRef(null);
+  const catSwitcherRef = useRef(null);
+
+  // Auto-scroll active subcategory pill into view when it changes
+  useEffect(() => {
+    if (subCatBarRef.current) {
+      const activeBtn = subCatBarRef.current.querySelector('[data-active="true"]');
+      if (activeBtn) {
+        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [selectedSubCat]);
+
+  // Auto-scroll active category tab into view on mount
+  useEffect(() => {
+    if (catSwitcherRef.current) {
+      const activeLink = catSwitcherRef.current.querySelector('[data-active="true"]');
+      if (activeLink) {
+        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [categoryKey]);
+
   // Filter products for this specific category
   const filteredProducts = useMemo(() => {
     let list = PMT_PRODUCTS.filter(p => p.category === config.key);
@@ -245,7 +269,7 @@ export default function CategoryPage({
           </div>
 
           {/* Quick Category Switcher */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', overflowX: 'auto', padding: '2px 0' }}>
+          <div ref={catSwitcherRef} style={{ display: 'flex', alignItems: 'center', gap: '6px', overflowX: 'auto', padding: '2px 0' }}>
             {[
               { id: 'rigging', label: 'Rigging', href: '/rigging/' },
               { id: 'lifting', label: 'Lifting', href: '/lifting/' },
@@ -255,6 +279,7 @@ export default function CategoryPage({
               <a
                 key={cat.id}
                 href={cat.href}
+                data-active={cat.id === config.key ? 'true' : 'false'}
                 onClick={(e) => {
                   e.preventDefault();
                   if (onNavigateCategory) onNavigateCategory(cat.id, 'category-products');
@@ -464,7 +489,7 @@ export default function CategoryPage({
           marginBottom: '28px'
         }}>
           {/* Subcategory Pills */}
-          <div style={{
+          <div ref={subCatBarRef} style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
@@ -478,6 +503,7 @@ export default function CategoryPage({
               return (
                 <button
                   key={sub.id}
+                  data-active={isActive ? 'true' : 'false'}
                   onClick={() => setSelectedSubCat(sub.id)}
                   style={{
                     backgroundColor: isActive ? 'var(--pmt-blue)' : '#f1f5f9',
