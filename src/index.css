@@ -111,7 +111,7 @@ html {
   color: var(--pmt-black);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   width: 100%;
 }
@@ -134,19 +134,19 @@ section {
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   width: 100%;
   background-color: var(--pmt-white);
   color: var(--pmt-black);
   min-height: 100vh;
-  padding-bottom: 64px; /* Space for mobile sticky CTA bar */
+  padding-bottom: 24px; /* Space for mobile floating action menu */
 }
 
 #root, .pmt-app {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  position: relative;
 }
 
 @media (min-width: 769px) {
@@ -343,19 +343,23 @@ input, select, textarea {
 
 /* Main Sticky Header & Navigation Stacking */
 .pmt-sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: var(--z-header);
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  left: 0;
+  right: 0;
+  z-index: var(--z-header) !important;
   background-color: var(--pmt-white) !important;
   background: #ffffff !important;
   border-bottom: 2px solid #e2e8f0;
   width: 100%;
+  box-sizing: border-box;
   isolation: isolate;
   transition: box-shadow 0.25s ease;
 }
 
 .pmt-sticky-header.is-scrolled {
-  box-shadow: 0 6px 20px rgba(3, 78, 161, 0.08) !important;
+  box-shadow: 0 6px 20px rgba(3, 78, 161, 0.12) !important;
 }
 
 /* Two-Tier Header Layout (Manipal Hospitals Reference Architecture) */
@@ -561,46 +565,262 @@ input, select, textarea {
   height: 0 !important;
 }
 
-/* Sticky Mobile Bottom Bar */
-.sticky-mobile-bar {
+/* Mobile Floating Action Menu (Wrapping Call Us, WhatsApp, Get Quote) */
+.mobile-floating-menu-root {
   display: none;
 }
 
 @media (max-width: 768px) {
-  .sticky-mobile-bar {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background: var(--pmt-white);
-    border-top: 2px solid var(--pmt-red);
-    box-shadow: 0 -4px 16px rgba(19, 17, 12, 0.12);
-    z-index: var(--z-mobile-bar);
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 10px;
+  .mobile-floating-menu-root {
+    display: block;
   }
-  
-  .sticky-mobile-btn {
-    flex: 1;
+
+  /* Dimmed backdrop when menu is open */
+  .mobile-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: calc(var(--z-mobile-bar) - 1);
+    animation: mobileFadeIn 0.2s ease-out;
+  }
+
+  /* Circular Trigger Button Exactly Matching Image 2 */
+  .mobile-fab-btn {
+    position: fixed;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    right: calc(18px + env(safe-area-inset-right, 0px));
+    z-index: var(--z-mobile-bar);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    height: 48px;
-    font-size: 0.75rem;
+    /* Gradient Ring Border: Blue (#034ea1) to Teal (#05aba5) */
+    background: linear-gradient(#ffffff, #ffffff) padding-box,
+                linear-gradient(135deg, #034ea1 0%, #0088cc 45%, #05aba5 100%) border-box;
+    border: 2.5px solid transparent;
+    box-shadow: 0 6px 22px rgba(3, 78, 161, 0.24), 0 2px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  }
+
+  .mobile-fab-btn:active {
+    transform: scale(0.92);
+  }
+
+  .mobile-fab-icon-area {
+    width: 22px;
+    height: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  /* 3 Horizontal Blue Lines */
+  .mobile-fab-line {
+    display: block;
+    width: 20px;
+    height: 2.2px;
+    background-color: #034ea1;
+    border-radius: 2px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+    transform-origin: center;
+  }
+
+  /* Morph to 'X' When Menu is Open */
+  .mobile-fab-btn.is-open .line-1 {
+    transform: translateY(6.4px) rotate(45deg);
+  }
+
+  .mobile-fab-btn.is-open .line-2 {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .mobile-fab-btn.is-open .line-3 {
+    transform: translateY(-6.4px) rotate(-45deg);
+  }
+
+  /* Blue Text Under Lines */
+  .mobile-fab-text {
+    font-size: 11px;
     font-weight: 700;
+    color: #034ea1;
+    line-height: 1.1;
+    margin-top: 3px;
+    font-family: var(--font-body);
+    letter-spacing: -0.2px;
+    transition: color 0.2s ease;
+  }
+
+  /* Action Popup Card Floating Above Button */
+  .mobile-action-popup {
+    position: fixed;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    right: calc(18px + env(safe-area-inset-right, 0px));
+    z-index: var(--z-mobile-bar);
+    width: 240px;
+    max-width: calc(100vw - 36px);
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1.5px solid rgba(3, 78, 161, 0.14);
+    box-shadow: 0 16px 40px rgba(3, 78, 161, 0.22), 0 4px 14px rgba(0, 0, 0, 0.08);
+    padding: 12px;
+    animation: mobileMenuPop 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: bottom right;
+  }
+
+  .mobile-action-popup-header {
+    padding: 2px 6px 8px 6px;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-action-popup-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+  }
+
+  .mobile-action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Action Buttons Inside Popup */
+  .mobile-menu-action-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 12px;
     text-decoration: none;
-    border-radius: 8px;
-    margin: 0 4px;
-    min-height: 44px; /* Accessible tap target */
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-body);
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    transition: transform 0.15s ease, filter 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-menu-action-item:active {
+    transform: scale(0.97);
+    filter: brightness(0.95);
+  }
+
+  .action-item-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .action-item-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .action-item-title {
+    font-size: 0.88rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .action-item-sub {
+    font-size: 0.68rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-top: 1px;
+  }
+
+  .action-item-arrow {
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  /* Specific Item Themes */
+  .action-get-quote {
+    background: var(--pmt-red);
+    color: #ffffff;
+    border: 1px solid var(--pmt-red-dark);
+    box-shadow: 0 4px 12px rgba(198, 28, 26, 0.28);
+  }
+  .action-get-quote .bg-quote {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+  }
+  .action-get-quote .action-item-sub {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .action-whatsapp {
+    background: var(--pmt-teal);
+    color: #ffffff;
+    border: 1px solid var(--pmt-teal-dark);
+    box-shadow: 0 4px 12px rgba(5, 171, 165, 0.28);
+  }
+  .action-whatsapp .bg-whatsapp {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+  }
+  .action-whatsapp .action-item-sub {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .action-call {
+    background: var(--pmt-red-soft);
+    color: var(--pmt-red);
+    border: 1.5px solid var(--pmt-red);
+    box-shadow: 0 2px 8px rgba(198, 28, 26, 0.08);
+  }
+  .action-call .bg-call {
+    background: rgba(198, 28, 26, 0.12);
+    color: var(--pmt-red);
+  }
+  .action-call .action-item-sub {
+    color: #64748b;
   }
 
   .hide-on-mobile {
     display: none !important;
+  }
+}
+
+@keyframes mobileFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes mobileMenuPop {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 

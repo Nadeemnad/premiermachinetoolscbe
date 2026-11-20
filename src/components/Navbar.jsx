@@ -39,7 +39,7 @@ export default function Navbar({
       style={{
         position: 'sticky',
         top: 0,
-        zIndex: 'var(--z-header)',
+        zIndex: 1000,
         backgroundColor: '#ffffff',
         background: '#ffffff',
         borderBottom: '2px solid #e2e8f0',
@@ -397,14 +397,17 @@ export default function Navbar({
       {mobileMenuOpen && (
         <div style={{
           position: 'relative',
-          zIndex: 'var(--z-mobile-drawer)',
+          zIndex: 1050,
           background: 'var(--pmt-white)',
           borderTop: '1px solid #e2e8f0',
           padding: '16px 20px',
           display: 'flex',
           flexDirection: 'column',
           gap: '12px',
-          boxShadow: '0 10px 25px rgba(19, 17, 12, 0.1)'
+          boxShadow: '0 10px 25px rgba(19, 17, 12, 0.1)',
+          maxHeight: 'calc(100vh - 100px)',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch'
         }}>
           {/* Language Selection in Mobile Menu */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingBottom: '10px', borderBottom: '1px solid #f1f5f9' }}>
