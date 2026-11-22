@@ -470,6 +470,8 @@ input, select, textarea {
   min-width: 0; /* Critical: allows flex child to shrink below intrinsic content width */
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
 }
 
 .subnav-link {
@@ -486,6 +488,9 @@ input, select, textarea {
   letter-spacing: 0.01em;
   transition: color 0.2s ease;
   flex-shrink: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-x;
 }
 
 .subnav-link:hover {
@@ -510,21 +515,15 @@ input, select, textarea {
 
 @media (max-width: 900px) {
   .desktop-subnav-links {
-    gap: 14px !important;
-    padding: 4px 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--pmt-blue) rgba(3, 78, 161, 0.08);
+    gap: 16px !important;
+    padding: 4px 20px 4px 4px !important;
+    scrollbar-width: none !important; /* Clean touch sliding on mobile */
+    -ms-overflow-style: none !important;
   }
   .desktop-subnav-links::-webkit-scrollbar {
-    height: 3px;
-  }
-  .desktop-subnav-links::-webkit-scrollbar-track {
-    background: rgba(3, 78, 161, 0.04);
-    border-radius: 9999px;
-  }
-  .desktop-subnav-links::-webkit-scrollbar-thumb {
-    background: var(--pmt-blue);
-    border-radius: 9999px;
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 }
 

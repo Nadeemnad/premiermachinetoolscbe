@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProductCatalog from './components/ProductCatalog';
+import ProductsShowcase from './components/ProductsShowcase';
 import CategoryPage from './components/CategoryPage';
 import ProductModal from './components/ProductModal';
 import BrandsSection from './components/BrandsSection';
@@ -228,6 +229,22 @@ export default function App() {
     }
   }, [currentPage, currentLang]);
 
+  // Helper for smooth scrolling to an element accounting for the sticky header height
+  const scrollToElementWithHeaderOffset = (targetId, retries = 0) => {
+    const el = document.getElementById(targetId);
+    if (el) {
+      const header = document.querySelector('.pmt-sticky-header');
+      const headerHeight = header ? header.offsetHeight : 100;
+      const targetTop = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 12;
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: 'smooth'
+      });
+    } else if (retries < 12) {
+      setTimeout(() => scrollToElementWithHeaderOffset(targetId, retries + 1), 60);
+    }
+  };
+
   // Handle initial hash scrolling on mount or route change
   useEffect(() => {
     const targetId = window.location.hash
@@ -235,39 +252,12 @@ export default function App() {
       : (['rigging', 'lifting', 'lashing', 'bandsaw-blades'].includes(currentPage) ? 'category-products' : null);
 
     if (targetId) {
-      const doScroll = (retries = 0) => {
-        const el = document.getElementById(targetId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        } else if (retries < 12) {
-          setTimeout(() => doScroll(retries + 1), 60);
-        }
-      };
-      setTimeout(() => doScroll(), 120);
+      setTimeout(() => scrollToElementWithHeaderOffset(targetId), 120);
     }
   }, [currentPage]);
 
   const navigateToPage = (page, targetId = null) => {
-    // If we're already on the home page and user clicks a category subnav link,
-    // just scroll smoothly to the products section without navigating away
-    const isHomeNow = currentPage === 'home' || currentPage === null;
     const isCategoryLink = ['rigging', 'lifting', 'lashing', 'bandsaw-blades'].includes(page);
-    if (isHomeNow && isCategoryLink) {
-      const scrollTargetId = targetId || 'category-products';
-      const el = document.getElementById(scrollTargetId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        // Retry in case element isn't rendered yet
-        setTimeout(() => {
-          const el2 = document.getElementById(scrollTargetId);
-          if (el2) el2.scrollIntoView({ behavior: 'smooth' });
-        }, 80);
-      }
-      return;
-    }
-
-    // When clicking any category page, default to scrolling directly to the products section
     const effectiveTargetId = targetId || (isCategoryLink ? 'category-products' : null);
     const isSamePage = currentPage === page;
 
@@ -288,29 +278,20 @@ export default function App() {
       targetUrl = effectiveTargetId ? `/#${effectiveTargetId}` : '/';
     }
 
-    if (window.location.pathname !== targetUrl.split('#')[0] || (effectiveTargetId && window.location.hash !== `#${effectiveTargetId}`)) {
-      window.history.pushState(null, '', targetUrl);
-    }
-
-    if (effectiveTargetId) {
-      const doScroll = (retries = 0) => {
-        const el = document.getElementById(effectiveTargetId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        } else if (retries < 10) {
-          setTimeout(() => doScroll(retries + 1), 60);
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      };
-
-      if (isSamePage) {
-        doScroll();
-      } else {
-        setTimeout(() => doScroll(), 80);
+    if (typeof window !== 'undefined') {
+      if (window.location.pathname !== targetUrl.split('#')[0] || (effectiveTargetId && window.location.hash !== `#${effectiveTargetId}`)) {
+        window.history.pushState(null, '', targetUrl);
       }
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (effectiveTargetId) {
+        if (isSamePage) {
+          scrollToElementWithHeaderOffset(effectiveTargetId);
+        } else {
+          setTimeout(() => scrollToElementWithHeaderOffset(effectiveTargetId), 90);
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   };
 
@@ -411,6 +392,12 @@ export default function App() {
               onOpenRfq={() => handleOpenRfq()}
             />
 
+            {/* Our Products - Horizontal Image Scroll Showcase */}
+            <ProductsShowcase
+              currentLang={currentLang}
+              onSelectProduct={(p) => setSelectedProduct(p)}
+            />
+
             {/* Product Catalog covering the 4 Core Pillar Categories */}
             <ProductCatalog
               currentLang={currentLang}
@@ -421,7 +408,7 @@ export default function App() {
               onNavigateCategory={(catKey, targetId) => navigateToPage(catKey, targetId)}
             />
 
-            {/* Brand Specialties: Usha Martin, Garware, ASIL, Good Lift */}
+            {/* Brand Specialties: Usha Martin, Garware, Good Lift */}
             <BrandsSection currentLang={currentLang} />
 
             {/* Pan-India Delivery & Buyer FAQ Section */}

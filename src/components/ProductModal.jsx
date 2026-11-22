@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   Check, 
@@ -20,6 +20,13 @@ export default function ProductModal({
 }) {
   if (!product) return null;
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  const [activeImage, setActiveImage] = useState(product ? product.image : null);
+
+  useEffect(() => {
+    if (product) {
+      setActiveImage(product.image);
+    }
+  }, [product]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -28,6 +35,10 @@ export default function ProductModal({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
+
+  const galleryList = product && product.gallery && product.gallery.length > 0
+    ? (product.gallery.includes(product.image) ? product.gallery : [product.image, ...product.gallery])
+    : (product && product.image ? [product.image] : []);
 
   const displayName = currentLang === 'ta' && product.nameTa 
     ? product.nameTa 
@@ -136,42 +147,99 @@ export default function ProductModal({
             alignItems: 'center'
           }}>
             {/* Image Preview Box */}
-            {product.image && (
-              <div style={{
-                position: 'relative',
-                height: '240px',
-                background: '#F8FAFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                padding: '12px'
-              }}>
-                <img 
-                  src={product.image} 
-                  alt={displayName}
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain'
-                  }}
-                />
-                {product.price && (
+            {(activeImage || product.image) && (
+              <div>
+                <div style={{
+                  position: 'relative',
+                  height: '240px',
+                  background: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  padding: '12px'
+                }}>
+                  <img 
+                    src={activeImage || product.image} 
+                    alt={displayName}
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'contain'
+                    }}
+                  />
+                  {product.price && (
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '10px',
+                      left: '10px',
+                      background: 'var(--pmt-blue)',
+                      color: 'var(--pmt-white)',
+                      fontSize: '0.82rem',
+                      fontWeight: 800,
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      boxShadow: '0 2px 8px rgba(3, 78, 161, 0.3)'
+                    }}>
+                      {product.price}
+                    </div>
+                  )}
+                  {galleryList.length > 1 && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '10px',
+                      right: '10px',
+                      background: 'rgba(3, 78, 161, 0.85)',
+                      color: '#ffffff',
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      padding: '3px 8px',
+                      borderRadius: '12px',
+                      backdropFilter: 'blur(4px)'
+                    }}>
+                      {galleryList.length} Photos
+                    </div>
+                  )}
+                </div>
+
+                {/* Thumbnails strip for multiple angles / store images */}
+                {galleryList.length > 1 && (
                   <div style={{
-                    position: 'absolute',
-                    bottom: '10px',
-                    left: '10px',
-                    background: 'var(--pmt-blue)',
-                    color: 'var(--pmt-white)',
-                    fontSize: '0.82rem',
-                    fontWeight: 800,
-                    padding: '4px 10px',
-                    borderRadius: '6px',
-                    boxShadow: '0 2px 8px rgba(3, 78, 161, 0.3)'
+                    display: 'flex',
+                    gap: '8px',
+                    overflowX: 'auto',
+                    marginTop: '10px',
+                    paddingBottom: '4px'
                   }}>
-                    {product.price}
+                    {galleryList.map((imgUrl, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setActiveImage(imgUrl)}
+                        style={{
+                          width: '56px',
+                          height: '56px',
+                          borderRadius: '8px',
+                          border: activeImage === imgUrl ? '2px solid var(--pmt-red)' : '1px solid #CBD5E1',
+                          padding: '2px',
+                          background: '#fff',
+                          cursor: 'pointer',
+                          flexShrink: 0,
+                          overflow: 'hidden',
+                          opacity: activeImage === imgUrl ? 1 : 0.7,
+                          transition: 'all 0.2s ease'
+                        }}
+                        title={`View image ${idx + 1}`}
+                      >
+                        <img 
+                          src={imgUrl} 
+                          alt="" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px' }} 
+                        />
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>

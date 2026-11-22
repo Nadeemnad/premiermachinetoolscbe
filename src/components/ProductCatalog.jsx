@@ -80,7 +80,10 @@ export default function ProductCatalog({
       case 'Truck': return <Truck size={36} color="var(--pmt-red)" />;
       case 'Disc': return <Disc size={36} color="var(--pmt-blue)" />;
       case 'Activity': return <Activity size={36} color="var(--pmt-teal)" />;
-      case 'Zap': return <Cpu size={36} color="var(--pmt-red)" />;
+      case 'Zap':
+      case 'Cpu': return <Cpu size={36} color="var(--pmt-red)" />;
+      case 'Layers': return <Boxes size={36} color="var(--pmt-blue)" />;
+      case 'Wrench': return <Wrench size={36} color="var(--pmt-teal)" />;
       default: return <Wrench size={36} color="var(--pmt-blue)" />;
     }
   };

@@ -33,7 +33,7 @@ export const TRANSLATIONS = {
     hero: {
       tagline: "LEADING INDUSTRIAL SUPPLIER IN COIMBATORE",
       h1: "Wire Rope, Chain Pulley Blocks and Lifting Tools in Coimbatore",
-      sub: "Dealers in all kinds of Tools, Steel Wire Ropes, Chains, Lifting Equipment, Polyester Web Slings, and Woodworking Bandsaw Blades. We supply genuine Usha Martin, Garware, and ASIL products with official GST invoice.",
+      sub: "Dealers in all kinds of Tools, Steel Wire Ropes, Chains, Lifting Equipment, Polyester Web Slings, and Woodworking Bandsaw Blades. We supply genuine Usha Martin and Garware products with official GST invoice.",
       callBtn: "Call 94875 10127",
       callAlt: "Call 94432 30127",
       whatsappBtn: "WhatsApp Instant Quote",

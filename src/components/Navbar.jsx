@@ -26,12 +26,28 @@ export default function Navbar({
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
   const subNavRef = useRef(null);
 
+  // Smoothly center a tab element within the horizontal subnav container without jittering the page
+  const scrollToTab = (el, smooth = true) => {
+    const container = subNavRef.current;
+    if (!container || !el) return;
+    const containerRect = container.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const scrollTarget = container.scrollLeft + (elRect.left - containerRect.left) - (containerRect.width / 2) + (elRect.width / 2);
+    container.scrollTo({
+      left: Math.max(0, scrollTarget),
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+  };
+
   // Auto-scroll active nav link into view when currentPage changes
   useEffect(() => {
     if (subNavRef.current) {
       const activeLink = subNavRef.current.querySelector('[data-active="true"]');
       if (activeLink) {
-        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        // Small delay to ensure layout measurements are ready
+        setTimeout(() => {
+          if (activeLink) scrollToTab(activeLink, true);
+        }, 50);
       }
     }
   }, [currentPage]);
@@ -221,6 +237,7 @@ export default function Navbar({
               }}
               onClick={(e) => {
                 e.preventDefault();
+                scrollToTab(e.currentTarget, true);
                 if (onNavigateCategory) onNavigateCategory('rigging', 'category-products');
               }}
             >
@@ -245,6 +262,7 @@ export default function Navbar({
               }}
               onClick={(e) => {
                 e.preventDefault();
+                scrollToTab(e.currentTarget, true);
                 if (onNavigateCategory) onNavigateCategory('lifting', 'category-products');
               }}
             >
@@ -269,6 +287,7 @@ export default function Navbar({
               }}
               onClick={(e) => {
                 e.preventDefault();
+                scrollToTab(e.currentTarget, true);
                 if (onNavigateCategory) onNavigateCategory('lashing', 'category-products');
               }}
             >
@@ -293,6 +312,7 @@ export default function Navbar({
               }}
               onClick={(e) => {
                 e.preventDefault();
+                scrollToTab(e.currentTarget, true);
                 if (onNavigateCategory) onNavigateCategory('bandsaw-blades', 'category-products');
               }}
             >
@@ -314,12 +334,18 @@ export default function Navbar({
                 display: 'inline-block'
               }}
               onClick={(e) => {
+                scrollToTab(e.currentTarget, true);
                 if (currentPage !== 'home') {
                   e.preventDefault();
                   onNavigateHome();
                   setTimeout(() => {
                     const el = document.getElementById('brands');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    if (el) {
+                      const header = document.querySelector('.pmt-sticky-header');
+                      const headerHeight = header ? header.offsetHeight : 100;
+                      const targetTop = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 12;
+                      window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+                    }
                   }, 80);
                 }
               }}
@@ -343,6 +369,7 @@ export default function Navbar({
               }}
               onClick={(e) => {
                 e.preventDefault();
+                scrollToTab(e.currentTarget, true);
                 if (onNavigateBank) {
                   onNavigateBank();
                 } else if (onNavigateContact) {
@@ -357,6 +384,7 @@ export default function Navbar({
               href="/contact-us/"
               onClick={(e) => {
                 e.preventDefault();
+                scrollToTab(e.currentTarget, true);
                 onNavigateContact();
               }}
               id="subnav-contact"
@@ -412,7 +440,11 @@ export default function Navbar({
       {/* Mobile / Side Dropdown Drawer */}
       {mobileMenuOpen && (
         <div style={{
-          position: 'relative',
+          position: 'absolute',
+          top: '100%',
+          left: 0,
+          right: 0,
+          width: '100%',
           zIndex: 1050,
           background: 'var(--pmt-white)',
           borderTop: '1px solid #e2e8f0',
@@ -420,8 +452,8 @@ export default function Navbar({
           display: 'flex',
           flexDirection: 'column',
           gap: '12px',
-          boxShadow: '0 10px 25px rgba(19, 17, 12, 0.1)',
-          maxHeight: 'calc(100vh - 100px)',
+          boxShadow: '0 10px 25px rgba(19, 17, 12, 0.15)',
+          maxHeight: 'calc(100vh - 120px)',
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch'
         }}>

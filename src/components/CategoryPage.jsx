@@ -201,12 +201,24 @@ export default function CategoryPage({
   const subCatBarRef = useRef(null);
   const catSwitcherRef = useRef(null);
 
+  // Helper to center a child horizontally within its scroll container without moving the window
+  const centerChildInContainer = (container, child, smooth = true) => {
+    if (!container || !child) return;
+    const cRect = container.getBoundingClientRect();
+    const chRect = child.getBoundingClientRect();
+    const target = container.scrollLeft + (chRect.left - cRect.left) - (cRect.width / 2) + (chRect.width / 2);
+    container.scrollTo({
+      left: Math.max(0, target),
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+  };
+
   // Auto-scroll active subcategory pill into view when it changes
   useEffect(() => {
     if (subCatBarRef.current) {
       const activeBtn = subCatBarRef.current.querySelector('[data-active="true"]');
       if (activeBtn) {
-        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        centerChildInContainer(subCatBarRef.current, activeBtn, true);
       }
     }
   }, [selectedSubCat]);
@@ -216,7 +228,9 @@ export default function CategoryPage({
     if (catSwitcherRef.current) {
       const activeLink = catSwitcherRef.current.querySelector('[data-active="true"]');
       if (activeLink) {
-        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        setTimeout(() => {
+          centerChildInContainer(catSwitcherRef.current, activeLink, true);
+        }, 50);
       }
     }
   }, [categoryKey]);
